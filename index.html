@@ -1,0 +1,488 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Clément Vurpillot — Data & ML Engineering</title>
+<meta name="description" content="Clément Vurpillot — final-year Data & AI engineering student at ESILV. Data pipelines, ML systems, MLOps. Looking for an internship or VIE from February 2027.">
+<meta property="og:title" content="Clément Vurpillot — Data & ML Engineering">
+<meta property="og:description" content="Data pipelines, ML systems, MLOps. Open to internships & VIE from February 2027.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://oradixx.github.io/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230f766e'/%3E%3Cpath d='M5 19h5l3-8 4 12 3-7h7' fill='none' stroke='white' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f6f5f1;
+    --surface: #ffffff;
+    --ink: #15181d;
+    --muted: #5a606b;
+    --line: #e2e0d8;
+    --accent: #0f766e;
+    --accent-soft: #0f766e14;
+    --signal-1: #0f766e;
+    --signal-2: #c2410c;
+    --signal-3: #4f46e5;
+    --shadow: 0 1px 2px #0000000a, 0 8px 24px #0000000d;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0d1015;
+      --surface: #141920;
+      --ink: #e7e9ec;
+      --muted: #9aa2ad;
+      --line: #242b34;
+      --accent: #2dd4bf;
+      --accent-soft: #2dd4bf1a;
+      --signal-1: #2dd4bf;
+      --signal-2: #fb923c;
+      --signal-3: #a5b4fc;
+      --shadow: 0 1px 2px #00000040, 0 8px 24px #00000040;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0d1015;
+    --surface: #141920;
+    --ink: #e7e9ec;
+    --muted: #9aa2ad;
+    --line: #242b34;
+    --accent: #2dd4bf;
+    --accent-soft: #2dd4bf1a;
+    --signal-1: #2dd4bf;
+    --signal-2: #fb923c;
+    --signal-3: #a5b4fc;
+    --shadow: 0 1px 2px #00000040, 0 8px 24px #00000040;
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font: 400 17px/1.6 "Space Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+  .mono { font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace; }
+  .wrap { max-width: 980px; margin: 0 auto; padding: 0 24px; }
+  @media (max-width: 600px) { .wrap { padding: 0 16px; } body { font-size: 16px; } }
+
+  /* ---------- header ---------- */
+  header.top {
+    position: sticky; top: 0; z-index: 10;
+    background: color-mix(in srgb, var(--bg) 85%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .top .wrap { display: flex; align-items: center; justify-content: space-between; height: 60px; gap: 16px; }
+  .brand { font-weight: 600; text-decoration: none; letter-spacing: -0.01em; white-space: nowrap; }
+  .brand span { color: var(--accent); }
+  nav { display: flex; align-items: center; gap: 22px; font-size: 15px; }
+  nav a { text-decoration: none; color: var(--muted); }
+  nav a:hover { color: var(--ink); }
+  @media (max-width: 680px) { nav a.hide-sm { display: none; } }
+  .theme-btn {
+    display: grid; place-items: center; width: 36px; height: 36px;
+    border-radius: 10px; border: 1px solid var(--line); background: var(--surface);
+    color: var(--ink); cursor: pointer;
+  }
+  .theme-btn svg { width: 18px; height: 18px; }
+
+  /* ---------- hero ---------- */
+  .hero { padding-top: 72px; padding-bottom: 40px; }
+  .eyebrow { font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin: 0 0 18px; }
+  h1 {
+    font-size: clamp(40px, 7vw, 68px); line-height: 1.02; letter-spacing: -0.035em;
+    margin: 0 0 22px; font-weight: 700;
+  }
+  .lead { font-size: clamp(18px, 2.3vw, 21px); color: var(--muted); max-width: 640px; margin: 0 0 28px; }
+  .lead strong { color: var(--ink); font-weight: 500; }
+  .status {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 8px 14px; border-radius: 999px;
+    background: var(--accent-soft); color: var(--accent);
+    font-size: 14px; font-weight: 500; margin-bottom: 28px;
+  }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); position: relative; flex: none; }
+  .dot::after {
+    content: ""; position: absolute; inset: -4px; border-radius: 50%;
+    border: 2px solid var(--accent); opacity: 0; animation: ping 2s ease-out infinite;
+  }
+  @keyframes ping { 0% { transform: scale(.6); opacity: .7; } 100% { transform: scale(1.8); opacity: 0; } }
+  .actions { display: flex; flex-wrap: wrap; gap: 12px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 11px 18px; border-radius: 12px; text-decoration: none;
+    font-weight: 500; font-size: 15px; border: 1px solid var(--line);
+    background: var(--surface); transition: transform .15s ease, border-color .15s ease;
+  }
+  .btn:hover { transform: translateY(-1px); border-color: var(--muted); }
+  .btn.primary { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+  .btn svg { width: 17px; height: 17px; }
+
+  /* ---------- telemetry strip ---------- */
+  .scope {
+    margin: 48px 0 0; border: 1px solid var(--line); border-radius: 16px;
+    background: var(--surface); box-shadow: var(--shadow); overflow: hidden;
+  }
+  .scope-head {
+    display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 20px;
+    padding: 12px 16px; border-bottom: 1px solid var(--line);
+    font-size: 12px; color: var(--muted);
+  }
+  .readouts { display: flex; flex-wrap: wrap; gap: 6px 18px; }
+  .readouts b { font-weight: 500; color: var(--ink); }
+  .sw { display: inline-block; width: 10px; height: 2px; margin-right: 6px; vertical-align: middle; }
+  canvas { display: block; width: 100%; height: 150px; }
+
+  /* ---------- sections ---------- */
+  section { padding: 56px 0; border-top: 1px solid var(--line); scroll-margin-top: 60px; }
+  .sec-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 28px; }
+  .sec-head .idx { font-size: 13px; color: var(--accent); }
+  h2 { font-size: 28px; letter-spacing: -0.02em; margin: 0; font-weight: 600; }
+  h3 { font-size: 19px; margin: 0; font-weight: 600; letter-spacing: -0.01em; }
+
+  /* experience */
+  .xp { display: grid; gap: 18px; }
+  .xp-item {
+    display: grid; grid-template-columns: 170px 1fr; gap: 20px;
+    padding: 22px; border: 1px solid var(--line); border-radius: 16px; background: var(--surface);
+  }
+  @media (max-width: 680px) { .xp-item { grid-template-columns: 1fr; gap: 8px; } }
+  .when { font-size: 13px; color: var(--muted); padding-top: 3px; }
+  .org { color: var(--muted); font-size: 15px; margin: 2px 0 10px; }
+  ul.points { margin: 0; padding-left: 18px; color: var(--muted); }
+  ul.points li { margin: 5px 0; }
+  ul.points li::marker { color: var(--accent); }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+  .tag {
+    font-size: 12px; padding: 3px 9px; border-radius: 7px;
+    background: var(--bg); border: 1px solid var(--line); color: var(--muted);
+  }
+
+  /* projects */
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+  .card {
+    display: flex; flex-direction: column; gap: 10px;
+    padding: 22px; border: 1px solid var(--line); border-radius: 16px;
+    background: var(--surface); text-decoration: none;
+    transition: transform .15s ease, border-color .15s ease, box-shadow .15s ease;
+  }
+  a.card:hover { transform: translateY(-2px); border-color: var(--accent); box-shadow: var(--shadow); }
+  .card p { margin: 0; color: var(--muted); font-size: 15px; flex: 1; }
+  .card .kind { font-size: 12px; color: var(--accent); }
+  .card.soon { background: transparent; border-style: dashed; }
+  .card.soon .kind { color: var(--muted); }
+  .card .go { font-size: 13px; color: var(--muted); }
+  .card .go a { text-decoration: none; }
+  .card .go a:hover { color: var(--accent); }
+  .card .tags { margin-top: 4px; }
+
+  /* skills */
+  .skills { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 24px; }
+  .skills h3 { font-size: 13px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); font-weight: 500; margin-bottom: 12px; }
+
+  /* education */
+  .edu { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+  .edu .card p { flex: none; }
+
+  /* footer */
+  footer { border-top: 1px solid var(--line); padding: 56px 0 64px; }
+  .contact { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 24px; }
+  .contact h2 { font-size: clamp(26px, 4vw, 36px); max-width: 560px; }
+  .small { font-size: 13px; color: var(--muted); margin-top: 40px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .dot::after { animation: none; }
+    .btn, .card { transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand mono" href="#">clement<span>.</span>vurpillot</a>
+    <nav aria-label="Main">
+      <a class="hide-sm" href="#experience">Experience</a>
+      <a class="hide-sm" href="#projects">Projects</a>
+      <a class="hide-sm" href="#education">Education</a>
+      <a href="#contact">Contact</a>
+      <button class="theme-btn" id="themeBtn" type="button" aria-label="Toggle dark mode">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="wrap hero">
+    <p class="eyebrow mono">Data &amp; ML Engineering · ESILV, class of 2027</p>
+    <h1>Clément Vurpillot</h1>
+    <p class="lead">
+      I build <strong>data pipelines and ML systems end to end</strong> — from raw sensor frames to
+      databases, dashboards and models in production.
+    </p>
+    <div class="status"><span class="dot" aria-hidden="true"></span>Open to a 6-month internship or VIE · from February 2027</div>
+    <div class="actions">
+      <a class="btn primary" href="https://github.com/Oradixx">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.56-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5z"/></svg>
+        GitHub
+      </a>
+      <a class="btn" href="https://www.linkedin.com/in/clement-vurpillot/">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
+        LinkedIn
+      </a>
+    </div>
+
+    <figure class="scope" aria-label="Animated synthetic engine telemetry">
+      <div class="scope-head mono">
+        <span>stream · synthetic engine telemetry · device-001</span>
+        <span class="readouts" aria-live="off">
+          <span><i class="sw" style="background:var(--signal-1)"></i>temp <b id="r0">85.0</b> °C</span>
+          <span><i class="sw" style="background:var(--signal-2)"></i>oil <b id="r1">4.20</b> bar</span>
+          <span><i class="sw" style="background:var(--signal-3)"></i>rpm <b id="r2">1500</b></span>
+        </span>
+      </div>
+      <canvas id="scope"></canvas>
+    </figure>
+  </div>
+
+  <section id="experience">
+    <div class="wrap">
+      <div class="sec-head"><span class="idx mono">01</span><h2>Experience</h2></div>
+      <div class="xp">
+        <article class="xp-item">
+          <div class="when mono">Apr – Aug 2026<br>Rouen, France</div>
+          <div>
+            <h3>Data &amp; AI Engineering Intern</h3>
+            <p class="org">CERTAM — applied research centre (engines, energy, emissions)</p>
+            <ul class="points">
+              <li>Built an end-to-end IoT ingestion pipeline for 1&nbsp;Hz vessel telemetry: J1939 CAN bus → AWS S3 (Parquet) → async Python → PostgreSQL / TimescaleDB.</li>
+              <li>Cut dashboard load time from 3 hours to 30 seconds by moving computation into materialised views.</li>
+              <li>Trained a Random Forest reconstructing particulate readings during sensor failure (R² up to 0.96), interpreted with SHAP.</li>
+              <li>Deployed a Streamlit app and real-time Grafana alerting on a hardened Linux VPS; the pressure-drop alert caught a filter clogging before engine failure.</li>
+            </ul>
+            <div class="tags mono">
+              <span class="tag">Python asyncio</span><span class="tag">TimescaleDB</span><span class="tag">AWS S3</span><span class="tag">Grafana</span><span class="tag">Random Forest · SHAP</span><span class="tag">Nginx</span>
+            </div>
+          </div>
+        </article>
+        <article class="xp-item">
+          <div class="when mono">Jul – Oct 2024<br>Aug 2025 · Paris</div>
+          <div>
+            <h3>Data Labeling &amp; Quality Supervisor</h3>
+            <p class="org">Diduenjoy — internship, then freelance</p>
+            <ul class="points">
+              <li>Supervised a team of 5 interns under a contractual 72-hour SLA, with weekly quality audits.</li>
+              <li>Labelled customer verbatims against business taxonomies and evaluated production NLP models (precision / recall).</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="wrap">
+      <div class="sec-head"><span class="idx mono">02</span><h2>Projects</h2></div>
+      <div class="grid">
+        <div class="card">
+          <span class="kind mono">mlops · team of 3</span>
+          <h3>CryptoIndexLab</h3>
+          <p>Containerised microservices: two FastAPI services (JWT auth, index management), 2 replicas each behind an Nginx load balancer, isolated Docker networks and databases. Hardened CI/CD with multi-stage builds, non-root containers and a Trivy scan gate; deployed on AWS.</p>
+          <div class="tags mono"><span class="tag">FastAPI</span><span class="tag">Docker</span><span class="tag">PostgreSQL</span><span class="tag">Nginx</span><span class="tag">AWS</span></div>
+        </div>
+        <div class="card">
+          <span class="kind mono">nlp · llm</span>
+          <h3>NLP analysis of 24k insurance reviews</h3>
+          <p>TF-IDF baseline vs pre-trained embeddings and multilingual BERT for rating prediction; zero-shot topic detection and a RAG summariser, moved from Flan-T5 to a local Llama-3 (8B) after error analysis showed hallucinations.</p>
+          <div class="tags mono"><span class="tag">Hugging Face</span><span class="tag">BERT</span><span class="tag">Llama-3</span><span class="tag">RAG</span></div>
+        </div>
+        <a class="card" href="https://github.com/Oradixx/data-pipeline-template">
+          <span class="kind mono">data engineering · open source</span>
+          <h3>data-pipeline-template</h3>
+          <p>Async Python ingestion into TimescaleDB with Grafana dashboards. SQL migrations, continuous aggregates, integration-tested CI and a one-command Docker Compose stack.</p>
+          <span class="go mono">github →</span>
+        </a>
+        <a class="card" href="https://github.com/Oradixx/Car_Price_Prediction_Project">
+          <span class="kind mono">machine learning · team of 3</span>
+          <h3>Used car price prediction</h3>
+          <p>Craigslist dataset from Kaggle: cleaning, feature engineering, model comparison up to LightGBM (R² ≈ 0.82).</p>
+          <span class="go mono">github →</span>
+        </a>
+        <div class="card">
+          <span class="kind mono">devops · scrum team of 3</span>
+          <h3>Full-stack MERN app, complete DevOps chain</h3>
+          <p>From BRD / SRS / SDD and UML to frontend, run in Scrum on Jira (PO / SM / Dev roles), with unit and integration tests behind an 80% coverage gate in CI/CD.</p>
+          <div class="tags mono"><span class="tag">Node.js</span><span class="tag">React</span><span class="tag">MongoDB</span><span class="tag">GitHub Actions</span></div>
+        </div>
+        <div class="card">
+          <span class="kind mono">tooling · open source</span>
+          <h3>Project templates</h3>
+          <p>How I start projects: uv, Ruff, strict mypy, pytest, pre-commit, multi-stage Docker and CI — for Python services and for publishing coursework.</p>
+          <span class="go mono"><a href="https://github.com/Oradixx/python-project-template">python →</a> &nbsp; <a href="https://github.com/Oradixx/course-project-template">coursework →</a></span>
+        </div>
+        <div class="card soon">
+          <span class="kind mono">coming soon</span>
+          <h3>Sentiment analysis, RNN → SLM</h3>
+          <p>A recurrent network written from scratch in NumPy, then a 0.5B-parameter language model used as a few-shot classifier.</p>
+        </div>
+        <div class="card soon">
+          <span class="kind mono">coming soon</span>
+          <h3>Car price model in production</h3>
+          <p>From notebook to service: experiment tracking, a FastAPI endpoint, CI/CD and drift monitoring.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="wrap">
+      <div class="sec-head"><span class="idx mono">03</span><h2>Toolbox</h2></div>
+      <div class="skills">
+        <div>
+          <h3>Languages</h3>
+          <div class="tags mono"><span class="tag">Python</span><span class="tag">SQL</span><span class="tag">JavaScript / Node.js</span><span class="tag">Java</span><span class="tag">CQL</span></div>
+        </div>
+        <div>
+          <h3>Data</h3>
+          <div class="tags mono"><span class="tag">PostgreSQL</span><span class="tag">TimescaleDB</span><span class="tag">PySpark</span><span class="tag">MongoDB</span><span class="tag">Cassandra</span><span class="tag">Elasticsearch</span><span class="tag">Parquet</span></div>
+        </div>
+        <div>
+          <h3>ML / AI</h3>
+          <div class="tags mono"><span class="tag">scikit-learn</span><span class="tag">TensorFlow</span><span class="tag">Hugging Face</span><span class="tag">BERT · LLMs · RAG</span><span class="tag">SHAP · LIME</span></div>
+        </div>
+        <div>
+          <h3>Cloud &amp; MLOps</h3>
+          <div class="tags mono"><span class="tag">Docker</span><span class="tag">Kubernetes (GKE)</span><span class="tag">AWS</span><span class="tag">GCP</span><span class="tag">GitHub Actions</span><span class="tag">FastAPI</span><span class="tag">Nginx</span><span class="tag">Grafana</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="education">
+    <div class="wrap">
+      <div class="sec-head"><span class="idx mono">04</span><h2>Education</h2></div>
+      <div class="edu">
+        <div class="card">
+          <span class="kind mono">2022 – 2027</span>
+          <h3>ESILV — Engineering degree</h3>
+          <p>CTI-accredited engineering degree (Master&rsquo;s level, 300 ECTS), Paris La Défense. Data &amp; AI major: deep learning, MLOps, NoSQL, NLP, explainable AI, Big Data (Spark), LLMs.</p>
+        </div>
+        <div class="card">
+          <span class="kind mono">Jan – Jun 2025</span>
+          <h3>Riga Technical University</h3>
+          <p>Exchange semester in Latvia — advanced data science and AI courses, taught in English.</p>
+        </div>
+        <div class="card">
+          <span class="kind mono">languages &amp; certifications</span>
+          <h3>French · English · German</h3>
+          <p>Native · C1 (TOEFL ITP 633/677) · A2. Certified in Scrum &amp; agile methods; IBM Data Fundamentals.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="contact">
+      <h2>Building a data or ML platform? I'd love to help, from February 2027.</h2>
+      <div class="actions">
+        <a class="btn primary" href="https://www.linkedin.com/in/clement-vurpillot/">Message me on LinkedIn</a>
+        <a class="btn" href="https://github.com/Oradixx">GitHub</a>
+      </div>
+    </div>
+    <p class="small mono">© 2026 Clément Vurpillot · hosted on GitHub Pages</p>
+  </div>
+</footer>
+
+<script>
+  // ---------- theme toggle (remembered per browser when storage is available) ----------
+  (function () {
+    const root = document.documentElement;
+    try {
+      const saved = localStorage.getItem("theme");
+      if (saved === "light" || saved === "dark") root.dataset.theme = saved;
+    } catch (e) {}
+    document.getElementById("themeBtn").addEventListener("click", function () {
+      const current = root.dataset.theme ||
+        (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+      const next = current === "dark" ? "light" : "dark";
+      root.dataset.theme = next;
+      try { localStorage.setItem("theme", next); } catch (e) {}
+    });
+  })();
+
+  // ---------- telemetry strip: three mean-reverting random walks, like the pipeline's source ----------
+  (function () {
+    const canvas = document.getElementById("scope");
+    const ctx = canvas.getContext("2d");
+    const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const metrics = [
+      { mean: 85, noise: 0.8, min: 78, max: 92, digits: 1, css: "--signal-1", out: "r0" },
+      { mean: 4.2, noise: 0.05, min: 3.75, max: 4.65, digits: 2, css: "--signal-2", out: "r1" },
+      { mean: 1500, noise: 25, min: 1360, max: 1640, digits: 0, css: "--signal-3", out: "r2" },
+    ];
+    const N = 240;
+    const gauss = () => Math.sqrt(-2 * Math.log(1 - Math.random())) * Math.cos(2 * Math.PI * Math.random());
+    metrics.forEach(m => { m.v = m.mean; m.buf = []; });
+
+    function step() {
+      metrics.forEach(m => {
+        m.v += 0.1 * (m.mean - m.v) + gauss() * m.noise;
+        let value = m.v;
+        if (Math.random() < 0.004) value += (Math.random() < 0.5 ? -1 : 1) * 6 * m.noise; // rare spike
+        m.buf.push(value);
+        if (m.buf.length > N) m.buf.shift();
+      });
+    }
+    for (let i = 0; i < N; i++) step();
+
+    function resize() {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = canvas.clientWidth * dpr;
+      canvas.height = canvas.clientHeight * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    function draw() {
+      const w = canvas.clientWidth, h = canvas.clientHeight, css = getComputedStyle(document.documentElement);
+      ctx.clearRect(0, 0, w, h);
+      ctx.strokeStyle = css.getPropertyValue("--line");
+      ctx.lineWidth = 1;
+      for (let i = 1; i < 4; i++) {
+        const y = Math.round((h * i) / 4) + 0.5;
+        ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke();
+      }
+      metrics.forEach((m, k) => {
+        const band = h / 3, top = band * k + 8, span = band - 16;
+        ctx.strokeStyle = css.getPropertyValue(m.css).trim();
+        ctx.lineWidth = 1.6;
+        ctx.beginPath();
+        m.buf.forEach((v, i) => {
+          const x = (i / (N - 1)) * w;
+          const t = Math.min(1, Math.max(0, (v - m.min) / (m.max - m.min)));
+          const y = top + (1 - t) * span;
+          i ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
+        });
+        ctx.stroke();
+        document.getElementById(m.out).textContent = m.buf[m.buf.length - 1].toFixed(m.digits);
+      });
+    }
+
+    resize(); draw();
+    window.addEventListener("resize", () => { resize(); draw(); });
+    if (!reduced) setInterval(() => { step(); draw(); }, 120);
+  })();
+</script>
+</body>
+</html>
