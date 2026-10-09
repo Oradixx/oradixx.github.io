@@ -215,6 +215,31 @@
   .card .go a:hover { color: var(--accent); }
   .card .tags { margin-top: 4px; }
 
+  /* ideas */
+  .sec-lead { color: var(--muted); margin: -12px 0 20px; max-width: 640px; }
+  .filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+  .filters button {
+    font: inherit; font-size: 13px; padding: 5px 12px; border-radius: 999px; cursor: pointer;
+    border: 1px solid var(--line); background: transparent; color: var(--muted);
+    transition: color .15s ease, border-color .15s ease, background-color .15s ease;
+  }
+  .filters button:hover { color: var(--ink); border-color: var(--muted); }
+  .filters button[aria-pressed="true"] { color: var(--accent); border-color: var(--accent); background: var(--accent-soft); }
+  .ideas { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+  .idea { display: grid; grid-template-columns: 110px 1fr; gap: 18px; padding: 20px 0; border-bottom: 1px solid var(--line); }
+  .idea[hidden] { display: none; }
+  .idea h3 { font-size: 18px; margin: 0 0 6px; text-wrap: balance; }
+  .idea p { margin: 0; color: var(--muted); font-size: 15px; max-width: 760px; text-wrap: pretty; }
+  .idea .tags { margin-top: 10px; }
+  .idea .kind-tag { background: transparent; border-style: dashed; }
+  .idea-status { font-size: 12px; padding-top: 4px; color: var(--muted); }
+  .idea-status::before { content: ""; display: inline-block; width: 7px; height: 7px; border-radius: 50%; margin-right: 7px; vertical-align: 1px; background: var(--muted); }
+  .idea-status.s-next { color: var(--accent); }
+  .idea-status.s-next::before { background: var(--accent); }
+  .idea-status.s-exploring::before { background: var(--signal-2); }
+  .idea-status.s-later::before { background: transparent; border: 1px solid var(--muted); }
+  @media (max-width: 600px) { .idea { grid-template-columns: 1fr; gap: 6px; } }
+
   /* skills */
   .skills { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 24px; }
   .skills h3 { font-size: 13px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); font-weight: 500; margin-bottom: 12px; }
@@ -232,7 +257,7 @@
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     .dot::after { animation: none; }
-    .btn, .card { transition: none; }
+    .btn, .card, .filters button { transition: none; }
     .vx-step.on { animation: none; }
   }
 </style>
@@ -245,6 +270,7 @@
     <nav aria-label="Main">
       <a class="hide-sm" href="#experience">Experience</a>
       <a class="hide-sm" href="#projects">Projects</a>
+      <a class="hide-sm" href="#ideas">Ideas</a>
       <a class="hide-sm" href="#education">Education</a>
       <a href="#contact">Contact</a>
       <button class="theme-btn" id="themeBtn" type="button" aria-label="Toggle dark mode">
@@ -431,23 +457,124 @@
           <p>How I start projects: uv, Ruff, strict mypy, pytest, pre-commit, multi-stage Docker and CI — for Python services and for publishing coursework.</p>
           <span class="go mono"><a href="https://github.com/Oradixx/python-project-template">python →</a> &nbsp; <a href="https://github.com/Oradixx/course-project-template">coursework →</a></span>
         </div>
-        <div class="card soon">
-          <span class="kind mono">coming soon</span>
-          <h3>Sentiment analysis, RNN → SLM</h3>
-          <p>A recurrent network written from scratch in NumPy, then a 0.5B-parameter language model used as a few-shot classifier.</p>
-        </div>
-        <div class="card soon">
-          <span class="kind mono">coming soon</span>
-          <h3>Car price model in production</h3>
-          <p>From notebook to service: experiment tracking, a FastAPI endpoint, CI/CD and drift monitoring.</p>
-        </div>
       </div>
+    </div>
+  </section>
+
+  <section id="ideas">
+    <div class="wrap">
+      <div class="sec-head"><span class="idx mono">03</span><h2>Ideas I want to build</h2></div>
+      <p class="sec-lead">Projects I have scoped and want to see through, from the next one to the someday ones.</p>
+      <div class="filters mono" role="group" aria-label="Filter ideas by status">
+        <button type="button" aria-pressed="true" data-filter="all">all</button>
+        <button type="button" aria-pressed="false" data-filter="next">next up</button>
+        <button type="button" aria-pressed="false" data-filter="exploring">exploring</button>
+        <button type="button" aria-pressed="false" data-filter="later">later</button>
+      </div>
+      <ul class="ideas">
+        <li class="idea" data-status="next">
+          <span class="idea-status mono s-next">next up</span>
+          <div>
+            <h3>localcascade</h3>
+            <p>Free local AI as a cascade: rules in code first, then a small calibrated decision model, then a local LLM, and a human only for what is left. Each stage is measured for quality, calibration, latency and memory, and the decision models are benchmarked on my own labelled data. First use case: watching VIE job offers. Published as a library.</p>
+            <div class="tags mono"><span class="tag">local LLM</span><span class="tag">calibration</span><span class="tag">PyPI</span><span class="tag">Docker</span><span class="tag kind-tag">local ai · open source</span></div>
+          </div>
+        </li>
+        <li class="idea" data-status="next">
+          <span class="idea-status mono s-next">next up</span>
+          <div>
+            <h3>Decision-model routing for LLMRouter</h3>
+            <p>A plugin for the open-source LLMRouter that routes each request with the same kind of small decision model, once localcascade has shown it works.</p>
+            <div class="tags mono"><span class="tag">LLM routing</span><span class="tag">Python</span><span class="tag kind-tag">open source contribution</span></div>
+          </div>
+        </li>
+        <li class="idea" data-status="next">
+          <span class="idea-status mono s-next">next up</span>
+          <div>
+            <h3>Sentiment analysis, RNN → SLM</h3>
+            <p>A recurrent network written from scratch in NumPy, then a 0.5B-parameter language model used as a few-shot classifier, compared on the same data.</p>
+            <div class="tags mono"><span class="tag">NumPy</span><span class="tag">Hugging Face</span><span class="tag kind-tag">nlp · deep learning</span></div>
+          </div>
+        </li>
+        <li class="idea" data-status="next">
+          <span class="idea-status mono s-next">next up</span>
+          <div>
+            <h3>Car price model in production</h3>
+            <p>From notebook to service: experiment tracking, a FastAPI endpoint, CI/CD and drift monitoring.</p>
+            <div class="tags mono"><span class="tag">experiment tracking</span><span class="tag">FastAPI</span><span class="tag">CI/CD</span><span class="tag kind-tag">mlops</span></div>
+          </div>
+        </li>
+        <li class="idea" data-status="exploring">
+          <span class="idea-status mono s-exploring">exploring</span>
+          <div>
+            <h3>Social benefits pre-check</h3>
+            <p>Describe your situation in your own words; a local model extracts the facts that matter, asks when it is unsure, and OpenFisca computes the entitlements with the official rules. Aimed at non-take-up of benefits. Runs fully on device, tested on synthetic cases.</p>
+            <div class="tags mono"><span class="tag">OpenFisca</span><span class="tag">local LLM</span><span class="tag kind-tag">public interest · local ai</span></div>
+          </div>
+        </li>
+        <li class="idea" data-status="exploring">
+          <span class="idea-status mono s-exploring">exploring</span>
+          <div>
+            <h3>Public consultation triage</h3>
+            <p>Sort contributions to public consultations by position and theme and detect near-duplicates, on open data such as the Grand débat national.</p>
+            <div class="tags mono"><span class="tag">text classification</span><span class="tag">deduplication</span><span class="tag kind-tag">open data · nlp</span></div>
+          </div>
+        </li>
+        <li class="idea" data-status="exploring">
+          <span class="idea-status mono s-exploring">exploring</span>
+          <div>
+            <h3>Alt text checker</h3>
+            <p>Check whether an image's alternative text actually describes the image, to catch empty or misleading alt texts on a website.</p>
+            <div class="tags mono"><span class="tag">vision-language model</span><span class="tag kind-tag">accessibility</span></div>
+          </div>
+        </li>
+        <li class="idea" data-status="exploring">
+          <span class="idea-status mono s-exploring">exploring</span>
+          <div>
+            <h3>A guide to the right tool for each need</h3>
+            <p>Decision trees rather than a directory: for each common need, 3 to 6 real options with strengths, weaknesses, price, licence and a "verified on" date. Data in YAML, site generated from it, dead links and stale entries flagged by CI.</p>
+            <div class="tags mono"><span class="tag">YAML</span><span class="tag">static site</span><span class="tag">GitHub Actions</span><span class="tag kind-tag">web · data</span></div>
+          </div>
+        </li>
+        <li class="idea" data-status="later">
+          <span class="idea-status mono s-later">later</span>
+          <div>
+            <h3>Pharmacovigilance report pre-triage</h3>
+            <p>Validity, seriousness and routing of adverse event reports, prototyped on the public FAERS database. A real use would need a partner.</p>
+            <div class="tags mono"><span class="tag">NLP</span><span class="tag">FAERS</span><span class="tag kind-tag">health data</span></div>
+          </div>
+        </li>
+        <li class="idea" data-status="later">
+          <span class="idea-status mono s-later">later</span>
+          <div>
+            <h3>Self-hosted agent</h3>
+            <p>A sandboxed agent on a home server, reachable from a messaging app, with read-only access to my job-offer watch. Waiting for the agents part of my LLM course.</p>
+            <div class="tags mono"><span class="tag">agents</span><span class="tag">Linux</span><span class="tag kind-tag">self-hosting</span></div>
+          </div>
+        </li>
+        <li class="idea" data-status="later">
+          <span class="idea-status mono s-later">later</span>
+          <div>
+            <h3>Settings bench for Windows games on Mac</h3>
+            <p>Try combinations of compatibility-layer settings automatically, measure start-up, crashes and frame rate, and keep the best configuration.</p>
+            <div class="tags mono"><span class="tag">automation</span><span class="tag">benchmarking</span><span class="tag kind-tag">tooling · macOS</span></div>
+          </div>
+        </li>
+        <li class="idea" data-status="later">
+          <span class="idea-status mono s-later">later</span>
+          <div>
+            <h3>AI-assisted reverse engineering</h3>
+            <p>An exercise with Claude Code and a Ghidra MCP server on a small old game I own.</p>
+            <div class="tags mono"><span class="tag">Ghidra</span><span class="tag">MCP</span><span class="tag kind-tag">learning</span></div>
+          </div>
+        </li>
+      </ul>
     </div>
   </section>
 
   <section id="skills">
     <div class="wrap">
-      <div class="sec-head"><span class="idx mono">03</span><h2>Toolbox</h2></div>
+      <div class="sec-head"><span class="idx mono">04</span><h2>Toolbox</h2></div>
       <div class="skills">
         <div>
           <h3>Languages</h3>
@@ -471,7 +598,7 @@
 
   <section id="education">
     <div class="wrap">
-      <div class="sec-head"><span class="idx mono">04</span><h2>Education</h2></div>
+      <div class="sec-head"><span class="idx mono">05</span><h2>Education</h2></div>
       <div class="edu">
         <div class="card">
           <span class="kind mono">2022 – 2027</span>
@@ -508,6 +635,16 @@
 </footer>
 
 <script>
+  // ---------- ideas: filter by status ----------
+  (() => {
+    const buttons = document.querySelectorAll(".filters button");
+    const ideas = document.querySelectorAll(".idea");
+    buttons.forEach((b) => b.addEventListener("click", () => {
+      const f = b.dataset.filter;
+      buttons.forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+      ideas.forEach((i) => { i.hidden = f !== "all" && i.dataset.status !== f; });
+    }));
+  })();
   // ---------- theme toggle (remembered per browser when storage is available) ----------
   (function () {
     const root = document.documentElement;
