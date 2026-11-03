@@ -9,7 +9,7 @@
 <meta property="og:description" content="Looking for a 6-month internship or VIE from February 2027. Projects with their code and measured results.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://oradixx.github.io/">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231c1b19'/%3E%3Ctext x='16' y='22' font-family='Georgia,serif' font-size='16' font-weight='700' fill='white' text-anchor='middle'%3ECV%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231c1b19'/%3E%3Cpath d='M5 21 L11 15 L16 18 L22 9 L27 12' fill='none' stroke='%23e8692e' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400;600&amp;display=swap" rel="stylesheet">
@@ -19,274 +19,769 @@
     const saved = localStorage.getItem("theme");
     if (saved === "light" || saved === "dark") document.documentElement.dataset.theme = saved;
   } catch (e) {}
+  document.documentElement.classList.add("js");
 </script>
 <style>
   :root {
-    --bg: #fbfaf7;
+    --bg: #f7f5f0;
+    --surface: #ffffff;
     --ink: #1c1b19;
-    --muted: #5d5b56;
-    --line: #e3e0d8;
-    --link: #1d5c96;
+    --ink-2: #3b3a36;
+    --muted: #66635c;
+    --line: #e7e3da;
+    --line-2: #d3cec2;
+    --mine: #c2410c;
+    --mine-wash: rgba(194, 65, 12, .09);
+    --ref: #2b6cb0;
+    --base: #8f8a80;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .04), 0 8px 28px rgba(0, 0, 0, .06);
+    --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+    --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     color-scheme: light;
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --bg: #151514;
-      --ink: #ebe8e2;
-      --muted: #a8a49b;
-      --line: #33312d;
-      --link: #8db7e6;
+      --bg: #141412;
+      --surface: #1c1b19;
+      --ink: #ece9e2;
+      --ink-2: #cfcbc2;
+      --muted: #a29e95;
+      --line: #2d2b27;
+      --line-2: #3d3b36;
+      --mine: #e8692e;
+      --mine-wash: rgba(232, 105, 46, .12);
+      --ref: #3b8fd9;
+      --base: #7f7b72;
+      --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 28px rgba(0, 0, 0, .35);
       color-scheme: dark;
     }
   }
   :root[data-theme="dark"] {
-    --bg: #151514;
-    --ink: #ebe8e2;
-    --muted: #a8a49b;
-    --line: #33312d;
-    --link: #8db7e6;
+    --bg: #141412;
+    --surface: #1c1b19;
+    --ink: #ece9e2;
+    --ink-2: #cfcbc2;
+    --muted: #a29e95;
+    --line: #2d2b27;
+    --line-2: #3d3b36;
+    --mine: #e8692e;
+    --mine-wash: rgba(232, 105, 46, .12);
+    --ref: #3b8fd9;
+    --base: #7f7b72;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 28px rgba(0, 0, 0, .35);
     color-scheme: dark;
   }
 
   * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    background: var(--bg);
-    color: var(--ink);
-    font: 400 18px/1.6 "Source Serif 4", Georgia, "Times New Roman", serif;
-  }
-  .page { max-width: 42rem; margin: 0 auto; padding: 0 24px; }
-  @media (max-width: 600px) { body { font-size: 17px; } .page { padding: 0 16px; } }
+  html { scroll-padding-top: 72px; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 400 17px/1.65 var(--sans); -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 1160px; margin: 0 auto; padding: 0 32px; }
+  @media (max-width: 640px) { body { font-size: 16px; } .wrap { padding: 0 16px; } }
 
-  a { color: var(--link); text-decoration-thickness: 1px; text-underline-offset: .18em; }
-  a:hover { text-decoration-thickness: 2px; }
-  a:focus-visible, button:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  a { color: inherit; text-decoration-color: var(--line-2); text-decoration-thickness: 1px; text-underline-offset: .2em; }
+  a:hover { text-decoration-color: var(--mine); }
+  a:focus-visible, button:focus-visible, [tabindex]:focus-visible { outline: 2px solid var(--mine); outline-offset: 2px; border-radius: 4px; }
   .skip { position: absolute; left: -9999px; }
-  .skip:focus { left: 16px; top: 8px; padding: 4px 8px; background: var(--bg); }
+  .skip:focus { left: 16px; top: 8px; z-index: 30; padding: 6px 10px; background: var(--surface); }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
-  header.top {
-    display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between;
-    gap: 8px 24px; padding: 20px 0; border-bottom: 1px solid var(--line);
-  }
-  .home { font-weight: 600; color: var(--ink); text-decoration: none; }
-  nav ul { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 18px; margin: 0; padding: 0; list-style: none; font-size: 16px; }
-  .theme-btn {
-    font: inherit; font-size: 15px; color: var(--ink); cursor: pointer;
-    background: none; border: 1px solid var(--line); border-radius: 6px; padding: 1px 10px;
-  }
-
-  h1 { font-size: clamp(34px, 6vw, 46px); line-height: 1.1; font-weight: 600; margin: 56px 0 18px; }
-  h2 { font-size: 27px; line-height: 1.25; font-weight: 600; margin: 0 0 20px; }
-  h3 { font-size: 20px; line-height: 1.3; font-weight: 600; margin: 0; }
-  .lead { font-size: clamp(20px, 2.6vw, 23px); line-height: 1.45; margin: 0 0 18px; }
+  h1, h2, h3, h4 { font-family: var(--serif); font-weight: 600; color: var(--ink); }
+  h2 { font-size: clamp(28px, 3.4vw, 38px); line-height: 1.15; margin: 0 0 28px; letter-spacing: -.01em; }
+  h3 { font-size: 23px; line-height: 1.25; margin: 0; }
   p { margin: 0 0 12px; }
   ul { margin: 0 0 12px; padding-left: 1.2em; }
   li { margin: 6px 0; }
+  code { font-size: .92em; }
 
-  section { border-top: 1px solid var(--line); margin-top: 48px; padding-top: 40px; }
-  article { margin-bottom: 36px; }
-  .meta { color: var(--muted); font-size: 16px; margin: 2px 0 10px; }
-  .stack { color: var(--muted); font-size: 16px; }
-  .intro { color: var(--muted); margin-top: -8px; }
-  .others li { margin: 14px 0; }
-  h3.group { font-size: 18px; margin: 28px 0 4px; }
-  dl { margin: 0; }
-  dt { font-weight: 600; }
-  dd { margin: 0 0 14px; }
+  /* ---------- header: the link of the section in view is underlined ---------- */
+  header.top { position: sticky; top: 0; z-index: 20; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+  .top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 58px; }
+  .home { font-family: var(--serif); font-weight: 600; font-size: 18px; text-decoration: none; white-space: nowrap; }
+  nav ul { display: flex; align-items: center; gap: 4px; margin: 0; padding: 0; list-style: none; }
+  nav li { margin: 0; }
+  nav a { display: block; padding: 6px 10px; border-radius: 8px; font-size: 15px; color: var(--muted); text-decoration: none; }
+  nav a:hover { color: var(--ink); background: var(--line); }
+  nav a[aria-current="true"] { color: var(--ink); box-shadow: inset 0 -2px 0 var(--mine); border-radius: 8px 8px 0 0; }
+  .theme-btn { font: inherit; font-size: 14px; color: var(--ink); cursor: pointer; background: var(--surface); border: 1px solid var(--line-2); border-radius: 8px; padding: 4px 10px; margin-left: 6px; }
+  @media (max-width: 860px) { nav li.wide { display: none; } }
+  @media (max-width: 560px) { .home { display: none; } .top .wrap { justify-content: flex-end; } nav a { padding: 6px 7px; } }
 
-  footer { border-top: 1px solid var(--line); margin-top: 56px; padding: 36px 0 56px; }
-  .fine { color: var(--muted); font-size: 15px; margin-top: 28px; }
+  /* ---------- hero ---------- */
+  .hero { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: 56px; align-items: center; padding-top: 64px; padding-bottom: 32px; }
+  .hero h1 { font-size: clamp(42px, 5.4vw, 68px); line-height: 1.02; letter-spacing: -.02em; margin: 0 0 22px; }
+  .hero .role { font-size: 20px; line-height: 1.45; color: var(--ink-2); margin-bottom: 10px; }
+  .hero .avail { color: var(--muted); margin-bottom: 26px; }
+  .btns { display: flex; flex-wrap: wrap; gap: 10px; margin: 0; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 10px; border: 1px solid var(--line-2); background: var(--surface); text-decoration: none; font-weight: 500; font-size: 15px; transition: border-color .15s, box-shadow .15s; }
+  .btn:hover { border-color: var(--ink-2); box-shadow: var(--shadow); }
+  .btn.primary { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+  .btn svg { width: 16px; height: 16px; flex: none; }
+  @media (max-width: 900px) { .hero { grid-template-columns: 1fr; gap: 32px; padding-top: 40px; } }
+
+  /* ---------- cards and figures ---------- */
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; box-shadow: var(--shadow); }
+  figure { margin: 0; }
+  .fig { padding: 20px 22px 16px; position: relative; }
+  .fig-title { font-weight: 600; font-size: 16px; margin: 0 0 2px; }
+  .fig-title.mt { margin-top: 24px; }
+  .fig-sub { color: var(--muted); font-size: 14px; margin: 0 0 14px; }
+  .fig-note { color: var(--muted); font-size: 13px; margin: 12px 0 0; }
+  @media (max-width: 640px) { .fig { padding: 16px 14px 12px; } }
+
+  .controls { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; margin: 0 0 10px; }
+  .seg { display: inline-flex; flex-wrap: wrap; gap: 4px; }
+  .seg button, .legend button {
+    font: inherit; font-size: 13px; cursor: pointer; color: var(--muted); background: transparent;
+    border: 1px solid var(--line-2); border-radius: 999px; padding: 3px 10px; transition: background-color .15s, color .15s;
+  }
+  .seg button[aria-pressed="true"] { color: var(--bg); background: var(--ink); border-color: var(--ink); }
+  .legend { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; margin: 0 0 6px; font-size: 13px; }
+  .legend button { display: inline-flex; align-items: center; gap: 7px; color: var(--ink); }
+  .legend button[aria-pressed="false"] { color: var(--muted); border-style: dashed; }
+  .legend button[aria-pressed="false"] .key { opacity: .3; }
+  .legend .val { font-variant-numeric: tabular-nums; font-weight: 600; }
+  .legend .item { display: inline-flex; align-items: center; gap: 7px; }
+  .key { display: inline-block; width: 16px; height: 0; border-top: 2px solid; flex: none; }
+  .key.k-a { border-color: var(--ink); }
+  .key.k-m { border-color: var(--mine); }
+  .key.k-r { border-color: var(--ref); }
+  .key.k-n { border-color: var(--base); border-top-style: dashed; }
+  .key.box { height: 10px; width: 10px; border: 0; border-radius: 2px; background: var(--mine); }
+  .key.box.off { background: transparent; box-shadow: inset 0 0 0 1.5px var(--line-2); }
+
+  .plot { position: relative; outline-offset: 4px; }
+  #fgfPlot { min-height: 300px; }
+  @media (max-width: 600px) { #fgfPlot { min-height: 230px; } }
+  .plot svg { display: block; width: 100%; overflow: visible; }
+  .gridl { stroke: var(--line); stroke-width: 1; }
+  .axis { fill: var(--muted); font: 12px var(--sans); }
+  .s { fill: none; stroke-linejoin: round; stroke-linecap: round; }
+  .s-a { stroke: var(--ink); stroke-width: 2; }
+  .s-m { stroke: var(--mine); stroke-width: 2; }
+  .s-r { stroke: var(--ref); stroke-width: 1.6; }
+  .s-n { stroke: var(--base); stroke-width: 1.6; stroke-dasharray: 4 3; }
+  .cross { stroke: var(--line-2); stroke-width: 1; }
+  .hdot { stroke: var(--surface); stroke-width: 2; }
+  .f-a { fill: var(--ink); } .f-m { fill: var(--mine); } .f-r { fill: var(--ref); } .f-n { fill: var(--base); }
+  .gap-label { fill: var(--muted); font: italic 11px var(--sans); }
+  .tip {
+    position: absolute; z-index: 5; pointer-events: none; min-width: 150px; padding: 8px 10px;
+    background: var(--surface); border: 1px solid var(--line-2); border-radius: 8px; box-shadow: var(--shadow);
+    font-size: 13px; line-height: 1.45; opacity: 0; transition: opacity .1s;
+  }
+  .tip.on { opacity: 1; }
+  .tip .t { color: var(--muted); margin-bottom: 4px; }
+  .tip .tr { display: flex; align-items: center; gap: 8px; }
+  .tip .tr b { font-variant-numeric: tabular-nums; }
+  .tip .tr span:last-child { color: var(--muted); }
+
+  details.table { margin-top: 10px; font-size: 14px; }
+  details.table summary { cursor: pointer; color: var(--muted); }
+  details.table table { border-collapse: collapse; margin-top: 8px; font-variant-numeric: tabular-nums; width: 100%; }
+  details.table th, details.table td { text-align: right; padding: 3px 8px; border-bottom: 1px solid var(--line); }
+  details.table th:first-child, details.table td:first-child { text-align: left; }
+  .tbl-scroll { max-height: 260px; overflow: auto; }
+
+  /* ---------- timeline ---------- */
+  .tl { padding: 22px 24px 18px; }
+  .tl-grid { display: grid; grid-template-columns: 250px minmax(0, 1fr); column-gap: 20px; row-gap: 10px; align-items: center; padding-top: 14px; }
+  .tl-label { font-size: 14px; line-height: 1.3; }
+  .tl-label a { text-decoration: none; }
+  .tl-label a:hover { text-decoration: underline; text-decoration-color: var(--mine); }
+  .tl-label small { display: block; color: var(--muted); font-size: 13px; }
+  .tl-track { position: relative; height: 14px; border-radius: 7px; background: var(--line); }
+  .tl-seg { position: absolute; top: 0; bottom: 0; border-radius: 7px; background: var(--ink-2); transform-origin: left; }
+  .tl-seg.open { background: repeating-linear-gradient(135deg, var(--mine-wash) 0 6px, transparent 6px 12px); box-shadow: inset 0 0 0 1.5px var(--mine); }
+  .tl-axis { position: relative; height: 20px; font-size: 12px; color: var(--muted); }
+  .tl-axis span { position: absolute; transform: translateX(-50%); white-space: nowrap; }
+  .tl-today { position: absolute; top: -5px; bottom: -5px; width: 0; border-left: 1.5px solid var(--mine); pointer-events: none; }
+  .tl-today span { position: absolute; top: -20px; left: 0; transform: translateX(-50%); font-size: 12px; color: var(--ink); background: var(--surface); padding: 0 4px; white-space: nowrap; }
+  @media (max-width: 700px) {
+    .tl { padding: 18px 14px 14px; }
+    .tl-grid { grid-template-columns: minmax(0, 1fr); row-gap: 4px; }
+    .tl-track { margin-bottom: 10px; }
+  }
+
+  /* ---------- sections ---------- */
+  section.wrap { padding-top: 88px; padding-bottom: 8px; }
+  .row { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 48px; align-items: start; padding: 40px 0; border-top: 1px solid var(--line); transition: box-shadow .2s, padding .2s; }
+  .row:first-of-type { border-top: 0; padding-top: 0; }
+  .row.solo { grid-template-columns: minmax(0, 1fr); }
+  .row.solo .txt { max-width: 720px; }
+  .row .txt h3 { margin-bottom: 4px; }
+  .meta { color: var(--muted); font-size: 15px; margin: 4px 0 14px; }
+  .stack { color: var(--muted); font-size: 15px; margin-top: 14px; }
+  .row.hl { box-shadow: inset 4px 0 0 var(--mine); padding-left: 20px; }
+  .sub-h { margin-top: 32px; }
+  @media (max-width: 900px) { .row { grid-template-columns: 1fr; gap: 24px; } }
+
+  /* CERTAM pipeline, top to bottom */
+  .pipe { display: flex; flex-direction: column; margin: 4px 0 6px; padding: 0; list-style: none; }
+  .pipe li { display: flex; flex-direction: column; margin: 0; }
+  .node { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding: 9px 12px; border: 1px solid var(--line-2); border-radius: 10px; background: var(--bg); font-size: 14px; line-height: 1.35; }
+  .node span { color: var(--muted); font-size: 13px; text-align: right; }
+  .pipe li:last-child .node { border-color: var(--ink-2); }
+  .conn { position: relative; width: 2px; height: 22px; margin-left: 28px; background: var(--line-2); }
+  .conn::after { content: ""; position: absolute; left: -4px; bottom: -1px; border: 5px solid transparent; border-top: 6px solid var(--line-2); border-bottom: 0; }
+  .packet { position: absolute; left: -3px; top: 0; width: 8px; height: 8px; border-radius: 50%; background: var(--mine); opacity: 0; }
+  .pipe li:nth-child(2) .packet { --d: .35s; }
+  .pipe li:nth-child(3) .packet { --d: .7s; }
+  .pipe li:nth-child(4) .packet { --d: 1.05s; }
+  .pipe.run .packet { animation: hop .7s linear var(--d, 0s) 4; }
+  @keyframes hop { 0% { top: -4px; opacity: 1; } 90% { opacity: 1; } 100% { top: calc(100% - 4px); opacity: 0; } }
+  .replay { font: inherit; font-size: 13px; color: var(--muted); background: none; border: 0; padding: 0; cursor: pointer; text-decoration: underline; text-decoration-color: var(--line-2); text-underline-offset: .2em; }
+
+  /* horizontal bars */
+  .bars { display: grid; grid-template-columns: max-content minmax(0, 1fr) max-content; gap: 8px 12px; align-items: center; font-size: 14px; }
+  .bars .lab { color: var(--ink-2); }
+  .bars .trk { height: 14px; position: relative; }
+  .bars .bar { position: absolute; left: 0; top: 0; bottom: 0; min-width: 3px; border-radius: 0 4px 4px 0; transform-origin: left; }
+  .bars .bar.b-base { background: var(--base); width: 100%; }
+  .bars .bar.b-mine { background: var(--mine); --d: .5s; }
+  .bars .w-certam { width: .28%; }
+  .bars .w-trip { width: .78%; }
+  .bars .num { font-variant-numeric: tabular-nums; font-weight: 600; }
+  @media (max-width: 480px) { .bars { grid-template-columns: minmax(0, 1fr) max-content; } .bars .lab { grid-column: 1 / -1; margin-bottom: -6px; } }
+
+  /* dot plots */
+  .dots { display: grid; grid-template-columns: minmax(0, 200px) minmax(0, 1fr) max-content; gap: 6px 14px; align-items: center; font-size: 14px; }
+  .dots .lab { line-height: 1.3; }
+  .dots .trk { position: relative; height: 26px; }
+  .dots .trk::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; border-top: 1px solid var(--line); }
+  .dots .dot { position: absolute; top: 50%; width: 14px; height: 14px; margin: -7px 0 0 -7px; border-radius: 50%; border: 2px solid var(--surface); }
+  .dots .dot.d-m { background: var(--mine); } .dots .dot.d-r { background: var(--ref); } .dots .dot.d-n { background: var(--base); }
+  .dots .link { position: absolute; top: 50%; height: 2px; margin-top: -1px; background: var(--line-2); transform-origin: left; }
+  .dots .num { font-variant-numeric: tabular-nums; font-weight: 600; text-align: right; }
+  .dots .ax { position: relative; height: 18px; font-size: 12px; color: var(--muted); }
+  .dots .ax span { position: absolute; transform: translateX(-50%); white-space: nowrap; }
+  @media (max-width: 560px) {
+    .dots { grid-template-columns: minmax(0, 1fr) max-content; }
+    .dots .lab { grid-column: 1 / -1; margin-bottom: -8px; }
+    .dots .fill { display: none; }
+  }
+
+  /* waffle */
+  .waffle { display: grid; grid-template-columns: repeat(11, 1fr); gap: 5px; max-width: 360px; }
+  .waffle span { aspect-ratio: 1; border-radius: 3px; box-shadow: inset 0 0 0 1.5px var(--line-2); }
+  .waffle span.on { background: var(--mine); box-shadow: none; }
+  .wf-legend { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 12px; font-size: 14px; }
+  .wf-legend span { display: inline-flex; align-items: center; gap: 7px; }
+
+  /* architecture diagram */
+  .arch { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; font-size: 13px; line-height: 1.35; }
+  .arch .n { position: relative; padding: 9px 10px; border: 1px solid var(--line-2); border-radius: 10px; background: var(--bg); text-align: center; }
+  .arch .n b { display: block; font-size: 14px; }
+  .arch .n span { color: var(--muted); }
+  .arch .wide { grid-column: 1 / -1; justify-self: center; min-width: 60%; }
+  .arch .mine-n { border: 1.5px solid var(--mine); background: var(--mine-wash); }
+  .arch .net { border: 1.5px dashed var(--mine); border-radius: 12px; padding: 16px 10px 10px; display: grid; gap: 16px; position: relative; }
+  .arch .net > em { position: absolute; top: -10px; left: 10px; font-style: normal; font-size: 12px; color: var(--ink-2); background: var(--surface); padding: 0 5px; }
+  .arch .down::after { content: ""; position: absolute; left: 50%; bottom: -17px; height: 16px; border-left: 1.5px solid var(--line-2); }
+  .arch-legend { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 12px; font-size: 13px; color: var(--muted); }
+  .arch-legend span { display: inline-flex; align-items: center; gap: 7px; }
+  .sw { display: inline-block; width: 14px; height: 10px; border-radius: 3px; }
+  .sw.solid { border: 1.5px solid var(--mine); background: var(--mine-wash); }
+  .sw.dash { border: 1.5px dashed var(--mine); }
+
+  /* data models (MovieLens) */
+  .models { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start; }
+  .mlabel { font-size: 14px; font-weight: 600; margin: 0 0 8px; }
+  .ctables { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+  .ctables li { margin: 0; padding: 8px 10px; border: 1px solid var(--line-2); border-radius: 8px; background: var(--bg); font-size: 13px; line-height: 1.35; }
+  .ctables code { display: block; font-weight: 600; font-size: 13px; }
+  .ctables span { color: var(--muted); }
+  .graph { display: block; width: 100%; height: auto; max-width: 300px; }
+  .graph .gn { fill: var(--bg); stroke: var(--ink-2); stroke-width: 1.5; }
+  .graph text { fill: var(--ink); font: 12px var(--sans); text-anchor: middle; }
+  .graph text.el { fill: var(--muted); font-size: 11px; }
+  .graph .edge { stroke: var(--base); stroke-width: 1.5; }
+  .js .graph .edge { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 1s ease .3s; }
+  .js .in .graph .edge { stroke-dashoffset: 0; }
+  @media (max-width: 560px) { .models { grid-template-columns: 1fr; } }
+
+  /* smaller projects */
+  .minis { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; margin-top: 16px; padding: 0; list-style: none; }
+  .mini { margin: 0; padding: 18px 20px; display: flex; flex-direction: column; gap: 6px; transition: border-color .15s, transform .15s, box-shadow .15s; }
+  .mini:hover { border-color: var(--line-2); transform: translateY(-2px); }
+  .mini h4 { font-size: 19px; margin: 0; }
+  .mini p { color: var(--ink-2); font-size: 15px; margin: 0; }
+  .mini .meta { margin: 0; font-size: 14px; color: var(--muted); }
+  .mini.hl { border-color: var(--mine); box-shadow: 0 0 0 1px var(--mine), var(--shadow); }
+
+  /* ideas board */
+  .board { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+  .col { padding: 18px 18px 6px; }
+  .col h3 { font-size: 20px; display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 12px; }
+  .col h3 small { font-family: var(--sans); font-weight: 400; font-size: 13px; color: var(--muted); }
+  .col ul { list-style: none; padding: 0; margin: 0; }
+  .col li { margin: 0 0 12px; padding: 12px 14px; border-radius: 10px; background: var(--bg); border: 1px solid var(--line); font-size: 14.5px; line-height: 1.5; }
+  .col li strong { display: block; font-size: 15px; margin-bottom: 2px; }
+  @media (max-width: 900px) { .board { grid-template-columns: 1fr; } }
+
+  /* skills */
+  .skills { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 48px; margin: 0; }
+  .skills dt { font-weight: 600; margin-top: 10px; }
+  .skills dd { margin: 6px 0 8px; }
+  .sk { font: inherit; font-size: 15px; color: var(--ink); cursor: pointer; background: var(--surface); border: 1px solid var(--line-2); border-radius: 999px; padding: 2px 11px; margin: 0 4px 8px 0; line-height: 1.6; transition: border-color .15s, background-color .15s; }
+  .sk:hover { border-color: var(--ink-2); }
+  .sk[aria-pressed="true"] { border-color: var(--mine); background: var(--mine-wash); }
+  .sk-plain { display: inline-block; font-size: 15px; color: var(--muted); margin: 0 4px 8px 0; }
+  .sk-out { margin: 18px 0 0; padding: 12px 16px; border-left: 3px solid var(--mine); background: var(--surface); border-radius: 0 10px 10px 0; }
+  .sk-out:empty { display: none; }
+  @media (max-width: 760px) { .skills { grid-template-columns: 1fr; } }
+
+  /* education */
+  .edu { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+  .edu .card { padding: 20px 22px; }
+  .edu h3 { font-size: 20px; }
+  .edu p { font-size: 15px; color: var(--ink-2); margin: 0; }
+  .edu p.meta { color: var(--muted); margin: 4px 0 10px; }
+  @media (max-width: 900px) { .edu { grid-template-columns: 1fr; } }
+
+  /* contact */
+  footer { margin-top: 72px; border-top: 1px solid var(--line); background: var(--surface); }
+  footer .wrap { padding-top: 56px; padding-bottom: 56px; display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: 32px; align-items: end; }
+  footer h2 { margin-bottom: 14px; }
+  footer p { color: var(--ink-2); max-width: 620px; }
+  .fine { color: var(--muted); font-size: 14px; grid-column: 1 / -1; margin: 0; }
+  @media (max-width: 900px) { footer .wrap { grid-template-columns: 1fr; } }
+
+  /* reveal on scroll, only when JS runs: without it everything is visible */
+  .js .reveal { opacity: 0; transform: translateY(14px); transition: opacity .6s ease, transform .6s ease, box-shadow .2s, padding .2s; }
+  .js .reveal.in { opacity: 1; transform: none; }
+  .js .grow { transform: scaleX(0); transition: transform .9s cubic-bezier(.2, .7, .2, 1) var(--d, 0s); }
+  .js .in .grow { transform: scaleX(1); }
+  .js .waffle span { transition: background-color .25s var(--d, 0s), box-shadow .25s var(--d, 0s); }
+  .js .waffle:not(.in) span.on { background: transparent; box-shadow: inset 0 0 0 1.5px var(--line-2); }
+  .js .dots .dot { transition: left 1s cubic-bezier(.2, .7, .2, 1) var(--d, 0s); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .js .reveal, .js .grow, .js .waffle span, .js .dots .dot, .js .graph .edge, .mini, .btn { transition: none; }
+    .js .reveal, .js .grow { transform: none; opacity: 1; }
+    .mini:hover { transform: none; }
+    .pipe.run .packet { animation: none; }
+  }
 </style>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
-<div class="page">
 
 <header class="top">
-  <a class="home" href="#main">Clément Vurpillot</a>
-  <nav aria-label="Main">
-    <ul>
-      <li><a href="#experience">Experience</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#ideas">Ideas</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#education">Education</a></li>
-      <li><a href="#contact">Contact</a></li>
-      <li><button class="theme-btn" id="themeBtn" type="button">Dark</button></li>
-    </ul>
-  </nav>
+  <div class="wrap">
+    <a class="home" href="#main">Clément Vurpillot</a>
+    <nav aria-label="Main">
+      <ul>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li class="wide"><a href="#ideas">Ideas</a></li>
+        <li class="wide"><a href="#skills">Skills</a></li>
+        <li class="wide"><a href="#education">Education</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><button class="theme-btn" id="themeBtn" type="button">Dark</button></li>
+      </ul>
+    </nav>
+  </div>
 </header>
 
 <main id="main">
-  <h1>Clément Vurpillot</h1>
-  <p class="lead">I build data pipelines and machine learning models, and I don't trust a result until it beats a simple baseline on data it hasn't seen.</p>
-  <p>Final-year student in data and AI engineering at ESILV, Paris. I'm looking for a 6-month internship or a VIE starting in February 2027.</p>
-  <p><a href="https://github.com/Oradixx">GitHub</a> · <a href="https://www.linkedin.com/in/clement-vurpillot/">LinkedIn</a> · <a href="Clement_Vurpillot_CV.pdf" download>CV (PDF, one page)</a></p>
+  <div class="wrap hero">
+    <div>
+      <h1>Clément Vurpillot</h1>
+      <p class="role">Final-year data and AI engineering student at ESILV, Paris.</p>
+      <p class="avail">Looking for a 6-month internship or a VIE from February 2027.</p>
+      <p class="btns">
+        <a class="btn primary" href="Clement_Vurpillot_CV.pdf" download>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+          CV (PDF)
+        </a>
+        <a class="btn" href="https://www.linkedin.com/in/clement-vurpillot/">LinkedIn</a>
+        <a class="btn" href="https://github.com/Oradixx">GitHub</a>
+      </p>
+    </div>
 
-  <section id="experience" aria-labelledby="experience-h">
-    <h2 id="experience-h">Experience</h2>
+    <figure class="card tl" aria-labelledby="tlTitle">
+      <p class="fig-title" id="tlTitle">Studies and work, 2022–2027</p>
+      <p class="fig-sub">The orange line is today. The dashed slot is the one I'm looking to fill.</p>
+      <div class="tl-grid" id="timeline">
+        <div class="tl-label"><a href="#education">ESILV, engineering degree</a><small>September 2022 – August 2027</small></div>
+        <div class="tl-track"><span class="tl-seg" data-from="2022-09" data-to="2027-08"></span></div>
+        <div class="tl-label"><a href="#education">Riga Technical University</a><small>Exchange semester, January – June 2025</small></div>
+        <div class="tl-track"><span class="tl-seg" data-from="2025-01" data-to="2025-06"></span></div>
+        <div class="tl-label"><a href="#diduenjoy">Diduenjoy</a><small>Internship in 2024, freelance in August 2025</small></div>
+        <div class="tl-track"><span class="tl-seg" data-from="2024-07" data-to="2024-10"></span><span class="tl-seg" data-from="2025-08" data-to="2025-08"></span></div>
+        <div class="tl-label"><a href="#certam">CERTAM</a><small>Data and AI engineering intern, April – August 2026</small></div>
+        <div class="tl-track"><span class="tl-seg" data-from="2026-04" data-to="2026-08"></span></div>
+        <div class="tl-label"><a href="#contact">Internship or VIE, 6 months</a><small>From February 2027</small></div>
+        <div class="tl-track"><span class="tl-seg open" data-from="2027-02" data-to="2027-07"></span></div>
+        <div aria-hidden="true"></div>
+        <div class="tl-axis" id="tlAxis" aria-hidden="true"></div>
+      </div>
+    </figure>
+  </div>
 
-    <article>
-      <h3>Data and AI engineering intern, CERTAM</h3>
-      <p class="meta">Rouen, April–August 2026. CERTAM is an applied research centre that tests engines and their emissions.</p>
-      <ul>
-        <li>Built the ingestion pipeline for vessel telemetry sampled at 1&nbsp;Hz. Data read on the J1939 CAN bus is stored in AWS S3 as Parquet, then loaded into PostgreSQL with TimescaleDB by async Python code.</li>
-        <li>Trained a Random Forest that rebuilds particulate readings when the sensor fails (R² up to 0.96), explained it with SHAP and presented it to the test engineers.</li>
-        <li>Moved slow dashboard queries into SQL materialised views. The dashboard now loads in 30 seconds; it used to take 3 hours.</li>
-        <li>Deployed a Streamlit app and real-time Grafana alerting on a hardened Linux VPS. The pressure-drop alert caught a clogging filter before the engine failed.</li>
-      </ul>
-    </article>
 
-    <article>
-      <h3>Data labelling and quality supervisor, Diduenjoy</h3>
-      <p class="meta">Paris. Internship in July–October 2024, freelance again in August 2025.</p>
-      <ul>
-        <li>Supervised a team of 5 interns working under a 72-hour SLA, and ran weekly data quality audits.</li>
-        <li>Labelled customer verbatims against business taxonomies and measured the precision and recall of the NLP models in production.</li>
-      </ul>
-    </article>
+  <section id="experience" class="wrap" aria-labelledby="experience-h">
+    <h2 id="experience-h" class="reveal">Experience</h2>
+
+    <div class="row reveal" id="certam" data-id="certam">
+      <div class="txt">
+        <h3>Data and AI engineering intern, CERTAM</h3>
+        <p class="meta">Rouen, April–August 2026. CERTAM is an applied research centre that tests engines and their emissions.</p>
+        <ul>
+          <li>Built the ingestion pipeline for vessel telemetry sampled at 1&nbsp;Hz. Data read on the J1939 CAN bus is stored in AWS S3 as Parquet, then loaded into PostgreSQL with TimescaleDB by async Python code.</li>
+          <li>Trained a Random Forest that rebuilds particulate readings when the sensor fails (R² up to 0.96), explained it with SHAP and presented it to the test engineers.</li>
+          <li>Moved slow dashboard queries into SQL materialised views. The dashboard now loads in 30 seconds; it used to take 3 hours.</li>
+          <li>Deployed a Streamlit app and real-time Grafana alerting on a hardened Linux VPS. The pressure-drop alert caught a clogging filter before the engine failed.</li>
+        </ul>
+      </div>
+      <figure class="card fig">
+        <p class="fig-title">The telemetry pipeline I built</p>
+        <p class="fig-sub">Vessel telemetry, sampled once per second. Each box is one stage, in order.</p>
+        <ol class="pipe" id="pipe">
+          <li><div class="node"><b>CAN bus on the vessel</b><span>J1939 frames, 1 Hz</span></div><span class="conn" aria-hidden="true"><span class="packet"></span></span></li>
+          <li><div class="node"><b>AWS S3</b><span>Parquet files</span></div><span class="conn" aria-hidden="true"><span class="packet"></span></span></li>
+          <li><div class="node"><b>Loader</b><span>async Python</span></div><span class="conn" aria-hidden="true"><span class="packet"></span></span></li>
+          <li><div class="node"><b>PostgreSQL with TimescaleDB</b><span>materialised views</span></div><span class="conn" aria-hidden="true"><span class="packet"></span></span></li>
+          <li><div class="node"><b>Grafana</b><span>real-time alerts</span></div></li>
+        </ol>
+        <p class="fig-note"><button class="replay" type="button" id="pipeReplay">Replay the data flow</button></p>
+        <p class="fig-title mt">Dashboard load time</p>
+        <div class="bars" role="img" aria-label="Dashboard load time: 3 hours before, 30 seconds with the materialised views.">
+          <span class="lab">Before</span><span class="trk"><span class="bar b-base grow"></span></span><span class="num">3 h</span>
+          <span class="lab">With materialised views</span><span class="trk"><span class="bar b-mine w-certam grow"></span></span><span class="num">30 s</span>
+        </div>
+        <p class="fig-note">Same scale for both bars: 30 seconds is 1/360 of 3 hours.</p>
+      </figure>
+    </div>
+
+    <div class="row solo reveal" id="diduenjoy">
+      <div class="txt">
+        <h3>Data labelling and quality supervisor, Diduenjoy</h3>
+        <p class="meta">Paris. Internship in July–October 2024, freelance again in August 2025.</p>
+        <ul>
+          <li>Supervised a team of 5 interns working under a 72-hour SLA, and ran weekly data quality audits.</li>
+          <li>Labelled customer verbatims against business taxonomies and measured the precision and recall of the NLP models in production.</li>
+        </ul>
+      </div>
+    </div>
   </section>
 
-  <section id="projects" aria-labelledby="projects-h">
-    <h2 id="projects-h">Projects</h2>
+  <section id="projects" class="wrap" aria-labelledby="projects-h">
+    <h2 id="projects-h" class="reveal">Projects</h2>
 
-    <article>
-      <h3><a href="https://oradixx.github.io/france-grid-forecast/">France Grid Forecast</a></h3>
-      <p class="meta">Personal project. Its first live forecast was for 27 September 2026. <a href="https://github.com/Oradixx/france-grid-forecast">Code</a></p>
-      <p>Every day a GitHub Actions job forecasts France's electricity consumption for each hour of the next day, then scores the past forecasts against what was really consumed. RTE and weather data are stored as Parquet; dbt on DuckDB runs 19 data tests, and a failing test stops the run before anything is published. The gradient boosting model is retrained each week and replaces the current one only if it beats the naive baseline by at least 25&nbsp;% on the last 8 weeks.</p>
-      <p>Live results, 27 September – 1 November 2026 (35 days scored, one run missed): 2.1&nbsp;% mean hourly error. RTE's own forecast scores 1.5&nbsp;%, and the naive baseline (same hour last week) 4.2&nbsp;%.</p>
-      <p class="stack">Stack: dbt, DuckDB, scikit-learn, GitHub Actions, Parquet.</p>
-    </article>
+    <div class="row reveal" id="chip" data-id="chip">
+      <div class="txt">
+        <h3><a href="https://github.com/alvaro-serero/nfl-chip-advisor">Chip Advisor</a></h3>
+        <p class="meta">NFL Big Data Bowl Paris Side Quest, a hackathon by AWS, the NFL and Epitech, October 2026. 2nd place, team of 3. The repository is hosted by a teammate.</p>
+        <p>When a tight end or a running back "chips" a pass rusher before running his route, does it protect the quarterback? On NFL Next Gen Stats tracking and PFF data for weeks 1–8 of 2021, a chip by an in-line tight end cut that rusher's pressure by 26&nbsp;%. Sacks still happen, because the pressure then comes from another defender.</p>
+        <p>On 36 of the 88 sacks with a chip, the player who chipped was open, so our advice to the QB coach is to look for him at about 3 seconds. We delivered it as a small web tool with a coach briefing written by Mistral, built with Kiro, AWS's agentic IDE.</p>
+        <p class="stack">Stack: Python, pandas, Mistral API, Kiro, Vercel.</p>
+      </div>
+      <figure class="card fig">
+        <p class="fig-title">88 sacks on plays with a chip</p>
+        <p class="fig-sub">Each square is one sack. Orange: the player who chipped was open (at least 3 yards past the line for at least 1 second).</p>
+        <div class="waffle" id="waffle" role="img" aria-label="36 of the 88 sacks with a chip had the chipping player open."></div>
+        <div class="wf-legend"><span><i class="key box" aria-hidden="true"></i>Open: 36</span><span><i class="key box off" aria-hidden="true"></i>Not open: 52</span></div>
+      </figure>
+    </div>
 
-    <article>
-      <h3><a href="https://oradixx.github.io/LoL-ratings/">LoL Ratings 3.0</a></h3>
-      <p class="meta">Personal project, 2026. The write-up is in French. <a href="https://github.com/Oradixx/LoL-ratings">Code</a></p>
-      <p>A rating of professional League of Legends players that accounts for the strength of their teammates and of their league. It is a ridge regression on each game's final gold difference (RAPM), with league levels linked through international events and transfers, and a box-score prior learned per role. I built it on the 10,044 pro games of 2025, then tested it on the 2026 season, retrained each month: it called 65.4&nbsp;% of 8,566 games correctly, against 63.8&nbsp;% for an Elo rating updated after every game.</p>
-      <p class="stack">Stack: pandas, SciPy, scikit-learn, GitHub Actions, GitHub Pages.</p>
-    </article>
+    <div class="row reveal" id="lol" data-id="lol">
+      <div class="txt">
+        <h3><a href="https://oradixx.github.io/LoL-ratings/">LoL Ratings 3.0</a></h3>
+        <p class="meta">Personal project, 2026. The write-up is in French. <a href="https://github.com/Oradixx/LoL-ratings">Code</a></p>
+        <p>A rating of professional League of Legends players that accounts for the strength of their teammates and of their league. It is a ridge regression on each game's final gold difference (RAPM), with league levels linked through international events and transfers, and a box-score prior learned per role.</p>
+        <p>I built it on the 10,044 pro games of 2025, then tested it on the 2026 season, retrained each month: it called 65.4&nbsp;% of 8,566 games correctly, against 63.8&nbsp;% for an Elo rating updated after every game.</p>
+        <p class="stack">Stack: pandas, SciPy, scikit-learn, GitHub Actions, GitHub Pages.</p>
+      </div>
+      <figure class="card fig">
+        <p class="fig-title">Games called correctly, 2026 season</p>
+        <p class="fig-sub">8,566 pro games the model never saw while it was built.</p>
+        <div class="dots" id="lolDots" role="img" aria-label="Games called correctly in 2026: KDA 60.3 percent, Elo per team 63.8, Elo per player 63.8, LoL Ratings 3.0 65.4."></div>
+        <p class="fig-note">The Elo ratings are updated after every game, which favours them; my model is only retrained once a month.</p>
+      </figure>
+    </div>
 
-    <article>
-      <h3><a href="https://github.com/alvaro-serero/nfl-chip-advisor">Chip Advisor</a></h3>
-      <p class="meta">NFL Big Data Bowl Paris Side Quest, a hackathon by AWS, the NFL and Epitech, October 2026. 2nd place, team of 3. The repository is hosted by a teammate.</p>
-      <p>When a tight end or a running back "chips" a pass rusher before running his route, does it protect the quarterback? On NFL Next Gen Stats tracking and PFF data for weeks 1–8 of 2021, a chip by an in-line tight end cut that rusher's pressure by 26&nbsp;%. Sacks still happen, because the pressure then comes from another defender. On 36 of the 88 sacks with a chip, the player who chipped was open, so our advice to the QB coach is to look for him at about 3 seconds. We delivered it as a small web tool with a coach briefing written by Mistral, built with Kiro, AWS's agentic IDE.</p>
-      <p class="stack">Stack: Python, pandas, Mistral API, Kiro, Vercel.</p>
-    </article>
+    <div class="row reveal" id="nlp" data-id="nlp">
+      <div class="txt">
+        <h3><a href="https://github.com/Oradixx/insurance-reviews-nlp">NLP on 24,000 insurance reviews</a></h3>
+        <p class="meta">School project (NLP course, ESILV), March 2026, team of 2. The serving part was added in September 2026.</p>
+        <p>Predicting the star rating of French insurance reviews: a TF-IDF and logistic regression baseline reaches 52&nbsp;% accuracy, MiniLM embeddings with a small PyTorch classifier 54&nbsp;%. The Streamlit app adds zero-shot topic detection and RAG answers; we replaced Flan-T5 with Llama 3 running locally because Flan-T5 hallucinated more in our tests.</p>
+        <p>After the course, the baseline became a FastAPI service in Docker, tested in CI: training runs are tracked in MLflow, and a model below 0.40 macro F1 is never saved.</p>
+        <p class="stack">Stack: Hugging Face, PyTorch, Llama 3 (Ollama), MLflow, FastAPI, Docker.</p>
+      </div>
+      <figure class="card fig">
+        <p class="fig-title">Star rating prediction, test set of 4,814 reviews</p>
+        <p class="fig-sub">The embeddings beat the baseline, but only slightly.</p>
+        <div class="legend" aria-hidden="true"><span class="item"><i class="key k-n"></i>TF-IDF baseline</span><span class="item"><i class="key k-m"></i>MiniLM embeddings</span></div>
+        <div class="dots" id="nlpDots" role="img" aria-label="Accuracy: TF-IDF 52 percent, MiniLM 54 percent. Macro F1: TF-IDF 0.43, MiniLM 0.46."></div>
+      </figure>
+    </div>
 
-    <article>
-      <h3><a href="https://github.com/Oradixx/insurance-reviews-nlp">NLP on 24,000 insurance reviews</a></h3>
-      <p class="meta">School project (NLP course, ESILV), March 2026, team of 2. The serving part was added in September 2026.</p>
-      <p>Predicting the star rating of French insurance reviews: a TF-IDF and logistic regression baseline reaches 52&nbsp;% accuracy, MiniLM embeddings with a small PyTorch classifier 54&nbsp;%. The Streamlit app adds zero-shot topic detection and RAG answers; we replaced Flan-T5 with Llama 3 running locally because Flan-T5 hallucinated more in our tests. After the course, the baseline became a FastAPI service in Docker, tested in CI: training runs are tracked in MLflow, and a model below 0.40 macro F1 is never saved.</p>
-      <p class="stack">Stack: Hugging Face, PyTorch, Llama 3 (Ollama), MLflow, FastAPI, Docker.</p>
-    </article>
+    <div class="row reveal" id="crypto" data-id="crypto">
+      <div class="txt">
+        <h3><a href="https://github.com/Oradixx/CryptoIndexLab">CryptoIndexLab</a></h3>
+        <p class="meta">School project (containerisation course, ESILV), March 2026, team of 3.</p>
+        <p>A web app to build and track custom crypto indexes, run as containers. Two FastAPI services (accounts with JWT, index management) run 2 replicas each behind an Nginx gateway that balances the load, and each service has its own PostgreSQL on a separate Docker network.</p>
+        <p>CI builds hardened images and fails on any Trivy finding of medium severity or above. We demoed it on AWS Lightsail, and it opens in one click in GitHub Codespaces. My part was the Nginx gateway and load balancer, and the networking between the APIs and their databases.</p>
+        <p class="stack">Stack: FastAPI, PostgreSQL, Docker Compose, Nginx, Trivy.</p>
+      </div>
+      <figure class="card fig">
+        <p class="fig-title">Architecture</p>
+        <p class="fig-sub">Eight containers on three Docker networks. The gateway, the front end and the APIs share <code>frontend-net</code>; each database is reachable only from its own API.</p>
+        <div class="arch" role="img" aria-label="Architecture: the browser talks to an Nginx gateway and load balancer, which sends traffic to two replicas of the accounts API and two replicas of the index API. Each API has its own PostgreSQL database on its own Docker network. The gateway and the networks were my part.">
+          <div class="n wide down"><b>Browser</b><span>single-page app</span></div>
+          <div class="n wide mine-n down"><b>Nginx gateway</b><span>serves the front end, balances /api1 and /api2</span></div>
+          <div class="net"><em>api1-db-net</em><div class="n down"><b>api1 × 2</b><span>FastAPI, JWT</span></div><div class="n"><b>PostgreSQL</b><span>crypto_auth</span></div></div>
+          <div class="net"><em>api2-db-net</em><div class="n down"><b>api2 × 2</b><span>FastAPI, CoinGecko data</span></div><div class="n"><b>PostgreSQL</b><span>crypto_index</span></div></div>
+        </div>
+        <div class="arch-legend" aria-hidden="true"><span><i class="sw solid"></i>My part: gateway and load balancer</span><span><i class="sw dash"></i>My part: database networking</span></div>
+      </figure>
+    </div>
 
-    <article>
-      <h3><a href="https://github.com/Oradixx/CryptoIndexLab">CryptoIndexLab</a></h3>
-      <p class="meta">School project (containerisation course, ESILV), March 2026, team of 3.</p>
-      <p>A web app to build and track custom crypto indexes, run as containers. Two FastAPI services (accounts with JWT, index management) run 2 replicas each behind an Nginx gateway that balances the load, and each service has its own PostgreSQL on a separate Docker network. CI builds hardened images and fails on any Trivy finding of medium severity or above. We demoed it on AWS Lightsail, and it opens in one click in GitHub Codespaces. My part was the Nginx gateway and load balancer, and the networking between the APIs and their databases.</p>
-      <p class="stack">Stack: FastAPI, PostgreSQL, Docker Compose, Nginx, Trivy.</p>
-    </article>
+    <div class="row reveal" id="fgf" data-id="fgf">
+      <div class="txt">
+        <h3><a href="https://oradixx.github.io/france-grid-forecast/">France Grid Forecast</a></h3>
+        <p class="meta">Personal project. Its first live forecast was for 27 September 2026. <a href="https://github.com/Oradixx/france-grid-forecast">Code</a></p>
+        <p>Every day a GitHub Actions job forecasts France's electricity consumption for each hour of the next day, then scores the past forecasts against what was really consumed. RTE and weather data are stored as Parquet; dbt on DuckDB runs 19 data tests, and a failing test stops the run before anything is published. The gradient boosting model is retrained each week and replaces the current one only if it beats the naive baseline by at least 25&nbsp;% on the last 8 weeks.</p>
+        <p>Live results, 27 September – 1 November 2026 (35 days scored, one run missed): 2.1&nbsp;% mean hourly error. RTE's own forecast scores 1.5&nbsp;%, and the naive baseline 4.2&nbsp;%.</p>
+        <p class="stack">Stack: dbt, DuckDB, scikit-learn, GitHub Actions, Parquet.</p>
+      </div>
+      <figure class="card fig" id="fgfFig">
+        <p class="fig-title">France's electricity consumption, hour by hour</p>
+        <p class="fig-sub">My day-ahead forecast against what was consumed, RTE's own forecast and a naive baseline (same hour last week). Forecasts as published, never revised.</p>
+        <div class="controls"><div class="seg" role="group" aria-label="Week shown" id="fgfWeeks"></div></div>
+        <div class="legend" role="group" aria-label="Series shown, with the mean hourly error over the week" id="fgfLegend"></div>
+        <div class="plot" id="fgfPlot" tabindex="0" role="group" aria-label="Hourly chart. Use the left and right arrow keys to read the values hour by hour."></div>
+        <p class="sr" aria-live="polite" id="fgfLive"></p>
+        <details class="table"><summary>Daily errors since launch, as a table</summary><section class="tbl-scroll" id="fgfTable" tabindex="0" aria-label="Daily errors"></section></details>
+      </figure>
+    </div>
 
-    <article>
-      <h3><a href="https://github.com/Oradixx/tripadvisor-recommender">TripAdvisor recommender</a></h3>
-      <p class="meta">School project (information retrieval course, ESILV), March 2026, team of 2. Reworked in September 2026.</p>
-      <p>Given a place on TripAdvisor, recommends a similar one using only the reviews. The metadata is hidden from the models and only used to judge the answer. BM25 is rewritten as one sparse matrix product (same scores as rank_bm25, 0.6&nbsp;s instead of 77&nbsp;s), which made it cheap to re-check every model on 20 random splits. The reliable gain came from better tokenization, not from a more complex model.</p>
-      <p class="stack">Stack: scikit-learn, SciPy, pytest, GitHub Actions.</p>
-    </article>
+    <div class="row reveal" id="trip" data-id="trip">
+      <div class="txt">
+        <h3><a href="https://github.com/Oradixx/tripadvisor-recommender">TripAdvisor recommender</a></h3>
+        <p class="meta">School project (information retrieval course, ESILV), March 2026, team of 2. Reworked in September 2026.</p>
+        <p>Given a place on TripAdvisor, recommends a similar one using only the reviews. The metadata is hidden from the models and only used to judge the answer. BM25 is rewritten as one sparse matrix product (same scores as rank_bm25), which made it cheap to re-check every model on 20 random splits. The reliable gain came from better tokenization, not from a more complex model.</p>
+        <p class="stack">Stack: scikit-learn, SciPy, pytest, GitHub Actions.</p>
+      </div>
+      <figure class="card fig">
+        <p class="fig-title">Scoring 900 × 900 places with BM25</p>
+        <p class="fig-sub">Same scores as rank_bm25, computed as one sparse matrix product.</p>
+        <div class="bars" role="img" aria-label="BM25 scoring time: 77 seconds with rank_bm25, 0.6 seconds with the sparse matrix product.">
+          <span class="lab">rank_bm25</span><span class="trk"><span class="bar b-base grow"></span></span><span class="num">77 s</span>
+          <span class="lab">Sparse matrix product</span><span class="trk"><span class="bar b-mine w-trip grow"></span></span><span class="num">0.6 s</span>
+        </div>
+      </figure>
+    </div>
 
-    <article>
-      <h3><a href="https://github.com/Oradixx/movielens-nosql">MovieLens in Cassandra and Neo4j</a></h3>
-      <p class="meta">School project (NoSQL course, ESILV), March–April 2026, team of 3.</p>
-      <p>The 1,000,209 ratings of MovieLens 1M modelled twice. In Cassandra, one table per query, plus a Java aggregate because <code>AVG</code> on an integer column returns an integer. In Neo4j, a graph for collaborative filtering and for path queries with APOC and <code>shortestPath()</code>. We found a key collision that silently merged 2,847 ratings: users are identified by name, and some names are shared. CI rebuilds both databases from a synthetic sample and checks the query results.</p>
-      <p class="stack">Stack: Cassandra, Neo4j (Cypher), Docker Compose, Python.</p>
-    </article>
+    <div class="row reveal" id="movielens" data-id="movielens">
+      <div class="txt">
+        <h3><a href="https://github.com/Oradixx/movielens-nosql">MovieLens in Cassandra and Neo4j</a></h3>
+        <p class="meta">School project (NoSQL course, ESILV), March–April 2026, team of 3.</p>
+        <p>The 1,000,209 ratings of MovieLens 1M modelled twice. In Cassandra, one table per query, plus a Java aggregate because <code>AVG</code> on an integer column returns an integer. In Neo4j, a graph for collaborative filtering and for path queries with APOC and <code>shortestPath()</code>.</p>
+        <p>We found a key collision that silently merged 2,847 ratings: users are identified by name, and some names are shared. CI rebuilds both databases from a synthetic sample and checks the query results.</p>
+        <p class="stack">Stack: Cassandra, Neo4j (Cypher), Docker Compose, Python.</p>
+      </div>
+      <figure class="card fig">
+        <p class="fig-title">One dataset, two data models</p>
+        <p class="fig-sub">Cassandra stores the ratings three times, each table keyed for one question; Neo4j stores them once, as relationships.</p>
+        <div class="models">
+          <div>
+            <p class="mlabel">Cassandra</p>
+            <ul class="ctables">
+              <li><code>user_activity</code><span>partition key: user name</span></li>
+              <li><code>demographic_analysis</code><span>partition key: occupation</span></li>
+              <li><code>movie_trends</code><span>partition key: movie title</span></li>
+            </ul>
+          </div>
+          <div>
+            <p class="mlabel">Neo4j</p>
+            <svg class="graph" viewBox="0 0 290 190" role="img" aria-label="Graph model: a User node is linked to a Movie node by a RATED relationship that carries the rating, and to an Occupation node by a WORKS_AS relationship.">
+              <line class="edge" x1="58" y1="95" x2="230" y2="42" pathLength="1"/>
+              <line class="edge" x1="58" y1="95" x2="230" y2="148" pathLength="1"/>
+              <text class="el" x="132" y="56">RATED {rating}</text>
+              <text class="el" x="132" y="146">WORKS_AS</text>
+              <circle class="gn" cx="58" cy="95" r="32"/><text x="58" y="99">User</text>
+              <circle class="gn" cx="240" cy="42" r="32"/><text x="240" y="46">Movie</text>
+              <circle class="gn" cx="240" cy="148" r="42"/><text x="240" y="152">Occupation</text>
+            </svg>
+          </div>
+        </div>
+        <p class="fig-note">2,847 ratings, 0.28&nbsp;% of the total, collapsed because users are identified by name.</p>
+      </figure>
+    </div>
 
-    <h3>Smaller projects</h3>
-    <ul class="others">
-      <li><a href="https://github.com/Oradixx/data-pipeline-template">data-pipeline-template</a>: async Python ingestion into TimescaleDB with a Grafana dashboard, versioned SQL migrations, a continuous aggregate and integration tests in CI. One command (<code>make up</code>) starts the whole Docker Compose stack.</li>
-      <li><a href="https://oradixx.github.io/data-interview-prep/">Data Interview Prep</a>: 118 practice questions for data engineering, MLOps, DevOps and LLM interviews, each answer explained. A static site with unit tests.</li>
-      <li><a href="https://oradixx.github.io/data-plumber/">Data Plumber</a>: a browser game about data pipelines. The game logic is covered by 70 unit tests, and an exhaustive solver checks that the final boss puzzle has exactly one solution.</li>
-      <li><a href="https://github.com/Oradixx/Car_Price_Prediction_Project">Used car prices</a>: Craigslist listings from Kaggle; the best model is LightGBM, with R² ≈ 0.82. School project, team of 3.</li>
-      <li><a href="https://github.com/Oradixx/Packet_Sniffer_Rust">Packet sniffer in Rust</a>: live capture on libpcap with BPF filters, decoding of Ethernet, IPv4/IPv6, TCP, UDP, ICMP and ARP. Decoding is unit-tested on hand-built packets. Team of 2.</li>
-      <li>Full-stack MERN app: built in a Scrum team of 3 on Jira, starting from specification documents and UML, with an 80&nbsp;% test coverage gate in CI. No public repository.</li>
-      <li>Project templates for <a href="https://github.com/Oradixx/python-project-template">Python services</a> and for <a href="https://github.com/Oradixx/course-project-template">coursework</a>: uv, Ruff, strict mypy, pytest, pre-commit, a multi-stage Dockerfile and CI.</li>
+
+    <h3 class="reveal sub-h">Smaller projects</h3>
+    <ul class="minis">
+      <li class="card mini reveal" data-id="dpt"><h4><a href="https://github.com/Oradixx/data-pipeline-template">data-pipeline-template</a></h4><p>Async Python ingestion into TimescaleDB with a Grafana dashboard, versioned SQL migrations, a continuous aggregate and integration tests in CI. One command (<code>make up</code>) starts the whole Docker Compose stack.</p></li>
+      <li class="card mini reveal" data-id="dip"><h4><a href="https://oradixx.github.io/data-interview-prep/">Data Interview Prep</a></h4><p>118 practice questions for data engineering, MLOps, DevOps and LLM interviews, each answer explained. A static site with unit tests.</p></li>
+      <li class="card mini reveal" data-id="plumber"><h4><a href="https://oradixx.github.io/data-plumber/">Data Plumber</a></h4><p>A browser game about data pipelines. The game logic is covered by 70 unit tests, and an exhaustive solver checks that the final boss puzzle has exactly one solution.</p></li>
+      <li class="card mini reveal" data-id="car"><h4><a href="https://github.com/Oradixx/Car_Price_Prediction_Project">Used car prices</a></h4><p>Craigslist listings from Kaggle; the best model is LightGBM, with R² ≈ 0.82.</p><p class="meta">School project, team of 3.</p></li>
+      <li class="card mini reveal" data-id="sniffer"><h4><a href="https://github.com/Oradixx/Packet_Sniffer_Rust">Packet sniffer in Rust</a></h4><p>Live capture on libpcap with BPF filters, decoding of Ethernet, IPv4/IPv6, TCP, UDP, ICMP and ARP. Decoding is unit-tested on hand-built packets.</p><p class="meta">Team of 2.</p></li>
+      <li class="card mini reveal" data-id="mern"><h4>Full-stack MERN app</h4><p>Built in a Scrum team of 3 on Jira, starting from specification documents and UML, with an 80&nbsp;% test coverage gate in CI.</p><p class="meta">No public repository.</p></li>
+      <li class="card mini reveal" data-id="templates"><h4>Project templates</h4><p>For <a href="https://github.com/Oradixx/python-project-template">Python services</a> and for <a href="https://github.com/Oradixx/course-project-template">coursework</a>: uv, Ruff, strict mypy, pytest, pre-commit, a multi-stage Dockerfile and CI.</p></li>
     </ul>
   </section>
 
-  <section id="ideas" aria-labelledby="ideas-h">
-    <h2 id="ideas-h">Ideas I want to build</h2>
-    <p class="intro">Projects I have scoped but not built yet, grouped by when I expect to start them.</p>
-
-    <h3 class="group">Next</h3>
-    <ul class="others">
-      <li><strong>localcascade.</strong> Free local AI as a cascade: rules in code first, then a small calibrated decision model, then a local LLM, and a human only for what is left. Each stage is measured for quality, calibration, latency and memory, on my own labelled data. First use: watching VIE job offers. Published as a Python library.</li>
-      <li><strong>Decision-model routing for LLMRouter.</strong> A plugin for the open-source LLMRouter that routes each request with the same kind of small decision model, once localcascade has shown it works.</li>
-      <li><strong>Sentiment analysis with an RNN and a small language model.</strong> A recurrent network written in NumPy, compared on the same data with a 0.5B-parameter language model used as a few-shot classifier.</li>
-      <li><strong>Car price model in production.</strong> Serve the used car model with experiment tracking, a FastAPI endpoint, CI/CD and drift monitoring.</li>
-    </ul>
-
-    <h3 class="group">Exploring</h3>
-    <ul class="others">
-      <li><strong>Social benefits pre-check.</strong> You describe your situation in your own words; a local model extracts the facts that matter and asks when it is unsure, and OpenFisca computes the entitlements with the official rules. Aimed at people who do not claim benefits they are owed. Runs on the device, tested on synthetic cases.</li>
-      <li><strong>Public consultation triage.</strong> Sort contributions to public consultations by position and theme and find near-duplicates, on open data such as the Grand débat national.</li>
-      <li><strong>Alt text checker.</strong> Check with a vision-language model whether an image's alternative text describes the image, to catch empty or misleading alt texts on a website.</li>
-      <li><strong>A guide to the right tool for each need.</strong> Decision trees rather than a directory: for each common need, 3 to 6 real options with their strengths, weaknesses, price, licence and the date they were checked. Data in YAML, a site generated from it, and CI that flags dead links and stale entries.</li>
-    </ul>
-
-    <h3 class="group">Later</h3>
-    <ul class="others">
-      <li><strong>Pharmacovigilance pre-triage.</strong> Check whether adverse event reports are valid and serious before a person reads them, prototyped on the public FAERS database. A real use would need a partner.</li>
-      <li><strong>Self-hosted agent.</strong> A sandboxed agent on a home server, reachable from a messaging app, with read-only access to my job-offer watch. Waiting for the agents part of my LLM course.</li>
-      <li><strong>Settings bench for Windows games on Mac.</strong> Try combinations of compatibility-layer settings automatically, measure crashes and frame rate, and keep the best configuration.</li>
-      <li><strong>AI-assisted reverse engineering.</strong> An exercise with Claude Code and a Ghidra MCP server on a small old game I own.</li>
-    </ul>
+  <section id="ideas" class="wrap" aria-labelledby="ideas-h">
+    <h2 id="ideas-h" class="reveal">Ideas I want to build</h2>
+    <div class="board">
+      <div class="card col reveal">
+        <h3>Next <small>4 ideas</small></h3>
+        <ul>
+          <li><strong>localcascade</strong>Free local AI as a cascade: rules in code first, then a small calibrated decision model, then a local LLM, and a human only for what is left. Each stage is measured for quality, calibration, latency and memory, on my own labelled data. First use: watching VIE job offers. Published as a Python library.</li>
+          <li><strong>Decision-model routing for LLMRouter</strong>A plugin for the open-source LLMRouter that routes each request with the same kind of small decision model, once localcascade has shown it works.</li>
+          <li><strong>Sentiment analysis with an RNN and a small language model</strong>A recurrent network written in NumPy, compared on the same data with a 0.5B-parameter language model used as a few-shot classifier.</li>
+          <li><strong>Car price model in production</strong>Serve the used car model with experiment tracking, a FastAPI endpoint, CI/CD and drift monitoring.</li>
+        </ul>
+      </div>
+      <div class="card col reveal">
+        <h3>Exploring <small>4 ideas</small></h3>
+        <ul>
+          <li><strong>Social benefits pre-check</strong>You describe your situation in your own words; a local model extracts the facts that matter and asks when it is unsure, and OpenFisca computes the entitlements with the official rules. Aimed at people who do not claim benefits they are owed. Runs on the device, tested on synthetic cases.</li>
+          <li><strong>Public consultation triage</strong>Sort contributions to public consultations by position and theme and find near-duplicates, on open data such as the Grand débat national.</li>
+          <li><strong>Alt text checker</strong>Check with a vision-language model whether an image's alternative text describes the image, to catch empty or misleading alt texts on a website.</li>
+          <li><strong>A guide to the right tool for each need</strong>Decision trees rather than a directory: for each common need, 3 to 6 real options with their strengths, weaknesses, price, licence and the date they were checked. Data in YAML, a site generated from it, and CI that flags dead links and stale entries.</li>
+        </ul>
+      </div>
+      <div class="card col reveal">
+        <h3>Later <small>4 ideas</small></h3>
+        <ul>
+          <li><strong>Pharmacovigilance pre-triage</strong>Check whether adverse event reports are valid and serious before a person reads them, prototyped on the public FAERS database. A real use would need a partner.</li>
+          <li><strong>Self-hosted agent</strong>A sandboxed agent on a home server, reachable from a messaging app, with read-only access to my job-offer watch. Waiting for the agents part of my LLM course.</li>
+          <li><strong>Settings bench for Windows games on Mac</strong>Try combinations of compatibility-layer settings automatically, measure crashes and frame rate, and keep the best configuration.</li>
+          <li><strong>AI-assisted reverse engineering</strong>An exercise with Claude Code and a Ghidra MCP server on a small old game I own.</li>
+        </ul>
+      </div>
+    </div>
   </section>
 
-  <section id="skills" aria-labelledby="skills-h">
-    <h2 id="skills-h">Skills</h2>
-    <dl>
-      <dt>Languages</dt>
-      <dd>Python (pandas, NumPy), SQL, JavaScript and Node.js, Java, Rust, CQL, Cypher.</dd>
-      <dt>Data</dt>
-      <dd>PostgreSQL, TimescaleDB, DuckDB, dbt, Apache Spark (PySpark), Parquet, MongoDB, Cassandra, Neo4j, Elasticsearch.</dd>
-      <dt>Machine learning and AI</dt>
-      <dd>scikit-learn, TensorFlow, Hugging Face, BERT, LLMs and RAG, SHAP, LIME.</dd>
-      <dt>Cloud and MLOps</dt>
-      <dd>Docker, Kubernetes (GKE), AWS (S3, Lightsail), GCP, GitHub Actions, FastAPI, MLflow, Nginx, Grafana, Linux, Git.</dd>
+  <section id="skills" class="wrap" aria-labelledby="skills-h">
+    <h2 id="skills-h" class="reveal">Skills</h2>
+    <p class="meta reveal">Select a skill to see which projects on this page use it.</p>
+    <dl class="skills reveal">
+      <div>
+        <dt>Languages</dt>
+        <dd>
+          <button class="sk" type="button" aria-pressed="false" data-use="fgf lol chip nlp crypto trip movielens certam dpt car">Python</button>
+          <button class="sk" type="button" aria-pressed="false" data-use="fgf certam dpt">SQL</button>
+          <button class="sk" type="button" aria-pressed="false" data-use="dip mern">JavaScript and Node.js</button>
+          <button class="sk" type="button" aria-pressed="false" data-use="movielens">Java</button>
+          <button class="sk" type="button" aria-pressed="false" data-use="sniffer">Rust</button>
+          <button class="sk" type="button" aria-pressed="false" data-use="movielens">CQL and Cypher</button>
+        </dd>
+      </div>
+      <div>
+        <dt>Data</dt>
+        <dd>
+          <button class="sk" type="button" aria-pressed="false" data-use="certam crypto dpt">PostgreSQL</button>
+          <button class="sk" type="button" aria-pressed="false" data-use="certam dpt">TimescaleDB</button>
+          <button class="sk" type="button" aria-pressed="false" data-use="fgf">DuckDB</button>
+          <button class="sk" type="button" aria-pressed="false" data-use="fgf">dbt</button>
+          <button class="sk" type="button" aria-pressed="false" data-use="fgf certam">Parquet</button>
+          <button class="sk" type="button" aria-pressed="false" data-use="movielens">Cassandra</button>
+          <button class="sk" type="button" aria-pressed="false" data-use="movielens">Neo4j</button>
+          <button class="sk" type="button" aria-pressed="false" data-use="mern">MongoDB</button>
+          <span class="sk-plain">Apache Spark (PySpark), Elasticsearch</span>
+        </dd>
+      </div>
+      <div>
+        <dt>Machine learning and AI</dt>
+        <dd>
+          <button class="sk" type="button" aria-pressed="false" data-use="fgf lol nlp trip car">scikit-learn</button>
+          <button class="sk" type="button" aria-pressed="false" data-use="nlp">Hugging Face and BERT</button>
+          <button class="sk" type="button" aria-pressed="false" data-use="nlp chip">LLMs and RAG</button>
+          <button class="sk" type="button" aria-pressed="false" data-use="certam nlp">SHAP</button>
+          <span class="sk-plain">TensorFlow, LIME</span>
+        </dd>
+      </div>
+      <div>
+        <dt>Cloud and MLOps</dt>
+        <dd>
+          <button class="sk" type="button" aria-pressed="false" data-use="crypto nlp movielens dpt templates">Docker</button>
+          <button class="sk" type="button" aria-pressed="false" data-use="fgf lol trip nlp movielens crypto dpt mern">GitHub Actions</button>
+          <button class="sk" type="button" aria-pressed="false" data-use="certam crypto">AWS (S3, Lightsail)</button>
+          <button class="sk" type="button" aria-pressed="false" data-use="crypto nlp">FastAPI</button>
+          <button class="sk" type="button" aria-pressed="false" data-use="nlp">MLflow</button>
+          <button class="sk" type="button" aria-pressed="false" data-use="crypto">Nginx</button>
+          <button class="sk" type="button" aria-pressed="false" data-use="certam dpt">Grafana</button>
+          <button class="sk" type="button" aria-pressed="false" data-use="certam">Linux</button>
+          <span class="sk-plain">Kubernetes (GKE), GCP, Git</span>
+        </dd>
+      </div>
     </dl>
+    <p class="sk-out" id="skillOut" aria-live="polite"></p>
   </section>
 
-  <section id="education" aria-labelledby="education-h">
-    <h2 id="education-h">Education</h2>
-    <article>
-      <h3>ESILV, engineering degree, Data and AI major</h3>
-      <p class="meta">Paris La Défense, 2022–2027.</p>
-      <p>CTI-accredited engineering degree (Master's level, 300 ECTS). Courses include deep learning, MLOps, NLP, LLMs and generative AI, Big Data with Spark, NoSQL databases and data mining.</p>
-    </article>
-    <article>
-      <h3>Riga Technical University, exchange semester</h3>
-      <p class="meta">Latvia, January–June 2025.</p>
-      <p>Data science and AI courses, taught in English.</p>
-    </article>
-    <article>
-      <h3>Languages and certifications</h3>
-      <p>French (native), English C1 (TOEFL ITP 633/677), German A2. Certified in Scrum and agile methods, and in IBM Data Fundamentals.</p>
-    </article>
+  <section id="education" class="wrap" aria-labelledby="education-h">
+    <h2 id="education-h" class="reveal">Education</h2>
+    <div class="edu">
+      <div class="card reveal">
+        <h3>ESILV</h3>
+        <p class="meta">Engineering degree, Data and AI major. Paris La Défense, 2022–2027.</p>
+        <p>CTI-accredited (Master's level, 300 ECTS). Courses include deep learning, MLOps, NLP, LLMs and generative AI, Big Data with Spark, NoSQL databases and data mining.</p>
+      </div>
+      <div class="card reveal">
+        <h3>Riga Technical University</h3>
+        <p class="meta">Exchange semester. Latvia, January–June 2025.</p>
+        <p>Data science and AI courses, taught in English.</p>
+      </div>
+      <div class="card reveal">
+        <h3>Languages and certifications</h3>
+        <p class="meta">French (native), English C1 (TOEFL ITP 633/677), German A2.</p>
+        <p>Certified in Scrum and agile methods, and in IBM Data Fundamentals.</p>
+      </div>
+    </div>
   </section>
 </main>
 
 <footer id="contact" aria-labelledby="contact-h">
-  <h2 id="contact-h">Contact</h2>
-  <p>I'm looking for a 6-month internship or a VIE from February 2027, in data engineering, MLOps, machine learning, AI engineering or data science. LinkedIn is the quickest way to reach me.</p>
-  <p><a href="https://www.linkedin.com/in/clement-vurpillot/">Message me on LinkedIn</a> · <a href="https://github.com/Oradixx">GitHub</a> · <a href="Clement_Vurpillot_CV.pdf" download>CV (PDF)</a></p>
-  <p class="fine">Last updated on 3 November 2026. Hosted on GitHub Pages.</p>
+  <div class="wrap">
+    <div>
+      <h2 id="contact-h">Contact</h2>
+      <p>I'm looking for a 6-month internship or a VIE from February 2027, in data engineering, MLOps, machine learning, AI engineering or data science. LinkedIn is the quickest way to reach me.</p>
+    </div>
+    <p class="btns">
+      <a class="btn primary" href="https://www.linkedin.com/in/clement-vurpillot/">Message me on LinkedIn</a>
+      <a class="btn" href="Clement_Vurpillot_CV.pdf" download>CV (PDF)</a>
+      <a class="btn" href="https://github.com/Oradixx">GitHub</a>
+    </p>
+    <p class="fine">Last updated on 3 November 2026. Hosted on GitHub Pages.</p>
+  </div>
 </footer>
 
-</div>
+<script type="application/json" id="fgfData">{"start":"2026-09-26T22:00Z","unit":"0.1 GW","a":[382,362,343,320,311,310,317,322,332,351,374,394,408,396,384,390,387,394,413,435,435,410,404,402,383,366,349,329,324,342,381,427,445,464,471,481,486,478,486,481,468,461,469,490,476,442,430,425,401,384,365,344,340,353,391,434,458,467,477,480,490,483,488,485,472,466,475,492,476,444,434,432,414,392,374,355,345,354,392,435,459,477,482,487,499,491,492,487,476,466,477,496,478,443,435,430,410,389,369,348,344,355,391,436,462,475,481,489,492,478,475,470,455,447,461,485,471,437,430,428,408,387,369,349,344,355,389,435,458,464,466,466,475,463,460,454,439,440,452,470,458,430,423,420,400,378,358,336,326,327,337,354,370,395,409,421,440,431,424,410,397,393,406,428,418,392,391,395,381,360,341,318,307,305,312,321,335,358,380,393,418,406,401,392,381,381,404,433,424,402,398,397,382,363,345,327,323,340,379,429,452,459,468,472,487,477,480,473,457,455,470,491,473,437,429,424,404,384,366,346,340,354,391,439,459,466,472,484,491,483,487,480,468,462,471,492,470,434,425,419,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,413,391,369,351,348,355,395,439,465,477,485,495,502,487,480,469,455,449,474,498,481,446,440,437,417,396,379,358,351,367,403,448,477,489,495,497,499,487,489,481,462,460,476,496,477,446,443,441,422,396,376,349,337,336,351,370,388,407,422,431,448,435,425,409,394,396,418,445,434,410,411,416,403,380,356,334,326,323,331,343,357,378,397,415,436,430,423,416,401,396,421,460,448,425,418,419,405,386,369,348,344,361,407,462,488,494,495,492,496,484,485,476,459,453,476,511,487,452,443,439,418,401,383,364,360,370,408,457,483,493,500,505,496,488,490,479,461,455,468,508,484,451,441,438,422,397,379,359,353,367,405,455,484,492,496,497,500,486,487,477,462,459,481,514,494,456,444,443,424,405,386,364,359,370,409,458,483,489,490,496,495,481,483,479,463,457,474,504,481,448,439,437,418,398,378,357,352,364,399,450,476,482,482,486,490,476,478,470,450,451,466,491,469,440,435,434,414,395,372,349,340,343,357,373,393,413,427,438,452,442,437,428,411,408,426,454,441,420,420,425,409,391,373,352,341,343,355,368,381,405,428,444,462,449,436,426,411,411,439,481,469,447,445,447,432,414,394,374,372,391,430,481,521,539,546,550,558,542,544,529,508,500,523,562,535,496,484,481,461,440,420,396,389,403,439,487,523,542,545,552,556,542,537,523,503,500,525,558,530,493,483,479,460,443,425,405,397,412,452,497,527,542,548,559,559,551,546,532,516,505,525,571,547,512,503,500,482,461,444,422,417,433,469,516,549,557,569,559,558,544,542,525,502,490,519,559,533,498,492,491,473,455,439,416,410,421,456,499,533,550,560,576,577,566,562,549,526,518,535,566,545,514,508,508,488,468,448,420,408,408,420,441,460,479,495,503,518,507,503,489,480,480,505,534,514,487,485,488,470,441,417,394,377,367,374,386,400,419,441,460,472,484,464,452,443,431,444,489,509,488,468,466,469,459,444,420,396,396,417,463,502,532,547,548,549,558,549,547,537,519,520,559,572,534,499,490,487,469,449,429,411,404,417,456,496,515,521,517,517,528,518,517,507,497,499,538,552,518,486,479,479,462,444,426,406,403,424,466,507,535,538,540,534,538,524,519,509,498,507,552,567,535,503,499,500,485,468,449,427,424,443,484,525,551,552,546,542,542,524,523,514,502,515,557,570,538,506,504,504,492,476,458,440,438,457,496,533,558,560,550,545,545,527,523,512,499,507,544,555,526,500,500,502,487,468,449,423,415,422,441,459,474,490,494,492,502,487,482,471,457,462,498,512,493,472,477,486,479,456,440,417,411,416,427,440,454,470,479,487,502,477,467,461,454,467,517,538,516,494,494,495],"m":[387,365,348,327,317,314,322,328,337,355,377,402,416,409,401,400,390,390,406,426,430,410,402,406,385,371,348,330,327,336,371,428,448,459,467,479,492,478,477,478,467,461,474,489,479,443,431,431,404,384,365,345,344,351,384,433,450,457,468,480,485,480,483,482,474,474,484,501,495,452,437,433,404,388,373,352,349,358,394,438,462,471,478,486,494,487,494,488,476,470,478,493,481,450,437,434,410,388,376,352,346,355,391,435,459,467,478,483,491,485,489,482,466,462,468,486,474,442,432,430,412,392,378,354,347,355,391,434,457,472,481,488,493,487,483,477,461,455,461,479,465,436,429,427,405,382,360,341,330,331,343,359,370,399,410,422,436,422,414,410,402,393,409,430,420,401,399,403,386,364,347,326,314,314,316,328,334,351,373,394,407,396,393,390,385,389,403,434,428,408,402,401,381,365,344,329,323,335,373,428,450,466,471,484,495,489,485,476,465,459,465,492,476,441,430,429,401,383,363,345,342,348,384,434,456,468,476,482,490,483,484,478,467,460,474,493,477,441,433,430,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,411,387,375,348,342,353,390,442,464,479,483,490,498,488,492,481,466,462,472,495,476,438,431,422,413,392,379,354,348,359,394,446,471,489,495,499,514,496,489,478,460,457,475,490,468,439,430,431,404,382,359,340,327,327,341,358,378,397,414,427,444,434,426,407,396,390,406,432,423,400,394,401,387,364,349,328,313,314,320,329,343,370,395,409,430,413,407,398,384,383,405,444,431,410,407,407,398,370,356,337,331,341,380,438,464,474,483,489,500,491,485,472,456,455,468,498,480,447,438,439,411,390,370,352,346,354,386,439,460,469,474,485,495,492,490,484,466,460,475,500,484,447,435,430,414,394,378,355,351,365,404,454,483,492,495,494,499,490,489,481,462,457,474,510,484,451,439,437,420,399,377,360,357,362,401,452,480,490,498,496,499,490,487,475,459,455,467,501,479,446,438,438,420,397,381,358,351,363,401,447,477,486,489,488,491,480,482,470,450,448,465,492,479,443,433,437,422,397,378,352,340,343,353,371,393,412,428,437,449,435,428,416,403,402,418,450,435,414,413,418,415,399,376,348,338,337,346,364,380,399,418,437,453,445,434,425,407,407,429,462,451,436,429,433,417,404,382,363,357,367,413,471,506,518,526,527,531,519,516,504,485,474,495,528,510,475,463,460,439,418,407,382,378,385,419,472,500,508,519,522,528,525,519,506,486,482,504,538,522,490,479,479,462,441,427,405,399,413,447,500,531,545,547,545,559,540,541,527,506,506,526,566,541,508,490,491,465,447,431,412,402,415,448,499,527,544,545,546,547,537,534,514,498,496,514,547,529,492,480,479,458,441,421,405,393,405,444,489,512,525,533,542,548,530,523,514,502,492,508,548,518,491,478,477,473,450,430,409,393,404,407,422,443,460,477,488,501,487,479,470,448,443,466,496,479,460,456,460,448,418,401,395,379,368,372,374,381,398,433,453,471,467,460,448,426,426,449,486,482,470,465,464,463,473,444,419,410,411,436,482,526,570,582,586,586,579,573,561,544,540,551,579,573,550,528,519,503,466,451,438,406,404,421,459,521,545,557,556,556,557,546,538,516,510,523,548,557,533,502,492,490,482,462,446,422,421,442,489,521,550,566,566,564,568,556,551,543,526,531,567,574,550,516,507,503,491,472,448,435,433,446,484,518,555,561,557,555,558,544,537,519,509,517,564,568,537,512,508,508,492,473,453,437,437,452,493,536,578,578,574,568,567,551,540,515,504,511,559,564,544,516,513,533,504,479,467,438,426,437,456,477,497,507,508,509,520,509,494,480,465,478,516,523,511,491,486,495,482,468,454,418,409,413,420,427,439,470,480,491,496,486,462,448,441,446,494,519,507,497,492,505],"r":[385,368,343,321,310,310,316,326,335,354,378,398,420,410,403,400,393,393,409,428,431,407,400,406,380,361,343,325,323,340,377,419,440,455,467,476,484,478,476,477,467,460,472,484,470,436,423,428,403,386,365,345,339,353,387,429,447,458,469,478,489,481,480,480,471,469,482,493,480,446,435,438,412,396,380,357,352,365,401,439,464,477,486,498,507,505,504,500,484,477,489,502,486,453,444,442,415,395,377,357,350,362,399,440,459,468,478,484,489,484,484,479,465,459,470,485,472,438,431,435,407,391,368,347,340,354,389,431,456,466,470,474,478,469,466,460,447,442,452,466,457,427,421,426,401,379,358,335,324,325,337,351,369,389,400,408,422,413,406,401,388,388,400,418,414,391,391,400,382,364,342,318,308,307,315,324,336,356,374,390,408,400,393,387,372,375,394,424,422,398,394,401,382,363,345,325,321,337,377,420,445,462,471,478,481,479,477,472,455,446,461,486,467,432,423,429,400,383,362,341,336,348,386,430,452,463,469,472,480,476,475,467,450,443,461,484,465,431,424,428,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,407,391,373,351,345,357,395,441,463,477,485,491,497,487,482,473,455,449,468,496,480,448,443,445,423,409,387,367,362,373,412,458,483,493,497,501,505,491,483,472,452,454,471,492,476,445,441,441,413,393,370,346,334,336,348,367,386,410,424,432,444,436,425,410,393,394,413,439,431,409,407,415,399,381,358,334,323,321,333,346,361,386,408,421,438,426,415,401,385,387,412,448,441,419,413,422,400,380,361,342,339,356,398,446,472,485,489,494,496,488,482,472,449,447,469,498,478,443,436,437,417,401,383,361,354,368,406,454,474,482,486,494,498,491,486,478,460,454,474,502,483,451,445,439,419,402,383,360,354,365,402,446,475,490,495,502,508,502,497,488,469,461,487,514,489,455,448,447,426,406,385,366,361,372,413,459,483,492,497,500,502,494,490,481,465,459,484,514,491,459,445,451,422,403,385,364,357,370,407,453,479,486,488,490,493,486,484,476,458,457,475,502,482,452,441,448,423,400,379,355,344,345,360,381,401,420,433,440,450,446,435,424,408,410,432,464,454,428,424,434,414,395,372,349,341,340,352,370,387,407,427,441,458,448,435,425,410,409,440,483,477,454,447,455,439,423,402,384,380,401,446,500,530,541,544,546,544,533,523,512,491,486,512,548,526,491,479,481,453,436,413,390,383,397,436,486,513,526,537,542,543,533,523,512,494,488,509,546,523,487,476,478,458,441,420,397,389,405,441,488,521,538,546,552,557,545,534,521,503,496,523,561,539,503,495,496,476,459,435,414,407,421,459,506,537,550,553,557,557,541,529,515,498,493,520,554,532,498,484,488,469,448,426,403,394,409,444,489,519,532,537,545,551,541,534,522,505,507,527,558,535,504,495,500,480,460,437,413,401,404,416,433,458,481,494,505,516,510,498,481,464,466,487,517,498,470,464,472,460,437,429,420,388,373,372,378,385,401,420,442,463,480,473,461,448,431,426,456,500,488,464,459,468,454,437,415,395,392,414,457,499,528,546,547,552,558,549,543,535,518,518,554,567,529,493,486,493,473,459,437,413,407,426,464,505,529,544,539,537,537,528,526,519,502,509,545,555,518,487,479,487,464,451,428,407,403,424,462,501,534,553,550,552,554,545,538,521,510,518,562,574,543,515,508,513,494,477,456,440,437,454,497,538,566,574,570,566,567,552,543,535,520,527,575,582,548,518,515,520,494,481,463,443,442,466,509,550,577,579,571,564,560,541,528,519,506,524,565,571,542,516,515,524,501,486,463,439,430,438,456,467,486,501,503,502,508,495,479,462,454,476,519,533,512,493,495,510,489,474,448,426,418,427,443,447,461,480,492,500,512,497,482,471,463,483,534,553,530,507,505,514],"n":[387,365,346,325,314,313,320,328,338,354,378,402,414,403,399,394,384,387,406,427,429,410,397,403,386,364,346,327,324,342,378,424,444,456,464,470,475,466,468,462,451,449,465,482,470,437,428,424,403,382,363,343,337,350,388,431,449,457,464,470,478,468,468,467,455,452,467,483,474,439,427,421,400,382,364,344,340,353,388,428,450,459,466,477,487,479,480,481,470,464,481,491,478,446,433,430,409,388,370,348,344,356,390,435,455,462,473,479,488,483,486,481,470,467,477,488,478,443,433,428,408,389,369,349,343,356,392,435,454,461,470,480,488,478,474,474,464,465,470,475,469,440,432,426,403,379,360,338,329,328,338,353,369,392,407,419,437,421,416,411,403,393,417,425,422,400,396,397,382,362,343,320,311,310,317,322,332,348,370,394,408,396,392,390,387,394,413,435,435,410,404,402,383,366,349,329,324,342,381,427,449,464,471,481,486,478,486,481,468,461,469,490,476,442,430,425,405,384,365,344,340,353,391,434,458,467,477,483,490,483,488,485,472,466,475,492,476,444,434,432,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,410,389,369,348,344,355,391,436,462,475,481,489,492,478,475,470,455,447,461,485,471,437,430,428,408,387,369,349,344,355,389,435,458,464,466,468,475,463,460,454,439,440,452,470,458,430,423,420,400,378,358,336,326,327,337,354,370,395,409,421,440,431,424,410,397,393,406,428,418,392,391,395,381,360,341,318,307,305,312,321,335,358,380,396,418,406,401,392,381,381,404,433,424,402,398,397,382,363,345,327,323,340,379,429,452,459,468,474,487,477,480,473,457,455,470,491,473,437,429,424,404,384,366,346,340,354,391,439,459,466,472,484,491,483,487,480,468,462,471,492,470,434,425,419,399,384,365,346,341,352,385,432,458,479,489,497,509,494,493,483,467,462,484,505,477,442,434,429,413,391,369,351,348,355,395,439,465,477,485,495,502,487,480,469,455,449,474,498,481,446,440,437,417,396,379,358,351,367,403,448,477,489,495,497,499,487,489,481,462,460,476,496,477,446,443,441,422,396,376,349,337,336,351,370,388,407,422,433,448,435,425,409,394,396,418,445,434,410,411,416,403,380,356,334,326,323,331,343,357,378,397,415,436,430,423,416,401,396,421,460,448,425,418,419,405,386,369,348,344,361,407,462,488,494,495,492,496,484,485,476,459,453,476,511,487,452,443,439,418,401,383,364,360,370,408,457,483,493,500,497,497,488,490,479,461,455,468,508,484,451,441,438,422,397,379,359,353,367,405,455,484,492,496,497,500,486,487,477,462,459,481,514,494,456,444,443,424,405,386,364,359,370,409,458,483,489,491,496,495,481,483,479,463,457,474,504,481,448,439,437,418,398,378,357,352,364,399,450,476,482,482,486,490,476,478,470,450,451,466,491,469,440,435,434,414,395,372,349,340,343,357,373,393,414,427,438,452,442,437,428,411,408,426,454,441,420,420,425,409,391,373,352,341,343,355,368,381,405,428,444,462,449,436,426,411,411,439,481,469,447,445,447,432,414,394,374,372,391,430,481,521,539,547,550,558,542,544,529,508,500,523,562,535,496,484,481,461,440,420,396,389,403,439,487,523,542,546,552,556,542,537,523,503,500,525,558,530,493,483,479,460,443,425,405,397,412,452,497,527,542,549,559,559,551,546,532,516,505,525,571,547,512,503,500,482,461,444,422,417,433,469,516,549,557,557,559,558,544,542,525,502,490,519,559,533,498,492,491,473,455,439,416,410,421,456,499,533,550,563,576,577,566,562,549,526,518,535,566,545,514,508,508,488,468,448,420,408,408,420,441,460,479,495,503,518,507,503,489,480,480,505,534,514,487,485,488,468,441,429,417,377,367,374,386,400,419,449,460,472,484,464,452,443,431,444,489,509,488,468,466,469]}</script>
 <script>
-  // theme toggle: the button names the theme it switches to; the choice is kept per browser when storage is available
+(function () {
+  "use strict";
+  const NS = "http://www.w3.org/2000/svg";
+  const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const $ = (id) => document.getElementById(id);
+  function svg(tag, attrs, parent) {
+    const e = document.createElementNS(NS, tag);
+    for (const k in attrs) e.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(e);
+    return e;
+  }
+  function html(tag, attrs, parent, text) {
+    const e = document.createElement(tag);
+    for (const k in attrs) e.setAttribute(k, attrs[k]);
+    if (text !== undefined) e.textContent = text;
+    if (parent) parent.appendChild(e);
+    return e;
+  }
+  function onVisible(el, cb, threshold) {
+    if (!("IntersectionObserver" in window)) { cb(); return; }
+    const io = new IntersectionObserver((es) => {
+      if (es.some((e) => e.isIntersecting)) { io.disconnect(); cb(); }
+    }, { threshold: threshold || 0.2 });
+    io.observe(el);
+  }
+
+  // ---------- theme toggle: the button names the theme it switches to ----------
   (function () {
-    const root = document.documentElement;
-    const btn = document.getElementById("themeBtn");
+    const root = document.documentElement, btn = $("themeBtn");
     const current = () => root.dataset.theme || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
     const label = () => {
       const next = current() === "dark" ? "light" : "dark";
@@ -294,7 +789,7 @@
       btn.setAttribute("aria-label", "Switch to the " + next + " theme");
     };
     label();
-    btn.addEventListener("click", function () {
+    btn.addEventListener("click", () => {
       const next = current() === "dark" ? "light" : "dark";
       root.dataset.theme = next;
       try { localStorage.setItem("theme", next); } catch (e) {}
@@ -302,6 +797,339 @@
     });
     matchMedia("(prefers-color-scheme: dark)").addEventListener("change", label);
   })();
+
+  // ---------- reveal on scroll, and the nav link of the section in view ----------
+  (function () {
+    const items = document.querySelectorAll(".reveal");
+    if (!("IntersectionObserver" in window) || reduced) items.forEach((e) => e.classList.add("in"));
+    else {
+      const io = new IntersectionObserver((es) => es.forEach((e) => {
+        if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+      }), { rootMargin: "0px 0px -8% 0px", threshold: 0.08 });
+      items.forEach((e) => io.observe(e));
+    }
+    const links = Array.from(document.querySelectorAll("nav a[href^='#']"));
+    const targets = links.map((a) => document.querySelector(a.getAttribute("href"))).filter(Boolean);
+    function spy() {
+      const y = window.scrollY + window.innerHeight * 0.35;
+      let cur = null;
+      targets.forEach((t) => { if (t.getBoundingClientRect().top + window.scrollY <= y) cur = t; });
+      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) cur = targets[targets.length - 1];
+      links.forEach((a) => {
+        if (cur && a.getAttribute("href") === "#" + cur.id) a.setAttribute("aria-current", "true");
+        else a.removeAttribute("aria-current");
+      });
+    }
+    let ticking = false;
+    window.addEventListener("scroll", () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => { spy(); ticking = false; });
+    }, { passive: true });
+    spy();
+  })();
+
+  // ---------- data: France Grid Forecast, one value per hour, in tenths of GW ----------
+  const D = JSON.parse($("fgfData").textContent);
+  const t0 = Date.parse(D.start), N = D.a.length;
+  const fmtDate = new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Paris", year: "numeric", month: "2-digit", day: "2-digit" });
+  const fmtDay = new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/Paris", weekday: "short", day: "numeric", month: "short" });
+  const fmtHour = new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/Paris", hour: "2-digit", minute: "2-digit" });
+  const time = (i) => new Date(t0 + i * 3600e3);
+  const dayOf = Array.from({ length: N }, (_, i) => fmtDate.format(time(i)));
+  const SER = [
+    { k: "a", name: "Consumed", cls: "a" },
+    { k: "m", name: "My forecast", cls: "m" },
+    { k: "r", name: "RTE forecast", cls: "r" },
+    { k: "n", name: "Naive baseline", cls: "n" },
+  ];
+  function mape(idx, k) {
+    let s = 0, c = 0;
+    idx.forEach((i) => { const a = D.a[i], v = D[k][i]; if (a != null && v != null) { s += Math.abs(a - v) / a; c++; } });
+    return c ? s / c * 100 : null;
+  }
+  const days = [...new Set(dayOf)];
+  const hoursOf = {};
+  dayOf.forEach((d, i) => { (hoursOf[d] = hoursOf[d] || []).push(i); });
+  const addDays = (d, n) => { const x = new Date(d + "T12:00:00Z"); x.setUTCDate(x.getUTCDate() + n); return x.toISOString().slice(0, 10); };
+  const utcLabel = (d, o) => new Date(d + "T12:00:00Z").toLocaleDateString("en-GB", Object.assign({ timeZone: "UTC" }, o));
+  const mondays = days.filter((d) => new Date(d + "T12:00:00Z").getUTCDay() === 1 && days.includes(addDays(d, 6)));
+
+  // ---------- a small line chart: crosshair, tooltip, arrow keys ----------
+  function lineChart(opt) {
+    const box = opt.box, tip = html("div", { class: "tip", "aria-hidden": "true" });
+    let pos = -1, animate = !reduced, drawn = false;
+    function draw() {
+      drawn = true;
+      box.textContent = "";
+      box.appendChild(tip);
+      tip.classList.remove("on");
+      const W = Math.max(260, box.clientWidth), H = opt.height(W);
+      const m = { l: 46, r: 10, t: 12, b: 26 };
+      const n = opt.n(), xs = (i) => m.l + (n === 1 ? 0 : i / (n - 1)) * (W - m.l - m.r);
+      const [y0, y1, step] = opt.domain();
+      const ys = (v) => m.t + (1 - (v - y0) / (y1 - y0)) * (H - m.t - m.b);
+      const root = svg("svg", { viewBox: `0 0 ${W} ${H}`, height: H, "aria-hidden": "true" }, box);
+      for (let v = y0; v <= y1 + 1e-9; v += step) {
+        svg("line", { class: "gridl", x1: m.l, x2: W - m.r, y1: ys(v), y2: ys(v) }, root);
+        svg("text", { class: "axis", x: m.l - 8, y: ys(v) + 4, "text-anchor": "end" }, root).textContent = opt.yFmt(v);
+      }
+      opt.xTicks(W, n).forEach(([i, label]) => {
+        svg("line", { class: "gridl", x1: xs(i), x2: xs(i), y1: m.t, y2: H - m.b }, root);
+        svg("text", { class: "axis", x: xs(i) + 4, y: H - 8 }, root).textContent = label;
+      });
+      const id = "clip-" + box.id;
+      const clipRect = svg("rect", { x: 0, y: 0, width: animate ? 0 : W, height: H }, svg("clipPath", { id }, svg("defs", {}, root)));
+      const lines = svg("g", { "clip-path": `url(#${id})` }, root);
+      const ser = opt.series();
+      ser.forEach((s) => {
+        if (!s.on) return;
+        let d = "", pen = false;
+        for (let i = 0; i < n; i++) {
+          const v = s.v(i);
+          if (v == null) { pen = false; continue; }
+          d += (pen ? "L" : "M") + xs(i).toFixed(1) + " " + ys(v).toFixed(1);
+          pen = true;
+        }
+        svg("path", { class: "s s-" + s.cls, d }, lines);
+      });
+      if (opt.gaps) opt.gaps().forEach(([i, label]) => {
+        svg("text", { class: "gap-label", x: xs(i), y: m.t + 12, "text-anchor": "middle" }, root).textContent = label;
+      });
+      if (animate) {
+        const start = performance.now(), dur = 1400;
+        (function frame(now) {
+          const k = Math.max(0, Math.min(1, (now - start) / dur)), e = 1 - Math.pow(1 - k, 3);
+          clipRect.setAttribute("width", (W * e).toFixed(1));
+          if (k < 1) requestAnimationFrame(frame);
+        })(start);
+        animate = false;
+      }
+      const cross = svg("g", { visibility: "hidden" }, root);
+      const cl = svg("line", { class: "cross", y1: m.t, y2: H - m.b }, cross);
+      const dots = ser.map((s) => svg("circle", { class: "hdot f-" + s.cls, r: 4.5 }, cross));
+      function show(i, fromKey) {
+        i = Math.max(0, Math.min(n - 1, i)); pos = i;
+        cross.setAttribute("visibility", "visible");
+        cl.setAttribute("x1", xs(i)); cl.setAttribute("x2", xs(i));
+        tip.textContent = "";
+        html("div", { class: "t" }, tip, opt.title(i));
+        const read = [opt.title(i)];
+        ser.forEach((s, j) => {
+          const v = s.v(i);
+          if (!s.on || v == null) { dots[j].setAttribute("visibility", "hidden"); return; }
+          dots[j].setAttribute("visibility", "visible");
+          dots[j].setAttribute("cx", xs(i)); dots[j].setAttribute("cy", ys(v));
+          const r = html("div", { class: "tr" }, tip);
+          html("i", { class: "key k-" + s.cls }, r);
+          html("b", {}, r, opt.vFmt(v));
+          html("span", {}, r, s.name);
+          read.push(s.name + " " + opt.vFmt(v));
+        });
+        tip.classList.add("on");
+        const tw = tip.offsetWidth, x = xs(i);
+        tip.style.left = (x + 14 + tw > W ? Math.max(0, x - 14 - tw) : x + 14) + "px";
+        tip.style.top = m.t + "px";
+        if (fromKey && opt.live) opt.live.textContent = read.join(", ");
+      }
+      function hide() { cross.setAttribute("visibility", "hidden"); tip.classList.remove("on"); }
+      root.addEventListener("pointermove", (e) => {
+        const r = root.getBoundingClientRect(), x = (e.clientX - r.left) * W / r.width;
+        show(Math.round((x - m.l) / (W - m.l - m.r) * (n - 1)));
+      });
+      root.addEventListener("pointerleave", hide);
+      box.onkeydown = (e) => {
+        const step = { ArrowRight: 1, ArrowLeft: -1, PageDown: opt.page, PageUp: -opt.page }[e.key];
+        if (step) { e.preventDefault(); show(pos < 0 ? 0 : pos + step, true); }
+        else if (e.key === "Home") { e.preventDefault(); show(0, true); }
+        else if (e.key === "End") { e.preventDefault(); show(n - 1, true); }
+      };
+      box.onblur = hide;
+    }
+    if ("ResizeObserver" in window) {
+      let w = box.clientWidth, raf = 0;
+      new ResizeObserver(() => {
+        if (!drawn || box.clientWidth === w) return;
+        w = box.clientWidth; cancelAnimationFrame(raf); raf = requestAnimationFrame(draw);
+      }).observe(box);
+    }
+    return { draw, replay: () => { animate = !reduced; draw(); } };
+  }
+
+  // ---------- France Grid Forecast: one week of hourly forecasts, week chosen by the reader ----------
+  (function () {
+    const on = { a: true, m: true, r: true, n: true };
+    let idx = [];
+    const weeksBox = $("fgfWeeks"), legend = $("fgfLegend");
+    function setWeek(k) {
+      const start = mondays[k], end = addDays(start, 6);
+      idx = []; dayOf.forEach((d, i) => { if (d >= start && d <= end) idx.push(i); });
+      weeksBox.querySelectorAll("button").forEach((b, j) => b.setAttribute("aria-pressed", String(j === k)));
+      legend.querySelectorAll("button").forEach((b) => {
+        const v = b.dataset.k === "a" ? null : mape(idx, b.dataset.k);
+        b.querySelector(".val").textContent = v == null ? "" : v.toFixed(1) + " % error";
+      });
+    }
+    mondays.forEach((d, k) => {
+      const b = html("button", { type: "button", "aria-pressed": "false" }, weeksBox, utcLabel(d, { day: "numeric", month: "short" }));
+      b.setAttribute("aria-label", "Week of " + b.textContent);
+      b.addEventListener("click", () => { setWeek(k); chart.replay(); });
+    });
+    SER.forEach((s) => {
+      const b = html("button", { type: "button", "aria-pressed": "true", "data-k": s.k }, legend);
+      html("i", { class: "key k-" + s.cls, "aria-hidden": "true" }, b);
+      html("span", {}, b, s.name);
+      b.appendChild(document.createTextNode(" "));
+      html("span", { class: "val" }, b);
+      b.addEventListener("click", () => {
+        if (on[s.k] && Object.values(on).filter(Boolean).length === 1) return;
+        on[s.k] = !on[s.k]; b.setAttribute("aria-pressed", String(on[s.k])); chart.draw();
+      });
+    });
+    setWeek(mondays.length - 1);
+    const chart = lineChart({
+      box: $("fgfPlot"), live: $("fgfLive"), page: 24,
+      height: (W) => W < 520 ? 230 : 300,
+      n: () => idx.length,
+      series: () => SER.map((s) => Object.assign({}, s, { on: on[s.k], v: (i) => { const x = D[s.k][idx[i]]; return x == null ? null : x / 10; } })),
+      domain: () => {
+        let lo = Infinity, hi = -Infinity;
+        idx.forEach((i) => SER.forEach((s) => { const v = D[s.k][i]; if (v != null) { lo = Math.min(lo, v / 10); hi = Math.max(hi, v / 10); } }));
+        const step = hi - lo > 24 ? 10 : 5;
+        return [Math.floor(lo / step) * step, Math.ceil(hi / step) * step, step];
+      },
+      yFmt: (v) => v + " GW",
+      vFmt: (v) => v.toFixed(1) + " GW",
+      title: (i) => fmtDay.format(time(idx[i])) + ", " + fmtHour.format(time(idx[i])),
+      xTicks: (W, n) => {
+        const t = [];
+        idx.forEach((i, j) => { if (j === 0 || dayOf[i] !== dayOf[idx[j - 1]]) t.push([j, fmtDay.format(time(i)).split(" ").slice(0, W < 560 ? 1 : 2).join(" ")]); });
+        return t.filter((x) => x[0] < n - 10);
+      },
+    });
+    onVisible($("fgfFig"), () => chart.draw());
+  })();
+
+  // ---------- France Grid Forecast: daily errors as a table ----------
+  (function () {
+    const t = html("table", {}, $("fgfTable"));
+    const hr = html("tr", {}, html("thead", {}, t));
+    ["Day", "My forecast", "RTE", "Naive"].forEach((h) => html("th", { scope: "col" }, hr, h));
+    const tb = html("tbody", {}, t);
+    for (let d = days[0]; d <= days[days.length - 1]; d = addDays(d, 1)) {
+      const h = hoursOf[d] || [], full = h.length >= 23 && h.every((i) => D.a[i] != null);
+      const r = html("tr", {}, tb);
+      html("td", {}, r, utcLabel(d, { weekday: "short", day: "numeric", month: "short" }));
+      ["m", "r", "n"].forEach((k) => html("td", {}, r, full ? mape(h, k).toFixed(1) + " %" : "run missed"));
+    }
+  })();
+
+  // ---------- dot plots ----------
+  function slideDots(box) {
+    const go = () => box.querySelectorAll(".dot[data-x]").forEach((d) => { d.style.left = d.dataset.x; });
+    if (reduced) go(); else onVisible(box, () => setTimeout(go, 150), 0.4);
+  }
+  (function () { // LoL Ratings: share of games called correctly
+    const box = $("lolDots"), lo = 58, hi = 67;
+    const p = (v) => ((v - lo) / (hi - lo) * 100).toFixed(2) + "%";
+    [
+      { label: "Kills, deaths and assists (KDA)", v: 60.3, c: "n" },
+      { label: "Elo per team, updated after every game", v: 63.8, c: "r" },
+      { label: "Elo per player, updated after every game", v: 63.8, c: "r" },
+      { label: "LoL Ratings 3.0, retrained monthly", v: 65.4, c: "m" },
+    ].forEach((r, j) => {
+      html("span", { class: "lab" }, box, r.label);
+      const trk = html("span", { class: "trk" }, box);
+      const d = html("span", { class: "dot d-" + r.c }, trk);
+      d.style.left = p(lo); d.style.setProperty("--d", (j * 0.12).toFixed(2) + "s"); d.dataset.x = p(r.v);
+      html("span", { class: "num" }, box, r.v.toFixed(1) + " %");
+    });
+    html("span", { class: "fill" }, box);
+    const ax = html("span", { class: "ax" }, box);
+    [58, 60, 62, 64, 66].forEach((t) => { const s = html("span", {}, ax, t + " %"); s.style.left = p(t); });
+    slideDots(box);
+  })();
+  (function () { // NLP: baseline vs embeddings
+    const box = $("nlpDots");
+    [{ label: "Accuracy", a: 0.52, b: 0.54, lo: 0.40, hi: 0.60, f: (v) => Math.round(v * 100) + " %" },
+     { label: "Macro F1", a: 0.43, b: 0.46, lo: 0.30, hi: 0.50, f: (v) => v.toFixed(2) }].forEach((r, j) => {
+      const p = (v) => ((v - r.lo) / (r.hi - r.lo) * 100).toFixed(2) + "%";
+      html("span", { class: "lab" }, box, r.label);
+      const trk = html("span", { class: "trk" }, box);
+      const ln = html("span", { class: "link grow" }, trk);
+      ln.style.left = p(r.a); ln.style.width = `calc(${p(r.b)} - ${p(r.a)})`; ln.style.setProperty("--d", ".6s");
+      const d0 = html("span", { class: "dot d-n" }, trk); d0.style.left = p(r.a);
+      const d = html("span", { class: "dot d-m" }, trk);
+      d.style.left = p(r.a); d.style.setProperty("--d", (0.2 + j * 0.15) + "s"); d.dataset.x = p(r.b);
+      html("span", { class: "num" }, box, r.f(r.a) + " → " + r.f(r.b));
+      html("span", { class: "fill" }, box);
+      const ax = html("span", { class: "ax" }, box);
+      [r.lo, (r.lo + r.hi) / 2, r.hi].forEach((t) => { const s = html("span", {}, ax, r.f(t)); s.style.left = p(t); });
+      html("span", { class: "fill" }, box);
+    });
+    slideDots(box);
+  })();
+
+  // ---------- waffle: 88 sacks, 36 with the chipping player open ----------
+  (function () {
+    const box = $("waffle");
+    for (let i = 0; i < 88; i++) {
+      const c = html("span", i < 36 ? { class: "on" } : {}, box);
+      if (i < 36) c.style.setProperty("--d", (i * 0.03).toFixed(2) + "s");
+    }
+    if (reduced) box.classList.add("in"); else onVisible(box, () => box.classList.add("in"), 0.4);
+  })();
+
+  // ---------- CERTAM pipeline: frames travel through the stages a few times (under 5 s), then stop ----------
+  (function () {
+    const pipe = $("pipe");
+    const run = () => { pipe.classList.remove("run"); void pipe.offsetWidth; pipe.classList.add("run"); };
+    $("pipeReplay").addEventListener("click", run);
+    if (reduced) $("pipeReplay").hidden = true; else onVisible(pipe, run, 0.5);
+  })();
+
+  // ---------- timeline: positions from the month strings ----------
+  (function () {
+    const from = Date.UTC(2022, 8, 1), to = Date.UTC(2027, 8, 1);
+    const pct = (y, m) => (Date.UTC(y, m, 1) - from) / (to - from) * 100;
+    document.querySelectorAll("#timeline .tl-seg").forEach((seg, j) => {
+      const [y1, m1] = seg.dataset.from.split("-").map(Number), [y2, m2] = seg.dataset.to.split("-").map(Number);
+      const a = pct(y1, m1 - 1), b = pct(y2, m2);
+      seg.style.left = a + "%"; seg.style.width = Math.max(1, b - a) + "%";
+      seg.style.setProperty("--d", (j * 0.12) + "s");
+    });
+    const axis = $("tlAxis");
+    for (let y = 2023; y <= 2027; y++) { const s = html("span", {}, axis, String(y)); s.style.left = pct(y, 0) + "%"; }
+    document.querySelectorAll("#timeline .tl-track").forEach((t, i) => {
+      const l = html("span", { class: "tl-today", "aria-hidden": "true" }, t);
+      l.style.left = pct(2026, 10) + "%";
+      if (i === 0) html("span", {}, l, "Nov 2026");
+    });
+  })();
+
+  // ---------- skills: which projects on this page use it ----------
+  (function () {
+    const out = $("skillOut"), btns = document.querySelectorAll(".sk");
+    btns.forEach((b) => b.addEventListener("click", () => {
+      const was = b.getAttribute("aria-pressed") === "true";
+      btns.forEach((x) => x.setAttribute("aria-pressed", "false"));
+      document.querySelectorAll(".hl").forEach((e) => e.classList.remove("hl"));
+      out.textContent = "";
+      if (was) return;
+      b.setAttribute("aria-pressed", "true");
+      html("strong", {}, out, b.textContent + ": ");
+      const ids = b.dataset.use.split(" ");
+      ids.forEach((id, j) => {
+        const el = document.querySelector(`[data-id="${id}"]`);
+        if (!el) return;
+        if (!el.id) el.id = id;
+        el.classList.add("hl");
+        html("a", { href: "#" + el.id }, out, el.querySelector("h3, h4").textContent.trim());
+        out.appendChild(document.createTextNode(j < ids.length - 1 ? ", " : "."));
+      });
+    }));
+  })();
+})();
 </script>
 </body>
 </html>
