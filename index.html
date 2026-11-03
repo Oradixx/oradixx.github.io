@@ -1,1152 +1,306 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Clément Vurpillot — Data & ML Engineering</title>
-<meta name="description" content="Clément Vurpillot — final-year Data & AI engineering student at ESILV. Data pipelines, ML systems, MLOps. Looking for an internship or VIE from February 2027.">
-<meta property="og:title" content="Clément Vurpillot — Data & ML Engineering">
-<meta property="og:description" content="Data pipelines, ML systems, MLOps. Open to internships & VIE from February 2027.">
+<title>Clément Vurpillot, data and AI engineering student</title>
+<meta name="description" content="Final-year data and AI engineering student at ESILV, Paris. Looking for a 6-month internship or VIE from February 2027. Projects with their code and measured results.">
+<meta property="og:title" content="Clément Vurpillot, data and AI engineering student">
+<meta property="og:description" content="Looking for a 6-month internship or VIE from February 2027. Projects with their code and measured results.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://oradixx.github.io/">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230f766e'/%3E%3Cpath d='M5 19h5l3-8 4 12 3-7h7' fill='none' stroke='white' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231c1b19'/%3E%3Ctext x='16' y='22' font-family='Georgia,serif' font-size='16' font-weight='700' fill='white' text-anchor='middle'%3ECV%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400;600&amp;display=swap" rel="stylesheet">
+<script>
+  // apply a theme chosen earlier on this browser before the first paint
+  try {
+    const saved = localStorage.getItem("theme");
+    if (saved === "light" || saved === "dark") document.documentElement.dataset.theme = saved;
+  } catch (e) {}
+</script>
 <style>
   :root {
-    --bg: #f6f5f1;
-    --surface: #ffffff;
-    --ink: #15181d;
-    --muted: #5a606b;
-    --line: #e2e0d8;
-    --accent: #0f766e;
-    --accent-soft: #0f766e14;
-    --signal-1: #0f766e;
-    --signal-2: #c2410c;
-    --signal-3: #4f46e5;
-    --shadow: 0 1px 2px #0000000a, 0 8px 24px #0000000d;
+    --bg: #fbfaf7;
+    --ink: #1c1b19;
+    --muted: #5d5b56;
+    --line: #e3e0d8;
+    --link: #1d5c96;
     color-scheme: light;
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --bg: #0d1015;
-      --surface: #141920;
-      --ink: #e7e9ec;
-      --muted: #9aa2ad;
-      --line: #242b34;
-      --accent: #2dd4bf;
-      --accent-soft: #2dd4bf1a;
-      --signal-1: #2dd4bf;
-      --signal-2: #fb923c;
-      --signal-3: #a5b4fc;
-      --shadow: 0 1px 2px #00000040, 0 8px 24px #00000040;
+      --bg: #151514;
+      --ink: #ebe8e2;
+      --muted: #a8a49b;
+      --line: #33312d;
+      --link: #8db7e6;
       color-scheme: dark;
     }
   }
   :root[data-theme="dark"] {
-    --bg: #0d1015;
-    --surface: #141920;
-    --ink: #e7e9ec;
-    --muted: #9aa2ad;
-    --line: #242b34;
-    --accent: #2dd4bf;
-    --accent-soft: #2dd4bf1a;
-    --signal-1: #2dd4bf;
-    --signal-2: #fb923c;
-    --signal-3: #a5b4fc;
-    --shadow: 0 1px 2px #00000040, 0 8px 24px #00000040;
+    --bg: #151514;
+    --ink: #ebe8e2;
+    --muted: #a8a49b;
+    --line: #33312d;
+    --link: #8db7e6;
     color-scheme: dark;
   }
 
   * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
   body {
     margin: 0;
     background: var(--bg);
     color: var(--ink);
-    font: 400 17px/1.6 "Space Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
-    -webkit-font-smoothing: antialiased;
+    font: 400 18px/1.6 "Source Serif 4", Georgia, "Times New Roman", serif;
   }
-  a { color: inherit; }
-  .mono { font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace; }
-  .wrap { max-width: 980px; margin: 0 auto; padding: 0 24px; }
-  @media (max-width: 600px) { .wrap { padding: 0 16px; } body { font-size: 16px; } }
+  .page { max-width: 42rem; margin: 0 auto; padding: 0 24px; }
+  @media (max-width: 600px) { body { font-size: 17px; } .page { padding: 0 16px; } }
 
-  /* ---------- header ---------- */
+  a { color: var(--link); text-decoration-thickness: 1px; text-underline-offset: .18em; }
+  a:hover { text-decoration-thickness: 2px; }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  .skip { position: absolute; left: -9999px; }
+  .skip:focus { left: 16px; top: 8px; padding: 4px 8px; background: var(--bg); }
+
   header.top {
-    position: sticky; top: 0; z-index: 10;
-    background: color-mix(in srgb, var(--bg) 85%, transparent);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--line);
+    display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between;
+    gap: 8px 24px; padding: 20px 0; border-bottom: 1px solid var(--line);
   }
-  .top .wrap { display: flex; align-items: center; justify-content: space-between; height: 60px; gap: 16px; }
-  .brand { font-weight: 600; text-decoration: none; letter-spacing: -0.01em; white-space: nowrap; }
-  .brand span { color: var(--accent); }
-  nav { display: flex; align-items: center; gap: 22px; font-size: 15px; }
-  nav a { text-decoration: none; color: var(--muted); }
-  nav a:hover { color: var(--ink); }
-  @media (max-width: 680px) { nav a.hide-sm { display: none; } }
+  .home { font-weight: 600; color: var(--ink); text-decoration: none; }
+  nav ul { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 18px; margin: 0; padding: 0; list-style: none; font-size: 16px; }
   .theme-btn {
-    display: grid; place-items: center; width: 36px; height: 36px;
-    border-radius: 10px; border: 1px solid var(--line); background: var(--surface);
-    color: var(--ink); cursor: pointer;
-  }
-  .theme-btn svg { width: 18px; height: 18px; }
-
-  /* ---------- hero ---------- */
-  .hero { padding-top: 72px; padding-bottom: 40px; }
-  .eyebrow { font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin: 0 0 18px; }
-  h1 {
-    font-size: clamp(40px, 7vw, 68px); line-height: 1.02; letter-spacing: -0.035em;
-    margin: 0 0 22px; font-weight: 700;
-  }
-  .lead { font-size: clamp(18px, 2.3vw, 21px); color: var(--muted); max-width: 640px; margin: 0 0 28px; }
-  .lead strong { color: var(--ink); font-weight: 500; }
-  .status {
-    display: inline-flex; align-items: center; gap: 10px;
-    padding: 8px 14px; border-radius: 999px;
-    background: var(--accent-soft); color: var(--accent);
-    font-size: 14px; font-weight: 500; margin-bottom: 28px;
-  }
-  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); position: relative; flex: none; }
-  .dot::after {
-    content: ""; position: absolute; inset: -4px; border-radius: 50%;
-    border: 2px solid var(--accent); opacity: 0; animation: ping 2s ease-out infinite;
-  }
-  @keyframes ping { 0% { transform: scale(.6); opacity: .7; } 100% { transform: scale(1.8); opacity: 0; } }
-  .actions { display: flex; flex-wrap: wrap; gap: 12px; }
-  .btn {
-    display: inline-flex; align-items: center; gap: 8px;
-    padding: 11px 18px; border-radius: 12px; text-decoration: none;
-    font-weight: 500; font-size: 15px; border: 1px solid var(--line);
-    background: var(--surface); transition: transform .15s ease, border-color .15s ease;
-  }
-  .btn:hover { transform: translateY(-1px); border-color: var(--muted); }
-  .btn.primary { background: var(--ink); color: var(--bg); border-color: var(--ink); }
-  .btn svg { width: 17px; height: 17px; }
-
-  /* ---------- CERTAM illustration: voxel telemetry scene (a night scene in both themes, like an embedded video) ---------- */
-  .voxel { grid-column: 1 / -1; margin: 6px 0 0; }
-  .vx-stage {
-    --vx-night: #0c1a28; --vx-panel: rgba(11, 25, 39, .76); --vx-line: rgba(150, 190, 212, .22);
-    --vx-ink: #e7eef1; --vx-muted: #8ea5b4; --vx-data: #5fe0cf; --vx-signal: #ff7a33;
-    position: relative; height: clamp(300px, 44vw, 420px); overflow: hidden;
-    border-radius: 12px; background: var(--vx-night); color: var(--vx-ink);
-  }
-  .vx-stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; outline: none; }
-  .vx-hud { position: absolute; pointer-events: none; font-size: 11px; }
-  .vx-read {
-    top: 12px; left: 12px; display: grid; gap: 4px; min-width: 190px;
-    padding: 9px 11px; background: var(--vx-panel); border: 1px solid var(--vx-line); border-radius: 6px;
-  }
-  .vx-read .vx-vessel { margin-top: 4px; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--vx-data); }
-  .vx-read .vx-vessel:first-child { margin-top: 0; }
-  .vx-read .vx-vessel.rescue { color: var(--vx-signal); }
-  .vx-row { display: flex; justify-content: space-between; gap: 14px; color: var(--vx-muted); white-space: nowrap; }
-  .vx-row b { font-weight: 500; color: var(--vx-ink); font-variant-numeric: tabular-nums; }
-  .vx-pill { padding: 0 6px; border: 1px solid var(--vx-data); border-radius: 3px; color: var(--vx-data); font-size: 10px; text-transform: uppercase; letter-spacing: .06em; }
-  .vx-pill.alert { background: var(--vx-signal); border-color: var(--vx-signal); color: var(--vx-night); }
-  .vx-bottom { left: 12px; right: 12px; bottom: 12px; display: flex; gap: 10px; align-items: flex-end; justify-content: space-between; }
-  .vx-chain { display: flex; align-items: center; gap: 5px; overflow-x: auto; min-width: 0; scrollbar-width: none; pointer-events: auto; }
-  .vx-chain::-webkit-scrollbar { display: none; }
-  .vx-step { flex: none; padding: 5px 8px; background: var(--vx-panel); border: 1px solid var(--vx-line); border-radius: 5px; white-space: nowrap; color: var(--vx-ink); }
-  .vx-step.on { animation: vxping 1s ease-out; }
-  @keyframes vxping { 0% { background: var(--vx-data); border-color: var(--vx-data); color: var(--vx-night); } 100% { background: var(--vx-panel); border-color: var(--vx-line); color: var(--vx-ink); } }
-  .vx-arrow { flex: none; color: var(--vx-muted); }
-  .vx-ctl { flex: none; display: flex; align-items: center; gap: 10px; pointer-events: auto; }
-  .vx-hint { color: var(--vx-muted); }
-  .vx-btn {
-    font: 500 11px "JetBrains Mono", ui-monospace, Menlo, monospace; padding: 6px 10px; cursor: pointer;
-    background: var(--vx-panel); color: var(--vx-ink); border: 1px solid var(--vx-line); border-radius: 5px;
-  }
-  .vx-btn:hover { border-color: var(--vx-muted); }
-  .vx-btn:focus-visible { outline: 2px solid var(--vx-data); outline-offset: 2px; }
-  .vx-fallback { inset: 0; display: grid; place-items: center; padding: 16px; text-align: center; color: var(--vx-muted); }
-  .voxel figcaption { margin-top: 8px; font-size: 12px; color: var(--muted); }
-  @media (max-width: 680px) {
-    .vx-stage { height: 340px; }
-    .vx-read { left: 12px; right: 12px; min-width: 0; display: flex; flex-wrap: wrap; gap: 4px 16px; }
-    .vx-read .vx-vessel, .vx-read .vx-hide-sm, .vx-hint { display: none; }
-    .vx-bottom { flex-direction: column; align-items: stretch; }
-    .vx-ctl { justify-content: flex-end; }
+    font: inherit; font-size: 15px; color: var(--ink); cursor: pointer;
+    background: none; border: 1px solid var(--line); border-radius: 6px; padding: 1px 10px;
   }
 
-  /* ---------- sections ---------- */
-  section { padding: 56px 0; border-top: 1px solid var(--line); scroll-margin-top: 60px; }
-  .sec-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 28px; }
-  .sec-head .idx { font-size: 13px; color: var(--accent); }
-  h2 { font-size: 28px; letter-spacing: -0.02em; margin: 0; font-weight: 600; }
-  h3 { font-size: 19px; margin: 0; font-weight: 600; letter-spacing: -0.01em; }
+  h1 { font-size: clamp(34px, 6vw, 46px); line-height: 1.1; font-weight: 600; margin: 56px 0 18px; }
+  h2 { font-size: 27px; line-height: 1.25; font-weight: 600; margin: 0 0 20px; }
+  h3 { font-size: 20px; line-height: 1.3; font-weight: 600; margin: 0; }
+  .lead { font-size: clamp(20px, 2.6vw, 23px); line-height: 1.45; margin: 0 0 18px; }
+  p { margin: 0 0 12px; }
+  ul { margin: 0 0 12px; padding-left: 1.2em; }
+  li { margin: 6px 0; }
 
-  /* experience */
-  .xp { display: grid; gap: 18px; }
-  .xp-item {
-    display: grid; grid-template-columns: 170px 1fr; gap: 20px;
-    padding: 22px; border: 1px solid var(--line); border-radius: 16px; background: var(--surface);
-  }
-  @media (max-width: 680px) { .xp-item { grid-template-columns: 1fr; gap: 8px; } }
-  .when { font-size: 13px; color: var(--muted); padding-top: 3px; }
-  .org { color: var(--muted); font-size: 15px; margin: 2px 0 10px; }
-  ul.points { margin: 0; padding-left: 18px; color: var(--muted); }
-  ul.points li { margin: 5px 0; }
-  ul.points li::marker { color: var(--accent); }
-  .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
-  .tag {
-    font-size: 12px; padding: 3px 9px; border-radius: 7px;
-    background: var(--bg); border: 1px solid var(--line); color: var(--muted);
-  }
+  section { border-top: 1px solid var(--line); margin-top: 48px; padding-top: 40px; }
+  article { margin-bottom: 36px; }
+  .meta { color: var(--muted); font-size: 16px; margin: 2px 0 10px; }
+  .stack { color: var(--muted); font-size: 16px; }
+  .intro { color: var(--muted); margin-top: -8px; }
+  .others li { margin: 14px 0; }
+  h3.group { font-size: 18px; margin: 28px 0 4px; }
+  dl { margin: 0; }
+  dt { font-weight: 600; }
+  dd { margin: 0 0 14px; }
 
-  /* projects */
-  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
-  .card {
-    display: flex; flex-direction: column; gap: 10px;
-    padding: 22px; border: 1px solid var(--line); border-radius: 16px;
-    background: var(--surface); text-decoration: none;
-    transition: transform .15s ease, border-color .15s ease, box-shadow .15s ease;
-  }
-  a.card:hover { transform: translateY(-2px); border-color: var(--accent); box-shadow: var(--shadow); }
-  .card p { margin: 0; color: var(--muted); font-size: 15px; flex: 1; }
-  .card .kind { font-size: 12px; color: var(--accent); }
-  .card.soon { background: transparent; border-style: dashed; }
-  .card.soon .kind { color: var(--muted); }
-  .card .go { font-size: 13px; color: var(--muted); }
-  .card .go a { text-decoration: none; }
-  .card .go a:hover { color: var(--accent); }
-  .card .tags { margin-top: 4px; }
-
-  /* ideas */
-  .sec-lead { color: var(--muted); margin: -12px 0 20px; max-width: 640px; }
-  .filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
-  .filters button {
-    font: inherit; font-size: 13px; padding: 5px 12px; border-radius: 999px; cursor: pointer;
-    border: 1px solid var(--line); background: transparent; color: var(--muted);
-    transition: color .15s ease, border-color .15s ease, background-color .15s ease;
-  }
-  .filters button:hover { color: var(--ink); border-color: var(--muted); }
-  .filters button[aria-pressed="true"] { color: var(--accent); border-color: var(--accent); background: var(--accent-soft); }
-  .ideas { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
-  .idea { display: grid; grid-template-columns: 110px 1fr; gap: 18px; padding: 20px 0; border-bottom: 1px solid var(--line); }
-  .idea[hidden] { display: none; }
-  .idea h3 { font-size: 18px; margin: 0 0 6px; text-wrap: balance; }
-  .idea p { margin: 0; color: var(--muted); font-size: 15px; max-width: 760px; text-wrap: pretty; }
-  .idea .tags { margin-top: 10px; }
-  .idea .kind-tag { background: transparent; border-style: dashed; }
-  .idea-status { font-size: 12px; padding-top: 4px; color: var(--muted); }
-  .idea-status::before { content: ""; display: inline-block; width: 7px; height: 7px; border-radius: 50%; margin-right: 7px; vertical-align: 1px; background: var(--muted); }
-  .idea-status.s-next { color: var(--accent); }
-  .idea-status.s-next::before { background: var(--accent); }
-  .idea-status.s-exploring::before { background: var(--signal-2); }
-  .idea-status.s-later::before { background: transparent; border: 1px solid var(--muted); }
-  @media (max-width: 600px) { .idea { grid-template-columns: 1fr; gap: 6px; } }
-
-  /* skills */
-  .skills { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 24px; }
-  .skills h3 { font-size: 13px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); font-weight: 500; margin-bottom: 12px; }
-
-  /* education */
-  .edu { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
-  .edu .card p { flex: none; }
-
-  /* footer */
-  footer { border-top: 1px solid var(--line); padding: 56px 0 64px; }
-  .contact { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 24px; }
-  .contact h2 { font-size: clamp(26px, 4vw, 36px); max-width: 560px; }
-  .small { font-size: 13px; color: var(--muted); margin-top: 40px; }
-
-  @media (prefers-reduced-motion: reduce) {
-    html { scroll-behavior: auto; }
-    .dot::after { animation: none; }
-    .btn, .card, .filters button { transition: none; }
-    .vx-step.on { animation: none; }
-  }
+  footer { border-top: 1px solid var(--line); margin-top: 56px; padding: 36px 0 56px; }
+  .fine { color: var(--muted); font-size: 15px; margin-top: 28px; }
 </style>
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="page">
 
 <header class="top">
-  <div class="wrap">
-    <a class="brand mono" href="#">clement<span>.</span>vurpillot</a>
-    <nav aria-label="Main">
-      <a class="hide-sm" href="#experience">Experience</a>
-      <a class="hide-sm" href="#projects">Projects</a>
-      <a class="hide-sm" href="#ideas">Ideas</a>
-      <a class="hide-sm" href="#education">Education</a>
-      <a href="#contact">Contact</a>
-      <button class="theme-btn" id="themeBtn" type="button" aria-label="Toggle dark mode">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
-      </button>
-    </nav>
-  </div>
+  <a class="home" href="#main">Clément Vurpillot</a>
+  <nav aria-label="Main">
+    <ul>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#ideas">Ideas</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><button class="theme-btn" id="themeBtn" type="button">Dark</button></li>
+    </ul>
+  </nav>
 </header>
 
-<main>
-  <div class="wrap hero">
-    <p class="eyebrow mono">Data &amp; ML Engineering · ESILV, class of 2027</p>
-    <h1>Clément Vurpillot</h1>
-    <p class="lead">
-      I build <strong>data pipelines and ML systems end to end</strong> — from raw sensor frames to
-      databases, dashboards and models in production.
-    </p>
-    <div class="status"><span class="dot" aria-hidden="true"></span>Open to a 6-month internship or VIE · from February 2027</div>
-    <div class="actions">
-      <a class="btn primary" href="https://github.com/Oradixx">
-        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.56-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5z"/></svg>
-        GitHub
-      </a>
-      <a class="btn" href="https://www.linkedin.com/in/clement-vurpillot/">
-        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
-        LinkedIn
-      </a>
-      <a class="btn" href="Clement_Vurpillot_CV.pdf" download>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
-        Download CV
-      </a>
-    </div>
-  </div>
+<main id="main">
+  <h1>Clément Vurpillot</h1>
+  <p class="lead">I build data pipelines and machine learning models, and I don't trust a result until it beats a simple baseline on data it hasn't seen.</p>
+  <p>Final-year student in data and AI engineering at ESILV, Paris. I'm looking for a 6-month internship or a VIE starting in February 2027.</p>
+  <p><a href="https://github.com/Oradixx">GitHub</a> · <a href="https://www.linkedin.com/in/clement-vurpillot/">LinkedIn</a> · <a href="Clement_Vurpillot_CV.pdf" download>CV (PDF, one page)</a></p>
 
-  <section id="experience">
-    <div class="wrap">
-      <div class="sec-head"><span class="idx mono">01</span><h2>Experience</h2></div>
-      <div class="xp">
-        <article class="xp-item">
-          <div class="when mono">Apr – Aug 2026<br>Rouen, France</div>
-          <div>
-            <h3>Data &amp; AI Engineering Intern</h3>
-            <p class="org">CERTAM — applied research centre (engines, energy, emissions)</p>
-            <ul class="points">
-              <li>Built an end-to-end IoT ingestion pipeline for 1&nbsp;Hz vessel telemetry: J1939 CAN bus → AWS S3 (Parquet) → async Python → PostgreSQL / TimescaleDB.</li>
-              <li>Cut dashboard load time from 3 hours to 30 seconds by moving computation into materialised views.</li>
-              <li>Trained a Random Forest reconstructing particulate readings during sensor failure (R² up to 0.96), interpreted with SHAP.</li>
-              <li>Deployed a Streamlit app and real-time Grafana alerting on a hardened Linux VPS; the pressure-drop alert caught a filter clogging before engine failure.</li>
-            </ul>
-            <div class="tags mono">
-              <span class="tag">Python asyncio</span><span class="tag">TimescaleDB</span><span class="tag">AWS S3</span><span class="tag">Grafana</span><span class="tag">Random Forest · SHAP</span><span class="tag">Nginx</span>
-            </div>
-          </div>
-          <figure class="voxel" id="voxel">
-            <div class="vx-stage">
-              <canvas id="vxCanvas" role="img" aria-label="Animated voxel scene: a tugboat and a lifeboat on a moving sea send glowing data frames to a server rack and a monitoring screen on an islet with a lighthouse."></canvas>
-              <div class="vx-hud vx-read mono" aria-hidden="true">
-                <span class="vx-vessel">Tugboat</span>
-                <span class="vx-row">rpm <b id="vxRpm">1480</b></span>
-                <span class="vx-row vx-hide-sm">coolant <b><span id="vxCool">82.0</span> °C</b></span>
-                <span class="vx-vessel rescue">Lifeboat</span>
-                <span class="vx-row">filter ΔP <b><span id="vxDp">21.0</span> kPa</b></span>
-                <span class="vx-row vx-hide-sm">status <span id="vxState" class="vx-pill">nominal</span></span>
-                <span class="vx-row">frames in <b id="vxFrames">0</b></span>
-              </div>
-              <div class="vx-hud vx-bottom mono">
-                <div class="vx-chain" aria-label="Data path">
-                  <span class="vx-step">J1939 CAN bus</span><span class="vx-arrow" aria-hidden="true">→</span>
-                  <span class="vx-step">AWS S3 · Parquet</span><span class="vx-arrow" aria-hidden="true">→</span>
-                  <span class="vx-step">async Python</span><span class="vx-arrow" aria-hidden="true">→</span>
-                  <span class="vx-step">TimescaleDB</span><span class="vx-arrow" aria-hidden="true">→</span>
-                  <span class="vx-step">Grafana · Streamlit</span>
-                </div>
-                <div class="vx-ctl">
-                  <span class="vx-hint" id="vxHint" hidden>drag to rotate</span>
-                  <button class="vx-btn" id="vxPlay" type="button">Pause</button>
-                </div>
-              </div>
-            </div>
-            <figcaption class="mono">Illustration of the pipeline above · values are synthetic. Each glowing voxel is a telemetry frame; the screen's bars are the aggregated readings.</figcaption>
-          </figure>
-        </article>
-        <article class="xp-item">
-          <div class="when mono">Jul – Oct 2024<br>Aug 2025 · Paris</div>
-          <div>
-            <h3>Data Labeling &amp; Quality Supervisor</h3>
-            <p class="org">Diduenjoy — internship, then freelance</p>
-            <ul class="points">
-              <li>Supervised a team of 5 interns under a contractual 72-hour SLA, with weekly quality audits.</li>
-              <li>Labelled customer verbatims against business taxonomies and evaluated production NLP models (precision / recall).</li>
-            </ul>
-          </div>
-        </article>
-      </div>
-    </div>
-  </section>
+  <section id="experience" aria-labelledby="experience-h">
+    <h2 id="experience-h">Experience</h2>
 
-  <section id="projects">
-    <div class="wrap">
-      <div class="sec-head"><span class="idx mono">02</span><h2>Projects</h2></div>
-      <div class="grid">
-        <a class="card" href="https://oradixx.github.io/france-grid-forecast/">
-          <span class="kind mono">data engineering · mlops · open data</span>
-          <h3>France Grid Forecast</h3>
-          <p>Forecasts tomorrow's French electricity consumption hour by hour, every day, and scores it against RTE's official forecast. GitHub Actions pipeline: incremental extraction of RTE and weather data to Parquet, dbt on DuckDB with data tests that block bad data, gradient boosting behind a weekly quality gate, immutable forecast log, live dashboard. Over its first 10 live days: 1.2 % hourly error, level with RTE (1.2 %) and ahead of a naive baseline (1.3 %).</p>
-          <div class="tags mono"><span class="tag">dbt</span><span class="tag">DuckDB</span><span class="tag">scikit-learn</span><span class="tag">GitHub Actions</span><span class="tag">Parquet</span></div>
-          <span class="go mono">dashboard →</span>
-        </a>
-        <a class="card" href="https://github.com/alvaro-serero/nfl-aws-hackathon">
-          <span class="kind mono">sports analytics · hackathon by AWS, the NFL and Epitech, 2nd place · team of 3</span>
-          <h3>Chip Advisor: NFL Big Data Bowl</h3>
-          <p>Does a tight end or running back who "chips" a pass rusher before running his route really protect the quarterback? Measured on NFL Next Gen Stats tracking and PFF scouting data: the chipped rusher's pressure drops by 26 % with a TE lined up inline, but sacks are not avoided, because the pressure then comes from another defender. The player who chipped was open on 36 of the 88 sacks with a chip, hence the advice to the QB coach: look for him around 3 seconds. Delivered as a small web tool with an LLM-written coach briefing, built with Kiro, AWS's agentic IDE. Limits stated up front: 8 weeks of 2021, play call unknown.</p>
-          <div class="tags mono"><span class="tag">Python</span><span class="tag">pandas</span><span class="tag">NGS tracking</span><span class="tag">Kiro (AWS)</span><span class="tag">Mistral</span><span class="tag">Vercel</span></div>
-          <span class="go mono">github →</span>
-        </a>
-        <a class="card" href="https://oradixx.github.io/LoL-ratings/">
-          <span class="kind mono">sports analytics · statistics · esports</span>
-          <h3>LoL Ratings 3.0</h3>
-          <p>Who is the best pro League of Legends player once you remove his team, his champion and his league? A player rating built version by version on 19,000+ pro games (2025–2026): ridge regression on game results (RAPM), league levels linked through international events and transfers, and a stats prior learned per role. Tested out of sample on the 2026 season: 65 % of games called correctly, ahead of an Elo updated after every game. Interactive explorer by tier, region, league and team.</p>
-          <div class="tags mono"><span class="tag">pandas</span><span class="tag">SciPy</span><span class="tag">scikit-learn</span><span class="tag">ridge / RAPM</span><span class="tag">GitHub Pages</span></div>
-          <span class="go mono">page →</span>
-        </a>
-        <a class="card" href="https://github.com/Oradixx/CryptoIndexLab">
-          <span class="kind mono">mlops · team of 3</span>
-          <h3>CryptoIndexLab</h3>
-          <p>Containerised microservices to build and track custom crypto indexes: two FastAPI services (JWT auth, index management), 2 replicas each behind an Nginx gateway and load balancer, one PostgreSQL per service on isolated Docker networks. Hardened images and a Trivy scan gate in CI; demoed on AWS, runs in one click on GitHub Codespaces.</p>
-          <div class="tags mono"><span class="tag">FastAPI</span><span class="tag">Docker</span><span class="tag">PostgreSQL</span><span class="tag">Nginx</span><span class="tag">Trivy</span></div>
-          <span class="go mono">github →</span>
-        </a>
-        <a class="card" href="https://github.com/Oradixx/insurance-reviews-nlp">
-          <span class="kind mono">nlp · llm · team of 2</span>
-          <h3>NLP analysis of 24k insurance reviews</h3>
-          <p>TF-IDF baseline vs pre-trained embeddings for rating prediction, LDA topics, Word2Vec and semantic search. A Streamlit app adds zero-shot topic detection and RAG answers, moved from Flan-T5 to a local Llama 3, which hallucinated less. The baseline is now served: MLflow tracking, a quality gate, FastAPI in Docker, tested in CI.</p>
-          <div class="tags mono"><span class="tag">Hugging Face</span><span class="tag">PyTorch</span><span class="tag">Llama 3</span><span class="tag">RAG</span><span class="tag">MLflow</span><span class="tag">FastAPI</span></div>
-          <span class="go mono">github →</span>
-        </a>
-        <a class="card" href="https://github.com/Oradixx/tripadvisor-recommender">
-          <span class="kind mono">information retrieval · nlp · team of 2</span>
-          <h3>TripAdvisor recommender</h3>
-          <p>Recommends a similar place (hotel, restaurant, attraction) from its reviews only, judged against metadata the models never see. BM25 rewritten as one sparse matrix product (same scores as rank_bm25, 0.6 s instead of 77 s), TF-IDF, LSA and rank fusion, chosen on validation and re-checked on 20 random splits. Finding: the reliable gain comes from tokenization, not from a fancier model.</p>
-          <div class="tags mono"><span class="tag">BM25</span><span class="tag">scikit-learn</span><span class="tag">SciPy</span><span class="tag">pytest</span><span class="tag">GitHub Actions</span></div>
-          <span class="go mono">github →</span>
-        </a>
-        <a class="card" href="https://github.com/Oradixx/movielens-nosql">
-          <span class="kind mono">nosql · team of 3</span>
-          <h3>MovieLens in Cassandra and Neo4j</h3>
-          <p>One million ratings modelled twice: query-first tables in Cassandra with a Java aggregate, then a property graph in Neo4j for collaborative filtering, APOC path expansion and shortest paths. Found and documented a key collision that silently merged 2,847 ratings. CI runs every script end to end on a synthetic sample.</p>
-          <div class="tags mono"><span class="tag">Cassandra</span><span class="tag">Neo4j · Cypher</span><span class="tag">Docker Compose</span></div>
-          <span class="go mono">github →</span>
-        </a>
-        <a class="card" href="https://github.com/Oradixx/data-pipeline-template">
-          <span class="kind mono">data engineering · open source</span>
-          <h3>data-pipeline-template</h3>
-          <p>Async Python ingestion into TimescaleDB with Grafana dashboards. SQL migrations, continuous aggregates, integration-tested CI and a one-command Docker Compose stack.</p>
-          <span class="go mono">github →</span>
-        </a>
-        <a class="card" href="https://oradixx.github.io/data-interview-prep/">
-          <span class="kind mono">web app · open source</span>
-          <h3>Data Interview Prep</h3>
-          <p>118 interview questions on data engineering, MLOps, DevOps and LLMs: multiple choice and put-the-steps-in-order exercises, each answer explained. Static site, validated content, unit-tested logic.</p>
-          <span class="go mono">try it →</span>
-        </a>
-        <a class="card" href="https://oradixx.github.io/data-plumber/">
-          <span class="kind mono">game · open source</span>
-          <h3>Data Plumber</h3>
-          <p>A casual game about data pipelines, in three chapters: sort rows by hand, automate the checks with pipeline stations whose order matters, then keep a live three-lane factory within its SLA. Pure game logic under 70 unit tests; an exhaustive solver proves the final boss has exactly one solution.</p>
-          <span class="go mono">play →</span>
-        </a>
-        <a class="card" href="https://github.com/Oradixx/Car_Price_Prediction_Project">
-          <span class="kind mono">machine learning · team of 3</span>
-          <h3>Used car price prediction</h3>
-          <p>Craigslist dataset from Kaggle: cleaning, feature engineering, model comparison up to LightGBM (R² ≈ 0.82).</p>
-          <span class="go mono">github →</span>
-        </a>
-        <a class="card" href="https://github.com/Oradixx/Packet_Sniffer_Rust">
-          <span class="kind mono">systems · rust · team of 2</span>
-          <h3>Packet sniffer in Rust</h3>
-          <p>Command-line network sniffer on libpcap: live capture with BPF filters, decoding of Ethernet, IPv4/IPv6, TCP, UDP, ICMP and ARP, hex dump. Decoding logic unit-tested on hand-built packets; CI with clippy and rustfmt.</p>
-          <div class="tags mono"><span class="tag">Rust</span><span class="tag">libpcap</span><span class="tag">TCP/IP</span></div>
-          <span class="go mono">github →</span>
-        </a>
-        <div class="card">
-          <span class="kind mono">devops · scrum team of 3</span>
-          <h3>Full-stack MERN app, complete DevOps chain</h3>
-          <p>From BRD / SRS / SDD and UML to frontend, run in Scrum on Jira (PO / SM / Dev roles), with unit and integration tests behind an 80% coverage gate in CI/CD.</p>
-          <div class="tags mono"><span class="tag">Node.js</span><span class="tag">React</span><span class="tag">MongoDB</span><span class="tag">GitHub Actions</span></div>
-        </div>
-        <div class="card">
-          <span class="kind mono">tooling · open source</span>
-          <h3>Project templates</h3>
-          <p>How I start projects: uv, Ruff, strict mypy, pytest, pre-commit, multi-stage Docker and CI — for Python services and for publishing coursework.</p>
-          <span class="go mono"><a href="https://github.com/Oradixx/python-project-template">python →</a> &nbsp; <a href="https://github.com/Oradixx/course-project-template">coursework →</a></span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="ideas">
-    <div class="wrap">
-      <div class="sec-head"><span class="idx mono">03</span><h2>Ideas I want to build</h2></div>
-      <p class="sec-lead">Projects I have scoped and want to see through, from the next one to the someday ones.</p>
-      <div class="filters mono" role="group" aria-label="Filter ideas by status">
-        <button type="button" aria-pressed="true" data-filter="all">all</button>
-        <button type="button" aria-pressed="false" data-filter="next">next up</button>
-        <button type="button" aria-pressed="false" data-filter="exploring">exploring</button>
-        <button type="button" aria-pressed="false" data-filter="later">later</button>
-      </div>
-      <ul class="ideas">
-        <li class="idea" data-status="next">
-          <span class="idea-status mono s-next">next up</span>
-          <div>
-            <h3>localcascade</h3>
-            <p>Free local AI as a cascade: rules in code first, then a small calibrated decision model, then a local LLM, and a human only for what is left. Each stage is measured for quality, calibration, latency and memory, and the decision models are benchmarked on my own labelled data. First use case: watching VIE job offers. Published as a library.</p>
-            <div class="tags mono"><span class="tag">local LLM</span><span class="tag">calibration</span><span class="tag">PyPI</span><span class="tag">Docker</span><span class="tag kind-tag">local ai · open source</span></div>
-          </div>
-        </li>
-        <li class="idea" data-status="next">
-          <span class="idea-status mono s-next">next up</span>
-          <div>
-            <h3>Decision-model routing for LLMRouter</h3>
-            <p>A plugin for the open-source LLMRouter that routes each request with the same kind of small decision model, once localcascade has shown it works.</p>
-            <div class="tags mono"><span class="tag">LLM routing</span><span class="tag">Python</span><span class="tag kind-tag">open source contribution</span></div>
-          </div>
-        </li>
-        <li class="idea" data-status="next">
-          <span class="idea-status mono s-next">next up</span>
-          <div>
-            <h3>Sentiment analysis, RNN → SLM</h3>
-            <p>A recurrent network written from scratch in NumPy, then a 0.5B-parameter language model used as a few-shot classifier, compared on the same data.</p>
-            <div class="tags mono"><span class="tag">NumPy</span><span class="tag">Hugging Face</span><span class="tag kind-tag">nlp · deep learning</span></div>
-          </div>
-        </li>
-        <li class="idea" data-status="next">
-          <span class="idea-status mono s-next">next up</span>
-          <div>
-            <h3>Car price model in production</h3>
-            <p>From notebook to service: experiment tracking, a FastAPI endpoint, CI/CD and drift monitoring.</p>
-            <div class="tags mono"><span class="tag">experiment tracking</span><span class="tag">FastAPI</span><span class="tag">CI/CD</span><span class="tag kind-tag">mlops</span></div>
-          </div>
-        </li>
-        <li class="idea" data-status="exploring">
-          <span class="idea-status mono s-exploring">exploring</span>
-          <div>
-            <h3>Social benefits pre-check</h3>
-            <p>Describe your situation in your own words; a local model extracts the facts that matter, asks when it is unsure, and OpenFisca computes the entitlements with the official rules. Aimed at non-take-up of benefits. Runs fully on device, tested on synthetic cases.</p>
-            <div class="tags mono"><span class="tag">OpenFisca</span><span class="tag">local LLM</span><span class="tag kind-tag">public interest · local ai</span></div>
-          </div>
-        </li>
-        <li class="idea" data-status="exploring">
-          <span class="idea-status mono s-exploring">exploring</span>
-          <div>
-            <h3>Public consultation triage</h3>
-            <p>Sort contributions to public consultations by position and theme and detect near-duplicates, on open data such as the Grand débat national.</p>
-            <div class="tags mono"><span class="tag">text classification</span><span class="tag">deduplication</span><span class="tag kind-tag">open data · nlp</span></div>
-          </div>
-        </li>
-        <li class="idea" data-status="exploring">
-          <span class="idea-status mono s-exploring">exploring</span>
-          <div>
-            <h3>Alt text checker</h3>
-            <p>Check whether an image's alternative text actually describes the image, to catch empty or misleading alt texts on a website.</p>
-            <div class="tags mono"><span class="tag">vision-language model</span><span class="tag kind-tag">accessibility</span></div>
-          </div>
-        </li>
-        <li class="idea" data-status="exploring">
-          <span class="idea-status mono s-exploring">exploring</span>
-          <div>
-            <h3>A guide to the right tool for each need</h3>
-            <p>Decision trees rather than a directory: for each common need, 3 to 6 real options with strengths, weaknesses, price, licence and a "verified on" date. Data in YAML, site generated from it, dead links and stale entries flagged by CI.</p>
-            <div class="tags mono"><span class="tag">YAML</span><span class="tag">static site</span><span class="tag">GitHub Actions</span><span class="tag kind-tag">web · data</span></div>
-          </div>
-        </li>
-        <li class="idea" data-status="later">
-          <span class="idea-status mono s-later">later</span>
-          <div>
-            <h3>Pharmacovigilance report pre-triage</h3>
-            <p>Validity, seriousness and routing of adverse event reports, prototyped on the public FAERS database. A real use would need a partner.</p>
-            <div class="tags mono"><span class="tag">NLP</span><span class="tag">FAERS</span><span class="tag kind-tag">health data</span></div>
-          </div>
-        </li>
-        <li class="idea" data-status="later">
-          <span class="idea-status mono s-later">later</span>
-          <div>
-            <h3>Self-hosted agent</h3>
-            <p>A sandboxed agent on a home server, reachable from a messaging app, with read-only access to my job-offer watch. Waiting for the agents part of my LLM course.</p>
-            <div class="tags mono"><span class="tag">agents</span><span class="tag">Linux</span><span class="tag kind-tag">self-hosting</span></div>
-          </div>
-        </li>
-        <li class="idea" data-status="later">
-          <span class="idea-status mono s-later">later</span>
-          <div>
-            <h3>Settings bench for Windows games on Mac</h3>
-            <p>Try combinations of compatibility-layer settings automatically, measure start-up, crashes and frame rate, and keep the best configuration.</p>
-            <div class="tags mono"><span class="tag">automation</span><span class="tag">benchmarking</span><span class="tag kind-tag">tooling · macOS</span></div>
-          </div>
-        </li>
-        <li class="idea" data-status="later">
-          <span class="idea-status mono s-later">later</span>
-          <div>
-            <h3>AI-assisted reverse engineering</h3>
-            <p>An exercise with Claude Code and a Ghidra MCP server on a small old game I own.</p>
-            <div class="tags mono"><span class="tag">Ghidra</span><span class="tag">MCP</span><span class="tag kind-tag">learning</span></div>
-          </div>
-        </li>
+    <article>
+      <h3>Data and AI engineering intern, CERTAM</h3>
+      <p class="meta">Rouen, April–August 2026. CERTAM is an applied research centre that tests engines and their emissions.</p>
+      <ul>
+        <li>Built the ingestion pipeline for vessel telemetry sampled at 1&nbsp;Hz. Data read on the J1939 CAN bus is stored in AWS S3 as Parquet, then loaded into PostgreSQL with TimescaleDB by async Python code.</li>
+        <li>Trained a Random Forest that rebuilds particulate readings when the sensor fails (R² up to 0.96), explained it with SHAP and presented it to the test engineers.</li>
+        <li>Moved slow dashboard queries into SQL materialised views. The dashboard now loads in 30 seconds; it used to take 3 hours.</li>
+        <li>Deployed a Streamlit app and real-time Grafana alerting on a hardened Linux VPS. The pressure-drop alert caught a clogging filter before the engine failed.</li>
       </ul>
-    </div>
+    </article>
+
+    <article>
+      <h3>Data labelling and quality supervisor, Diduenjoy</h3>
+      <p class="meta">Paris. Internship in July–October 2024, freelance again in August 2025.</p>
+      <ul>
+        <li>Supervised a team of 5 interns working under a 72-hour SLA, and ran weekly data quality audits.</li>
+        <li>Labelled customer verbatims against business taxonomies and measured the precision and recall of the NLP models in production.</li>
+      </ul>
+    </article>
   </section>
 
-  <section id="skills">
-    <div class="wrap">
-      <div class="sec-head"><span class="idx mono">04</span><h2>Toolbox</h2></div>
-      <div class="skills">
-        <div>
-          <h3>Languages</h3>
-          <div class="tags mono"><span class="tag">Python</span><span class="tag">SQL</span><span class="tag">JavaScript / Node.js</span><span class="tag">Java</span><span class="tag">Rust</span><span class="tag">CQL · Cypher</span></div>
-        </div>
-        <div>
-          <h3>Data</h3>
-          <div class="tags mono"><span class="tag">PostgreSQL</span><span class="tag">TimescaleDB</span><span class="tag">PySpark</span><span class="tag">MongoDB</span><span class="tag">Cassandra</span><span class="tag">Neo4j</span><span class="tag">Elasticsearch</span><span class="tag">Parquet</span><span class="tag">dbt</span><span class="tag">DuckDB</span></div>
-        </div>
-        <div>
-          <h3>ML / AI</h3>
-          <div class="tags mono"><span class="tag">scikit-learn</span><span class="tag">TensorFlow</span><span class="tag">Hugging Face</span><span class="tag">BERT · LLMs · RAG</span><span class="tag">SHAP · LIME</span></div>
-        </div>
-        <div>
-          <h3>Cloud &amp; MLOps</h3>
-          <div class="tags mono"><span class="tag">Docker</span><span class="tag">Kubernetes (GKE)</span><span class="tag">AWS</span><span class="tag">GCP</span><span class="tag">GitHub Actions</span><span class="tag">FastAPI</span><span class="tag">MLflow</span><span class="tag">Nginx</span><span class="tag">Grafana</span></div>
-        </div>
-      </div>
-    </div>
+  <section id="projects" aria-labelledby="projects-h">
+    <h2 id="projects-h">Projects</h2>
+
+    <article>
+      <h3><a href="https://oradixx.github.io/france-grid-forecast/">France Grid Forecast</a></h3>
+      <p class="meta">Personal project. Its first live forecast was for 27 September 2026. <a href="https://github.com/Oradixx/france-grid-forecast">Code</a></p>
+      <p>Every day a GitHub Actions job forecasts France's electricity consumption for each hour of the next day, then scores the past forecasts against what was really consumed. RTE and weather data are stored as Parquet; dbt on DuckDB runs 19 data tests, and a failing test stops the run before anything is published. The gradient boosting model is retrained each week and replaces the current one only if it beats the naive baseline by at least 25&nbsp;% on the last 8 weeks.</p>
+      <p>Live results, 27 September – 1 November 2026 (35 days scored, one run missed): 2.1&nbsp;% mean hourly error. RTE's own forecast scores 1.5&nbsp;%, and the naive baseline (same hour last week) 4.2&nbsp;%.</p>
+      <p class="stack">Stack: dbt, DuckDB, scikit-learn, GitHub Actions, Parquet.</p>
+    </article>
+
+    <article>
+      <h3><a href="https://oradixx.github.io/LoL-ratings/">LoL Ratings 3.0</a></h3>
+      <p class="meta">Personal project, 2026. The write-up is in French. <a href="https://github.com/Oradixx/LoL-ratings">Code</a></p>
+      <p>A rating of professional League of Legends players that accounts for the strength of their teammates and of their league. It is a ridge regression on each game's final gold difference (RAPM), with league levels linked through international events and transfers, and a box-score prior learned per role. I built it on the 10,044 pro games of 2025, then tested it on the 2026 season, retrained each month: it called 65.4&nbsp;% of 8,566 games correctly, against 63.8&nbsp;% for an Elo rating updated after every game.</p>
+      <p class="stack">Stack: pandas, SciPy, scikit-learn, GitHub Actions, GitHub Pages.</p>
+    </article>
+
+    <article>
+      <h3><a href="https://github.com/alvaro-serero/nfl-chip-advisor">Chip Advisor</a></h3>
+      <p class="meta">NFL Big Data Bowl Paris Side Quest, a hackathon by AWS, the NFL and Epitech, October 2026. 2nd place, team of 3. The repository is hosted by a teammate.</p>
+      <p>When a tight end or a running back "chips" a pass rusher before running his route, does it protect the quarterback? On NFL Next Gen Stats tracking and PFF data for weeks 1–8 of 2021, a chip by an in-line tight end cut that rusher's pressure by 26&nbsp;%. Sacks still happen, because the pressure then comes from another defender. On 36 of the 88 sacks with a chip, the player who chipped was open, so our advice to the QB coach is to look for him at about 3 seconds. We delivered it as a small web tool with a coach briefing written by Mistral, built with Kiro, AWS's agentic IDE.</p>
+      <p class="stack">Stack: Python, pandas, Mistral API, Kiro, Vercel.</p>
+    </article>
+
+    <article>
+      <h3><a href="https://github.com/Oradixx/insurance-reviews-nlp">NLP on 24,000 insurance reviews</a></h3>
+      <p class="meta">School project (NLP course, ESILV), March 2026, team of 2. The serving part was added in September 2026.</p>
+      <p>Predicting the star rating of French insurance reviews: a TF-IDF and logistic regression baseline reaches 52&nbsp;% accuracy, MiniLM embeddings with a small PyTorch classifier 54&nbsp;%. The Streamlit app adds zero-shot topic detection and RAG answers; we replaced Flan-T5 with Llama 3 running locally because Flan-T5 hallucinated more in our tests. After the course, the baseline became a FastAPI service in Docker, tested in CI: training runs are tracked in MLflow, and a model below 0.40 macro F1 is never saved.</p>
+      <p class="stack">Stack: Hugging Face, PyTorch, Llama 3 (Ollama), MLflow, FastAPI, Docker.</p>
+    </article>
+
+    <article>
+      <h3><a href="https://github.com/Oradixx/CryptoIndexLab">CryptoIndexLab</a></h3>
+      <p class="meta">School project (containerisation course, ESILV), March 2026, team of 3.</p>
+      <p>A web app to build and track custom crypto indexes, run as containers. Two FastAPI services (accounts with JWT, index management) run 2 replicas each behind an Nginx gateway that balances the load, and each service has its own PostgreSQL on a separate Docker network. CI builds hardened images and fails on any Trivy finding of medium severity or above. We demoed it on AWS Lightsail, and it opens in one click in GitHub Codespaces. My part was the Nginx gateway and load balancer, and the networking between the APIs and their databases.</p>
+      <p class="stack">Stack: FastAPI, PostgreSQL, Docker Compose, Nginx, Trivy.</p>
+    </article>
+
+    <article>
+      <h3><a href="https://github.com/Oradixx/tripadvisor-recommender">TripAdvisor recommender</a></h3>
+      <p class="meta">School project (information retrieval course, ESILV), March 2026, team of 2. Reworked in September 2026.</p>
+      <p>Given a place on TripAdvisor, recommends a similar one using only the reviews. The metadata is hidden from the models and only used to judge the answer. BM25 is rewritten as one sparse matrix product (same scores as rank_bm25, 0.6&nbsp;s instead of 77&nbsp;s), which made it cheap to re-check every model on 20 random splits. The reliable gain came from better tokenization, not from a more complex model.</p>
+      <p class="stack">Stack: scikit-learn, SciPy, pytest, GitHub Actions.</p>
+    </article>
+
+    <article>
+      <h3><a href="https://github.com/Oradixx/movielens-nosql">MovieLens in Cassandra and Neo4j</a></h3>
+      <p class="meta">School project (NoSQL course, ESILV), March–April 2026, team of 3.</p>
+      <p>The 1,000,209 ratings of MovieLens 1M modelled twice. In Cassandra, one table per query, plus a Java aggregate because <code>AVG</code> on an integer column returns an integer. In Neo4j, a graph for collaborative filtering and for path queries with APOC and <code>shortestPath()</code>. We found a key collision that silently merged 2,847 ratings: users are identified by name, and some names are shared. CI rebuilds both databases from a synthetic sample and checks the query results.</p>
+      <p class="stack">Stack: Cassandra, Neo4j (Cypher), Docker Compose, Python.</p>
+    </article>
+
+    <h3>Smaller projects</h3>
+    <ul class="others">
+      <li><a href="https://github.com/Oradixx/data-pipeline-template">data-pipeline-template</a>: async Python ingestion into TimescaleDB with a Grafana dashboard, versioned SQL migrations, a continuous aggregate and integration tests in CI. One command (<code>make up</code>) starts the whole Docker Compose stack.</li>
+      <li><a href="https://oradixx.github.io/data-interview-prep/">Data Interview Prep</a>: 118 practice questions for data engineering, MLOps, DevOps and LLM interviews, each answer explained. A static site with unit tests.</li>
+      <li><a href="https://oradixx.github.io/data-plumber/">Data Plumber</a>: a browser game about data pipelines. The game logic is covered by 70 unit tests, and an exhaustive solver checks that the final boss puzzle has exactly one solution.</li>
+      <li><a href="https://github.com/Oradixx/Car_Price_Prediction_Project">Used car prices</a>: Craigslist listings from Kaggle; the best model is LightGBM, with R² ≈ 0.82. School project, team of 3.</li>
+      <li><a href="https://github.com/Oradixx/Packet_Sniffer_Rust">Packet sniffer in Rust</a>: live capture on libpcap with BPF filters, decoding of Ethernet, IPv4/IPv6, TCP, UDP, ICMP and ARP. Decoding is unit-tested on hand-built packets. Team of 2.</li>
+      <li>Full-stack MERN app: built in a Scrum team of 3 on Jira, starting from specification documents and UML, with an 80&nbsp;% test coverage gate in CI. No public repository.</li>
+      <li>Project templates for <a href="https://github.com/Oradixx/python-project-template">Python services</a> and for <a href="https://github.com/Oradixx/course-project-template">coursework</a>: uv, Ruff, strict mypy, pytest, pre-commit, a multi-stage Dockerfile and CI.</li>
+    </ul>
   </section>
 
-  <section id="education">
-    <div class="wrap">
-      <div class="sec-head"><span class="idx mono">05</span><h2>Education</h2></div>
-      <div class="edu">
-        <div class="card">
-          <span class="kind mono">2022 – 2027</span>
-          <h3>ESILV — Engineering degree</h3>
-          <p>CTI-accredited engineering degree (Master&rsquo;s level, 300 ECTS), Paris La Défense. Data &amp; AI major: deep learning, MLOps, NoSQL, NLP, explainable AI, Big Data (Spark), LLMs.</p>
-        </div>
-        <div class="card">
-          <span class="kind mono">Jan – Jun 2025</span>
-          <h3>Riga Technical University</h3>
-          <p>Exchange semester in Latvia — advanced data science and AI courses, taught in English.</p>
-        </div>
-        <div class="card">
-          <span class="kind mono">languages &amp; certifications</span>
-          <h3>French · English · German</h3>
-          <p>Native · C1 (TOEFL ITP 633/677) · A2. Certified in Scrum &amp; agile methods; IBM Data Fundamentals.</p>
-        </div>
-      </div>
-    </div>
+  <section id="ideas" aria-labelledby="ideas-h">
+    <h2 id="ideas-h">Ideas I want to build</h2>
+    <p class="intro">Projects I have scoped but not built yet, grouped by when I expect to start them.</p>
+
+    <h3 class="group">Next</h3>
+    <ul class="others">
+      <li><strong>localcascade.</strong> Free local AI as a cascade: rules in code first, then a small calibrated decision model, then a local LLM, and a human only for what is left. Each stage is measured for quality, calibration, latency and memory, on my own labelled data. First use: watching VIE job offers. Published as a Python library.</li>
+      <li><strong>Decision-model routing for LLMRouter.</strong> A plugin for the open-source LLMRouter that routes each request with the same kind of small decision model, once localcascade has shown it works.</li>
+      <li><strong>Sentiment analysis with an RNN and a small language model.</strong> A recurrent network written in NumPy, compared on the same data with a 0.5B-parameter language model used as a few-shot classifier.</li>
+      <li><strong>Car price model in production.</strong> Serve the used car model with experiment tracking, a FastAPI endpoint, CI/CD and drift monitoring.</li>
+    </ul>
+
+    <h3 class="group">Exploring</h3>
+    <ul class="others">
+      <li><strong>Social benefits pre-check.</strong> You describe your situation in your own words; a local model extracts the facts that matter and asks when it is unsure, and OpenFisca computes the entitlements with the official rules. Aimed at people who do not claim benefits they are owed. Runs on the device, tested on synthetic cases.</li>
+      <li><strong>Public consultation triage.</strong> Sort contributions to public consultations by position and theme and find near-duplicates, on open data such as the Grand débat national.</li>
+      <li><strong>Alt text checker.</strong> Check with a vision-language model whether an image's alternative text describes the image, to catch empty or misleading alt texts on a website.</li>
+      <li><strong>A guide to the right tool for each need.</strong> Decision trees rather than a directory: for each common need, 3 to 6 real options with their strengths, weaknesses, price, licence and the date they were checked. Data in YAML, a site generated from it, and CI that flags dead links and stale entries.</li>
+    </ul>
+
+    <h3 class="group">Later</h3>
+    <ul class="others">
+      <li><strong>Pharmacovigilance pre-triage.</strong> Check whether adverse event reports are valid and serious before a person reads them, prototyped on the public FAERS database. A real use would need a partner.</li>
+      <li><strong>Self-hosted agent.</strong> A sandboxed agent on a home server, reachable from a messaging app, with read-only access to my job-offer watch. Waiting for the agents part of my LLM course.</li>
+      <li><strong>Settings bench for Windows games on Mac.</strong> Try combinations of compatibility-layer settings automatically, measure crashes and frame rate, and keep the best configuration.</li>
+      <li><strong>AI-assisted reverse engineering.</strong> An exercise with Claude Code and a Ghidra MCP server on a small old game I own.</li>
+    </ul>
+  </section>
+
+  <section id="skills" aria-labelledby="skills-h">
+    <h2 id="skills-h">Skills</h2>
+    <dl>
+      <dt>Languages</dt>
+      <dd>Python (pandas, NumPy), SQL, JavaScript and Node.js, Java, Rust, CQL, Cypher.</dd>
+      <dt>Data</dt>
+      <dd>PostgreSQL, TimescaleDB, DuckDB, dbt, Apache Spark (PySpark), Parquet, MongoDB, Cassandra, Neo4j, Elasticsearch.</dd>
+      <dt>Machine learning and AI</dt>
+      <dd>scikit-learn, TensorFlow, Hugging Face, BERT, LLMs and RAG, SHAP, LIME.</dd>
+      <dt>Cloud and MLOps</dt>
+      <dd>Docker, Kubernetes (GKE), AWS (S3, Lightsail), GCP, GitHub Actions, FastAPI, MLflow, Nginx, Grafana, Linux, Git.</dd>
+    </dl>
+  </section>
+
+  <section id="education" aria-labelledby="education-h">
+    <h2 id="education-h">Education</h2>
+    <article>
+      <h3>ESILV, engineering degree, Data and AI major</h3>
+      <p class="meta">Paris La Défense, 2022–2027.</p>
+      <p>CTI-accredited engineering degree (Master's level, 300 ECTS). Courses include deep learning, MLOps, NLP, LLMs and generative AI, Big Data with Spark, NoSQL databases and data mining.</p>
+    </article>
+    <article>
+      <h3>Riga Technical University, exchange semester</h3>
+      <p class="meta">Latvia, January–June 2025.</p>
+      <p>Data science and AI courses, taught in English.</p>
+    </article>
+    <article>
+      <h3>Languages and certifications</h3>
+      <p>French (native), English C1 (TOEFL ITP 633/677), German A2. Certified in Scrum and agile methods, and in IBM Data Fundamentals.</p>
+    </article>
   </section>
 </main>
 
-<footer id="contact">
-  <div class="wrap">
-    <div class="contact">
-      <h2>Building a data or ML platform? I'd love to help, from February 2027.</h2>
-      <div class="actions">
-        <a class="btn primary" href="https://www.linkedin.com/in/clement-vurpillot/">Message me on LinkedIn</a>
-        <a class="btn" href="https://github.com/Oradixx">GitHub</a>
-        <a class="btn" href="Clement_Vurpillot_CV.pdf" download>Download CV (PDF)</a>
-      </div>
-    </div>
-    <p class="small mono">© 2026 Clément Vurpillot · hosted on GitHub Pages</p>
-  </div>
+<footer id="contact" aria-labelledby="contact-h">
+  <h2 id="contact-h">Contact</h2>
+  <p>I'm looking for a 6-month internship or a VIE from February 2027, in data engineering, MLOps, machine learning, AI engineering or data science. LinkedIn is the quickest way to reach me.</p>
+  <p><a href="https://www.linkedin.com/in/clement-vurpillot/">Message me on LinkedIn</a> · <a href="https://github.com/Oradixx">GitHub</a> · <a href="Clement_Vurpillot_CV.pdf" download>CV (PDF)</a></p>
+  <p class="fine">Last updated on 3 November 2026. Hosted on GitHub Pages.</p>
 </footer>
 
+</div>
 <script>
-  // ---------- ideas: filter by status ----------
-  (() => {
-    const buttons = document.querySelectorAll(".filters button");
-    const ideas = document.querySelectorAll(".idea");
-    buttons.forEach((b) => b.addEventListener("click", () => {
-      const f = b.dataset.filter;
-      buttons.forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
-      ideas.forEach((i) => { i.hidden = f !== "all" && i.dataset.status !== f; });
-    }));
-  })();
-  // ---------- theme toggle (remembered per browser when storage is available) ----------
+  // theme toggle: the button names the theme it switches to; the choice is kept per browser when storage is available
   (function () {
     const root = document.documentElement;
-    try {
-      const saved = localStorage.getItem("theme");
-      if (saved === "light" || saved === "dark") root.dataset.theme = saved;
-    } catch (e) {}
-    document.getElementById("themeBtn").addEventListener("click", function () {
-      const current = root.dataset.theme ||
-        (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
-      const next = current === "dark" ? "light" : "dark";
+    const btn = document.getElementById("themeBtn");
+    const current = () => root.dataset.theme || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    const label = () => {
+      const next = current() === "dark" ? "light" : "dark";
+      btn.textContent = next === "dark" ? "Dark" : "Light";
+      btn.setAttribute("aria-label", "Switch to the " + next + " theme");
+    };
+    label();
+    btn.addEventListener("click", function () {
+      const next = current() === "dark" ? "light" : "dark";
       root.dataset.theme = next;
       try { localStorage.setItem("theme", next); } catch (e) {}
+      label();
     });
-  })();
-
-  // ---------- CERTAM illustration: voxel telemetry scene (Three.js, loaded only when the card comes into view) ----------
-  (function () {
-    const fig = document.getElementById("voxel");
-    if (!fig) return;
-    const stage = fig.querySelector(".vx-stage");
-    const canvas = document.getElementById("vxCanvas");
-    const LIBS = [
-      "https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js",
-      "https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js",
-    ];
-    let visible = false, started = false;
-
-    function fallback(msg) {
-      const p = document.createElement("p");
-      p.className = "vx-hud vx-fallback mono"; p.textContent = msg;
-      stage.appendChild(p);
-    }
-    function loadScript(src) {
-      return new Promise((res, rej) => {
-        const s = document.createElement("script");
-        s.src = src; s.onload = res; s.onerror = rej; document.head.appendChild(s);
-      });
-    }
-    const io = new IntersectionObserver(entries => {
-      visible = entries[0].isIntersecting;
-      if (visible && !started) {
-        started = true;
-        LIBS.reduce((p, src) => p.then(() => loadScript(src)), Promise.resolve())
-          .then(init)
-          .catch(e => { console.error(e); fallback("The 3D scene could not be loaded."); });
-      }
-    }, { rootMargin: "300px 0px" });
-    io.observe(fig);
-
-    function init() {
-      let renderer;
-      try { renderer = new THREE.WebGLRenderer({ canvas, antialias: true }); }
-      catch (e) { fallback("WebGL is not available in this browser."); return; }
-
-      const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
-      const finePointer = matchMedia("(pointer: fine)").matches;
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
-
-      const BG = new THREE.Color("#0c1a28");
-      const scene = new THREE.Scene();
-      scene.background = BG;
-      scene.fog = new THREE.Fog(BG, 62, 135);
-
-      const camera = new THREE.PerspectiveCamera(38, 1, 0.1, 400);
-      const controls = new THREE.OrbitControls(camera, canvas);
-      controls.target.set(5, 3, -4);
-      controls.enableDamping = true; controls.dampingFactor = 0.06;
-      controls.enablePan = false;
-      controls.enableZoom = false;            // the wheel keeps scrolling the page
-      controls.enableRotate = finePointer;    // touch keeps scrolling the page on phones
-      if (!finePointer) canvas.style.touchAction = "pan-y";
-      controls.maxPolarAngle = 1.36;
-      controls.autoRotate = !reduced; controls.autoRotateSpeed = 0.45;
-      document.getElementById("vxHint").hidden = !finePointer;
-
-      scene.add(new THREE.HemisphereLight(0x9cc2df, 0x16222e, 0.85));
-      const key = new THREE.DirectionalLight(0xffc6a1, 0.8); key.position.set(40, 45, 30); scene.add(key);
-      const moonLight = new THREE.DirectionalLight(0x7fb0dc, 0.4); moonLight.position.set(-60, 40, -70); scene.add(moonLight);
-
-      const box = new THREE.BoxGeometry(1, 1, 1);
-      const dummy = new THREE.Object3D();
-      const tmpC = new THREE.Color();
-      function setM(mesh, i, x, y, z, s, sy) {
-        s = (s === undefined) ? 1 : s;
-        dummy.position.set(x, y, z); dummy.rotation.set(0, 0, 0);
-        dummy.scale.set(s, sy === undefined ? s : sy, s);
-        dummy.updateMatrix(); mesh.setMatrixAt(i, dummy.matrix);
-      }
-      function hash(x, z) { const s = Math.sin(x * 127.1 + z * 311.7) * 43758.5453; return s - Math.floor(s); }
-      function voxModel(parts, ox, oy, oz) {
-        const g = new THREE.Group();
-        parts.forEach(p => {
-          if (!p.v.length) return;
-          p.mat = p.glow ? new THREE.MeshBasicMaterial({ color: p.c }) : new THREE.MeshLambertMaterial({ color: p.c });
-          const m = new THREE.InstancedMesh(box, p.mat, p.v.length);
-          p.v.forEach((q, i) => setM(m, i, q[0] + ox, q[1] + oy, q[2] + oz, q[3] || 1));
-          g.add(m);
-        });
-        return g;
-      }
-
-      // sky: stars and a voxel moon
-      {
-        const n = 420, pos = new Float32Array(n * 3);
-        for (let i = 0; i < n; i++) {
-          const th = Math.random() * Math.PI * 2, ph = Math.random() * 1.2 + 0.08, r = 190;
-          pos[i * 3] = r * Math.cos(th) * Math.cos(ph); pos[i * 3 + 1] = r * Math.sin(ph); pos[i * 3 + 2] = r * Math.sin(th) * Math.cos(ph);
-        }
-        const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.BufferAttribute(pos, 3));
-        scene.add(new THREE.Points(g, new THREE.PointsMaterial({ color: 0xcfe0ff, size: 1.6, sizeAttenuation: false, fog: false, transparent: true, opacity: .75 })));
-        const moon = new THREE.Mesh(box, new THREE.MeshBasicMaterial({ color: 0xf2e6c6, fog: false }));
-        moon.scale.setScalar(7); moon.position.set(-110, 70, -130); moon.rotation.set(.4, .6, .2); scene.add(moon);
-      }
-
-      // islet
-      const IC = { x: 17.5, z: -14.5 };
-      function islandTop(x, z) {
-        const d = Math.hypot(x - IC.x, z - IC.z) + (hash(x, z) - .5) * 1.3;
-        if (d < 4.6) return 3; if (d < 6.2) return 2; if (d < 7.6) return 1; return null;
-      }
-      const N = 56, R = 27.2;
-      const cells = [];
-      const iv = { grass: [], scrub: [], sand: [], rock: [], deep: [] };
-      for (let i = 0; i < N; i++) for (let j = 0; j < N; j++) {
-        const x = i - N / 2 + .5, z = j - N / 2 + .5;
-        if (Math.hypot(x, z) > R) continue;
-        const top = islandTop(x, z);
-        if (top !== null) {
-          for (let y = -3; y <= top; y++) {
-            if (y === top) (top === 3 ? iv.grass : top === 2 ? iv.scrub : iv.sand).push([x, y, z]);
-            else (y < 0 ? iv.deep : iv.rock).push([x, y, z]);
-          }
-        }
-        if (top === null || top <= 1) cells.push({ x, z, beach: top === 1, j: (hash(z, x) - .5) * .1 });
-      }
-      scene.add(voxModel([
-        { c: "#5b7f57", v: iv.grass }, { c: "#76835f", v: iv.scrub }, { c: "#cdb88c", v: iv.sand },
-        { c: "#5c666e", v: iv.rock }, { c: "#3b4650", v: iv.deep },
-      ], 0, 0, 0));
-      function padUnder(list, x, z, toY) {
-        const t = islandTop(x, z); const from = (t === null ? -3 : t + 1);
-        for (let y = from; y <= toY; y++) list.push([x, y, z]);
-      }
-
-      // server rack (the database)
-      const rack = { body: [], cap: [], pad: [] };
-      [16.5, 17.5, 18.5].forEach(x => [-15.5, -14.5].forEach(z => {
-        padUnder(rack.pad, x, z, 3);
-        for (let y = 4; y <= 8; y++) rack.body.push([x, y, z]);
-        rack.cap.push([x, 9, z, .9]);
-      }));
-      rack.cap.push([17.5, 9.9, -15, .5], [17.5, 10.6, -15, .5]);
-      scene.add(voxModel([{ c: "#2b3641", v: rack.body }, { c: "#46525d", v: rack.cap }, { c: "#8a8f8d", v: rack.pad }], 0, 0, 0));
-      const RACK_IN = new THREE.Vector3(17.5, 11.2, -15);
-      const leds = [];
-      [16.5, 17.5, 18.5].forEach(x => { for (let y = 4; y <= 8; y++) { leds.push([x - .22, y, -13.93]); leds.push([x + .22, y, -13.93]); } });
-      const ledMesh = new THREE.InstancedMesh(box, new THREE.MeshBasicMaterial({ color: 0xffffff }), leds.length);
-      const LED_ON = new THREE.Color("#6dffd9"), LED_OFF = new THREE.Color("#1d4b47");
-      leds.forEach((p, i) => { setM(ledMesh, i, p[0], p[1], p[2], .2); ledMesh.setColorAt(i, LED_OFF); });
-      scene.add(ledMesh);
-
-      // lighthouse
-      const lh = { white: [], red: [], lamp: [], roof: [], base: [] };
-      [13.5, 14.5].forEach(x => [-17.5, -16.5].forEach(z => {
-        padUnder(lh.base, x, z, 2);
-        for (let y = 3; y <= 10; y++) (Math.floor((y - 3) / 2) % 2 ? lh.red : lh.white).push([x, y, z]);
-        lh.lamp.push([x, 11, z, .85]);
-        lh.roof.push([x, 12, z]);
-      }));
-      lh.roof.push([14, 13, -17, .8]);
-      scene.add(voxModel([{ c: "#ece6da", v: lh.white }, { c: "#c23a2b", v: lh.red }, { c: "#ffd98a", v: lh.lamp, glow: true },
-                          { c: "#2a3138", v: lh.roof }, { c: "#8a8f8d", v: lh.base }], 0, 0, 0));
-      const beamPivot = new THREE.Group(); beamPivot.position.set(14, 11, -17); scene.add(beamPivot);
-      {
-        const geo = new THREE.ConeGeometry(4.2, 38, 24, 1, true); geo.translate(0, -19, 0); geo.rotateZ(Math.PI / 2);
-        const mat = new THREE.MeshBasicMaterial({ color: 0xffdf9c, transparent: true, opacity: .11, blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide });
-        const b1 = new THREE.Mesh(geo, mat), b2 = new THREE.Mesh(geo, mat); b2.rotation.y = Math.PI;
-        beamPivot.add(b1, b2);
-      }
-
-      // monitoring screen
-      const screen = new THREE.Group();
-      screen.position.set(22, 7, -12); screen.rotation.y = Math.PI / 4;
-      const sp = { frame: [], inner: [], legs: [], led: [] };
-      for (let x = -4; x <= 4; x++) for (let y = 0; y <= 6; y++) {
-        if (Math.abs(x) === 4 || y === 0 || y === 6) sp.frame.push([x, y, 0]); else sp.inner.push([x, y, -.35]);
-      }
-      for (let y = -1; y >= -7; y--) { sp.legs.push([-3, y, 0, .6]); sp.legs.push([3, y, 0, .6]); }
-      sp.led.push([3.2, 6, .55, .3]);
-      const screenParts = [{ c: "#1c2732", v: sp.frame }, { c: "#0b1c29", v: sp.inner }, { c: "#3a444d", v: sp.legs }, { c: "#5fe0cf", v: sp.led, glow: true }];
-      screen.add(voxModel(screenParts, 0, 0, 0));
-      const frameMat = screenParts[0].mat, FRAME_C = new THREE.Color("#1c2732"), ALERT_C = new THREE.Color("#ff7a33");
-      const BARS = 7, BAR_H = 5;
-      const barMesh = new THREE.InstancedMesh(box, new THREE.MeshBasicMaterial({ color: 0xffffff }), BARS * BAR_H);
-      const BAR_C = new THREE.Color("#3fbfb1"), BAR_TOP = new THREE.Color("#a8fff2"), BAR_DIM = new THREE.Color("#13303a");
-      const barVals = [2, 3, 3, 4, 3, 2, 3];
-      for (let i = 0; i < BARS * BAR_H; i++) barMesh.setColorAt(i, BAR_DIM);
-      screen.add(barMesh);
-      scene.add(screen);
-      function drawBars() {
-        for (let b = 0; b < BARS; b++) {
-          const v = barVals[b];
-          for (let k = 0; k < BAR_H; k++) {
-            const i = b * BAR_H + k;
-            setM(barMesh, i, b - 3, k + 1, 0, .78);
-            barMesh.setColorAt(i, k < v ? (k === v - 1 ? BAR_TOP : BAR_C) : BAR_DIM);
-          }
-        }
-        barMesh.instanceMatrix.needsUpdate = true; barMesh.instanceColor.needsUpdate = true;
-      }
-      drawBars();
-      const SCREEN_IN = screen.localToWorld(new THREE.Vector3(0, 3, .6));
-
-      // tugboat
-      function buildTug() {
-        const P = { dark: [], hull: [], deck: [], rail: [], cabin: [], glass: [], roof: [], funnel: [], band: [], ftop: [], mast: [], ant: [], red: [], green: [] };
-        const L = 13, W = 6;
-        for (let x = 0; x < L; x++) {
-          const ins = x >= 12 ? 2 : x >= 10 ? 1 : 0, z0 = ins, z1 = W - 1 - ins;
-          for (let z = z0; z <= z1; z++) {
-            if (x >= 1 && x <= L - 2 && z > z0 && z < z1) P.dark.push([x, 0, z]);
-            P.hull.push([x, 1, z]);
-            const edge = (z === z0 || z === z1 || x === 0 || x === L - 1);
-            (edge ? P.hull : P.deck).push([x, 2, z]);
-            if (edge) P.rail.push([x, 2.78, z, .55]);
-          }
-        }
-        P.dark.push([13, 1, 2], [13, 1, 3], [13, 2, 2], [13, 2, 3]);
-        for (let z = 1; z <= 4; z++) P.dark.push([-1, 1.5, z, .8]);
-        [2, 5, 8].forEach(x => { P.dark.push([x, 1.6, -.6, .7]); P.dark.push([x, 1.6, 5.6, .7]); });
-        for (let x = 3; x <= 8; x++) for (let z = 1; z <= 4; z++) { P.cabin.push([x, 3, z]); P.cabin.push([x, 4, z]); }
-        for (let x = 5; x <= 8; x++) for (let z = 1; z <= 4; z++) {
-          P.cabin.push([x, 5, z]);
-          ((x === 5 || x === 8) && (z === 1 || z === 4) ? P.cabin : P.glass).push([x, 6, z]);
-        }
-        for (let x = 5; x <= 9; x++) for (let z = 0; z <= 5; z++) P.roof.push([x, 7, z]);
-        [3, 4].forEach(x => [2, 3].forEach(z => { P.funnel.push([x, 5, z]); P.band.push([x, 6, z]); P.funnel.push([x, 7, z]); P.ftop.push([x, 8, z]); }));
-        P.mast.push([7, 8, 2, .45], [7, 9, 2, .45], [7, 10, 2, .45]);
-        P.ant.push([7, 11, 2, .75]);
-        P.red.push([9, 7.75, 0, .45]); P.green.push([9, 7.75, 5, .45]);
-        return voxModel([
-          { c: "#1b2026", v: P.dark }, { c: "#c4351f", v: P.hull }, { c: "#7a5e48", v: P.deck }, { c: "#ece6da", v: P.rail },
-          { c: "#efe9de", v: P.cabin }, { c: "#24425e", v: P.glass }, { c: "#2b3138", v: P.roof }, { c: "#c4351f", v: P.funnel },
-          { c: "#ece6da", v: P.band }, { c: "#15191d", v: P.ftop }, { c: "#8d969c", v: P.mast }, { c: "#5fe0cf", v: P.ant, glow: true },
-          { c: "#ff4b3a", v: P.red, glow: true }, { c: "#49ff8b", v: P.green, glow: true },
-        ], -6.5, 0, -2.5);
-      }
-      const tug = buildTug(); scene.add(tug);
-      const TUG_ANT = new THREE.Vector3(.5, 11, -.5), TUG_FUNNEL = new THREE.Vector3(-3, 8.7, 0);
-
-      // lifeboat
-      function buildRescue() {
-        const P = { dark: [], navy: [], orange: [], deck: [], white: [], glass: [], mast: [], ant: [], blue: [] };
-        for (let x = 0; x <= 7; x++) {
-          const ins = x >= 7 ? 1 : 0, z0 = ins, z1 = 2 - ins;
-          for (let z = z0; z <= z1; z++) {
-            if (x >= 1 && x <= 6 && z === 1) P.dark.push([x, 0, z]);
-            P.navy.push([x, 1, z]);
-            const edge = (z === z0 || z === z1 || x === 0 || x === 7);
-            (edge ? P.orange : P.deck).push([x, 2, z]);
-          }
-        }
-        for (let x = 2; x <= 5; x++) for (let z = 0; z <= 2; z++) {
-          P.white.push([x, 3, z]);
-          ((x === 2 || x === 5) && (z === 0 || z === 2) ? P.white : P.glass).push([x, 4, z]);
-          P.orange.push([x, 5, z]);
-        }
-        P.mast.push([3, 6, 1, .45], [3, 7, 1, .45]);
-        P.ant.push([3, 8, 1, .6]);
-        P.blue.push([5, 5.7, 0, .4], [5, 5.7, 2, .4]);
-        return voxModel([
-          { c: "#141d2b", v: P.dark }, { c: "#1f3355", v: P.navy }, { c: "#ff6a1f", v: P.orange }, { c: "#c9ccc8", v: P.deck },
-          { c: "#f1ede4", v: P.white }, { c: "#24425e", v: P.glass }, { c: "#8d969c", v: P.mast }, { c: "#5fe0cf", v: P.ant, glow: true },
-          { c: "#4ea8ff", v: P.blue, glow: true },
-        ], -3.5, 0, -1);
-      }
-      const rescue = buildRescue(); scene.add(rescue);
-      const RESCUE_ANT = new THREE.Vector3(-.5, 8, 0), RESCUE_STERN = new THREE.Vector3(-4.2, .6, 0);
-      const ORBIT = { x: -12, z: 9, r: 6.5 };
-
-      // sea
-      function waveH(x, z, t) {
-        return 1.1 * Math.sin(x * .22 + t * 1.1) + .7 * Math.sin(z * .19 - t * .8 + x * .05) + .45 * Math.sin((x + z) * .37 + t * 1.6);
-      }
-      const sea = new THREE.InstancedMesh(box, new THREE.MeshLambertMaterial({ color: 0xffffff }), cells.length);
-      const seaCols = [new THREE.Color("#0f3049"), new THREE.Color("#164763"), new THREE.Color("#1f6283"), new THREE.Color("#2f84a3"), new THREE.Color("#8fcbd8")];
-      cells.forEach((c, i) => sea.setColorAt(i, seaCols[2]));
-      scene.add(sea);
-
-      // particles: funnel smoke, lifeboat wake, data frames
-      function pool(n, color) {
-        const m = new THREE.InstancedMesh(box, new THREE.MeshLambertMaterial({ color }), n);
-        for (let i = 0; i < n; i++) setM(m, i, 0, -50, 0, 0);
-        scene.add(m);
-        return { mesh: m, items: Array.from({ length: n }, () => ({ on: false, age: 0, life: 1, p: new THREE.Vector3(), v: new THREE.Vector3() })), next: 0 };
-      }
-      const smoke = pool(46, "#9aa3a8");
-      const wake = pool(50, "#d9eef2");
-      function spawn(pl, pos, vel, life) {
-        const it = pl.items[pl.next]; pl.next = (pl.next + 1) % pl.items.length;
-        it.on = true; it.age = 0; it.life = life; it.p.copy(pos); it.v.copy(vel);
-      }
-      const P_MAX = 44, TRAIL = 3, TRAIL_S = [.46, .32, .2];
-      const pMesh = new THREE.InstancedMesh(box, new THREE.MeshBasicMaterial({ color: 0xffffff }), P_MAX * TRAIL);
-      const C_DATA = new THREE.Color("#5fe0cf"), C_ALERT = new THREE.Color("#ff7a33");
-      for (let i = 0; i < P_MAX * TRAIL; i++) { setM(pMesh, i, 0, -50, 0, 0); pMesh.setColorAt(i, C_DATA); }
-      scene.add(pMesh);
-      const packets = Array.from({ length: P_MAX }, () => ({ on: false, t: 0, leg: 0, dur: 1, a: new THREE.Vector3(), c: new THREE.Vector3(), b: new THREE.Vector3(), from: "tug", alert: false }));
-      let pNext = 0;
-      function bez(out, a, c, b, t) {
-        const u = 1 - t;
-        return out.set(u * u * a.x + 2 * u * t * c.x + t * t * b.x, u * u * a.y + 2 * u * t * c.y + t * t * b.y, u * u * a.z + 2 * u * t * c.z + t * t * b.z);
-      }
-      function setLeg(p, a, b, lift, dur) {
-        p.a.copy(a); p.b.copy(b); p.c.copy(a).add(b).multiplyScalar(.5); p.c.y += lift; p.t = 0; p.dur = dur;
-      }
-      function emitPacket(origin, from, alert) {
-        const p = packets[pNext], idx = pNext; pNext = (pNext + 1) % P_MAX;
-        p.on = true; p.leg = 0; p.from = from; p.alert = alert;
-        setLeg(p, origin, RACK_IN, 9, 2.3);
-        const col = alert ? C_ALERT : C_DATA;
-        for (let k = 0; k < TRAIL; k++) { tmpC.copy(col).multiplyScalar(1 - k * .28); pMesh.setColorAt(idx * TRAIL + k, tmpC); }
-        pMesh.instanceColor.needsUpdate = true;
-        pulse(0);
-      }
-
-      // synthetic readings shown in the overlay
-      const sim = { rpm: 1480, cool: 82, dp: 21, frames: 0, alertHold: 0, flash: 0 };
-      const ui = { rpm: document.getElementById("vxRpm"), cool: document.getElementById("vxCool"), dp: document.getElementById("vxDp"),
-                   state: document.getElementById("vxState"), frames: document.getElementById("vxFrames") };
-      const steps = Array.from(fig.querySelectorAll(".vx-step"));
-      const lastPulse = steps.map(() => -9);
-      let clockT = 0, uiTimer = 0;
-      function pulse(i) {
-        if (clockT - lastPulse[i] < 1.1) return;
-        lastPulse[i] = clockT;
-        const el = steps[i]; el.classList.remove("on"); void el.offsetWidth; el.classList.add("on");
-      }
-      function updateUI() {
-        ui.rpm.textContent = Math.round(sim.rpm).toLocaleString("en-US");
-        ui.cool.textContent = sim.cool.toFixed(1);
-        ui.dp.textContent = sim.dp.toFixed(1);
-        ui.frames.textContent = sim.frames.toLocaleString("en-US");
-        const alert = sim.dp > 30;
-        ui.state.textContent = alert ? "maintenance alert" : "nominal";
-        ui.state.classList.toggle("alert", alert);
-      }
-      function arrive(p) {
-        sim.frames++;
-        if (p.from === "tug") {
-          barVals.shift();
-          barVals.push(Math.max(1, Math.min(BAR_H, 1 + Math.round((sim.rpm - 1320) / 360 * 4))));
-          drawBars();
-        } else if (p.alert) sim.flash = 1;
-        pulse(4);
-      }
-
-      // simulation step
-      let t = 0, emitTug = 0, emitRescue = 0, wakeT = 0, smokeT = 0, ledT = 0, theta = 0;
-      const tmpV = new THREE.Vector3(), rb = { x: 0, z: 0, phi: 0 };
-      function step(dt) {
-        t += dt; clockT += dt;
-
-        const hT = (waveH(-4, 0, t) + waveH(0, 0, t) + waveH(4, 0, t)) / 3;
-        tug.position.y = hT - .62;
-        tug.rotation.z = (waveH(4, 0, t) - waveH(-4, 0, t)) / 8 * .55;
-        tug.rotation.x = -(waveH(0, 2.5, t) - waveH(0, -2.5, t)) / 5 * .55;
-
-        theta += dt * .13;
-        rb.x = ORBIT.x + ORBIT.r * Math.cos(theta); rb.z = ORBIT.z + ORBIT.r * Math.sin(theta);
-        rb.phi = Math.atan2(-Math.cos(theta), -Math.sin(theta));
-        rescue.position.set(rb.x, waveH(rb.x, rb.z, t) - .5, rb.z);
-        rescue.rotation.set(.06 * Math.sin(t * 1.7), rb.phi, .05 * Math.sin(t * 1.3), "YXZ");
-
-        const cp = Math.cos(rb.phi), sn = Math.sin(rb.phi);
-        for (let i = 0; i < cells.length; i++) {
-          const c = cells[i];
-          const hr = Math.round(waveH(c.x, c.z, t));
-          let hide = Math.abs(c.x) < 7.2 && Math.abs(c.z) < 3.3;
-          if (!hide) {
-            const dx = c.x - rb.x, dz = c.z - rb.z;
-            hide = Math.abs(dx * cp - dz * sn) < 4.1 && Math.abs(dx * sn + dz * cp) < 1.8;
-          }
-          if (!hide && c.beach && hr <= 1) hide = true;
-          if (hide) { setM(sea, i, c.x, -50, c.z, 0); continue; }
-          setM(sea, i, c.x, (hr + .5 - 4) / 2, c.z, 1, hr + 4.5);
-          tmpC.copy(seaCols[Math.max(0, Math.min(4, hr + 2))]).multiplyScalar(1 + c.j);
-          sea.setColorAt(i, tmpC);
-        }
-        sea.instanceMatrix.needsUpdate = true; sea.instanceColor.needsUpdate = true;
-
-        smokeT += dt;
-        if (smokeT > .13) {
-          smokeT = 0;
-          spawn(smoke, tug.localToWorld(tmpV.copy(TUG_FUNNEL)), new THREE.Vector3(-1.1 + Math.random() * .3, 1.5 + Math.random() * .4, (Math.random() - .5) * .5), 3.2);
-        }
-        smoke.items.forEach((s, i) => {
-          if (s.on) { s.age += dt; if (s.age > s.life) s.on = false; }
-          if (!s.on) { setM(smoke.mesh, i, 0, -50, 0, 0); return; }
-          s.p.addScaledVector(s.v, dt);
-          const k = s.age / s.life;
-          setM(smoke.mesh, i, s.p.x, s.p.y, s.p.z, (.55 + k * .9) * (k > .7 ? (1 - k) / .3 : 1));
-        });
-        smoke.mesh.instanceMatrix.needsUpdate = true;
-
-        wakeT += dt;
-        if (wakeT > .09) {
-          wakeT = 0;
-          rescue.localToWorld(tmpV.copy(RESCUE_STERN));
-          tmpV.x += (Math.random() - .5) * .8; tmpV.z += (Math.random() - .5) * .8;
-          spawn(wake, tmpV, new THREE.Vector3(), 1.8);
-        }
-        wake.items.forEach((s, i) => {
-          if (s.on) { s.age += dt; if (s.age > s.life) s.on = false; }
-          if (!s.on) { setM(wake.mesh, i, 0, -50, 0, 0); return; }
-          setM(wake.mesh, i, s.p.x, Math.round(waveH(s.p.x, s.p.z, t)) + .62, s.p.z, .75 * (1 - s.age / s.life), .25);
-        });
-        wake.mesh.instanceMatrix.needsUpdate = true;
-
-        sim.rpm = Math.max(1320, Math.min(1680, sim.rpm + (Math.random() - .5) * 260 * dt + (1490 - sim.rpm) * .15 * dt));
-        sim.cool = Math.max(78, Math.min(87, sim.cool + (Math.random() - .5) * 2.2 * dt + (82 - sim.cool) * .1 * dt));
-        if (sim.dp > 33.5) { sim.alertHold += dt; if (sim.alertHold > 5) { sim.dp = 19 + Math.random() * 2; sim.alertHold = 0; } }
-        else sim.dp += dt * (.55 + Math.random() * .3);
-        uiTimer += dt; if (uiTimer > .25) { uiTimer = 0; updateUI(); }
-
-        emitTug += dt; emitRescue += dt;
-        if (emitTug > .42) { emitTug = 0; emitPacket(tug.localToWorld(tmpV.copy(TUG_ANT)).clone(), "tug", false); }
-        if (emitRescue > 1.25) { emitRescue = 0; emitPacket(rescue.localToWorld(tmpV.copy(RESCUE_ANT)).clone(), "rescue", sim.dp > 30); }
-
-        packets.forEach((p, idx) => {
-          if (p.on) {
-            p.t += dt / p.dur;
-            if (p.t >= 1) {
-              if (p.leg === 0) { p.leg = 1; setLeg(p, RACK_IN, SCREEN_IN, 3.5, .9); pulse(1); pulse(2); pulse(3); }
-              else { p.on = false; arrive(p); }
-            }
-          }
-          for (let k = 0; k < TRAIL; k++) {
-            const i = idx * TRAIL + k;
-            if (!p.on) { setM(pMesh, i, 0, -50, 0, 0); continue; }
-            bez(tmpV, p.a, p.c, p.b, Math.max(0, p.t - k * .035));
-            setM(pMesh, i, tmpV.x, tmpV.y, tmpV.z, TRAIL_S[k]);
-          }
-        });
-        pMesh.instanceMatrix.needsUpdate = true;
-
-        ledT += dt;
-        if (ledT > .08) {
-          ledT = 0;
-          for (let i = 0; i < leds.length; i++) if (Math.random() < .18) ledMesh.setColorAt(i, Math.random() < .55 ? LED_ON : LED_OFF);
-          ledMesh.instanceColor.needsUpdate = true;
-        }
-
-        beamPivot.rotation.y += dt * .8;
-        sim.flash = Math.max(0, sim.flash - dt * .9);
-        frameMat.color.copy(FRAME_C).lerp(ALERT_C, sim.flash);
-      }
-
-      // sizing and framing: the closer the card is to a wide strip, the closer the camera
-      function frame() {
-        const a = camera.aspect, dist = a > 1.9 ? 52 : a > 1.3 ? 62 : 72;
-        camera.position.copy(controls.target).addScaledVector(new THREE.Vector3(1, .72, 1).normalize(), dist);
-        controls.update();
-      }
-      function resize() {
-        const w = stage.clientWidth, h = stage.clientHeight;
-        renderer.setSize(w, h, false);
-        camera.aspect = w / h; camera.updateProjectionMatrix();
-      }
-      resize(); frame();
-      window.addEventListener("resize", () => { resize(); frame(); });
-
-      let paused = reduced;
-      const playBtn = document.getElementById("vxPlay");
-      playBtn.textContent = paused ? "Play" : "Pause";
-      playBtn.addEventListener("click", () => { paused = !paused; playBtn.textContent = paused ? "Play" : "Pause"; });
-
-      // pre-warm so the first frame already shows frames in flight and smoke
-      for (let i = 0; i < 150; i++) step(1 / 30);
-      updateUI();
-      renderer.render(scene, camera);
-
-      let last = performance.now();
-      function loop(now) {
-        const dt = Math.min(.05, (now - last) / 1000); last = now;
-        if (visible && !document.hidden) {
-          if (!paused) step(dt * (reduced ? .45 : 1));
-          controls.update();
-          renderer.render(scene, camera);
-        }
-        requestAnimationFrame(loop);
-      }
-      requestAnimationFrame(loop);
-    }
+    matchMedia("(prefers-color-scheme: dark)").addEventListener("change", label);
   })();
 </script>
 </body>
