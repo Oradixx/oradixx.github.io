@@ -445,7 +445,7 @@
 
     <figure class="card tl" aria-labelledby="tlTitle">
       <p class="fig-title" id="tlTitle">Studies and work, 2022–2027</p>
-      <p class="fig-sub">The vertical line marks today, November 2026. The dashed slot is the one I'm looking to fill.</p>
+      <p class="fig-sub">The vertical line marks today. The dashed slot is the one I'm looking to fill.</p>
       <div class="tl-grid" id="timeline">
         <div class="tl-label"><a href="#education">ESILV, engineering degree</a><small>September 2022 – August 2027</small></div>
         <div class="tl-track"><span class="tl-seg" data-from="2022-09" data-to="2027-08"></span></div>
@@ -605,7 +605,7 @@
       <div class="txt">
         <h3><a href="https://github.com/Oradixx/tripadvisor-recommender">TripAdvisor recommender</a></h3>
         <p class="meta">School project (information retrieval course, ESILV), March 2026, team of 2. Reworked in September 2026.</p>
-        <p>Given a place on TripAdvisor, recommends a similar one using only the reviews. The metadata is hidden from the models and only used to judge the answer. BM25 is rewritten as one sparse matrix product (same scores as rank_bm25), which made it cheap to re-check every model on 20 random splits. The reliable gain came from better tokenization, not from a more complex model. Keeping letters only and removing stop words made the same BM25 better on <mark>20 splits out of 20</mark>.</p>
+        <p>Given a place on TripAdvisor, recommends a similar one using only the reviews. The metadata is hidden from the models and only used to judge the answer. BM25 is rewritten as one sparse matrix product (same scores as rank_bm25), which made it cheap to re-check every model on 20 random splits. The reliable gain came from better tokenization, not from a more complex model. Keeping letters only and removing stop words made the same BM25 better on <mark>20 splits out of 20</mark>. Beyond that, the models are within noise of each other.</p>
         <p class="stack">Stack: scikit-learn, SciPy, pytest, GitHub Actions.</p>
       </div>
       <figure class="card fig">
