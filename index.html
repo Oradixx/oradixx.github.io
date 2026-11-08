@@ -34,8 +34,6 @@
     --mine-wash: rgba(194, 65, 12, .09);
     --ref: #2b6cb0;
     --base: #8f8a80;
-    --ok: #15803d;
-    --ok-wash: rgba(21, 128, 61, .14);
     --hl: #fde68a;
     --shadow: 0 1px 2px rgba(0, 0, 0, .04), 0 8px 28px rgba(0, 0, 0, .06);
     --shadow-lg: 0 24px 80px rgba(0, 0, 0, .25);
@@ -57,8 +55,6 @@
       --mine-wash: rgba(232, 105, 46, .12);
       --ref: #3b8fd9;
       --base: #7f7b72;
-      --ok: #22c55e;
-      --ok-wash: rgba(34, 197, 94, .18);
       --hl: rgba(250, 204, 21, .26);
       --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 28px rgba(0, 0, 0, .35);
       color-scheme: dark;
@@ -76,8 +72,6 @@
     --mine-wash: rgba(232, 105, 46, .12);
     --ref: #3b8fd9;
     --base: #7f7b72;
-    --ok: #22c55e;
-    --ok-wash: rgba(34, 197, 94, .18);
     --hl: rgba(250, 204, 21, .26);
     --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 28px rgba(0, 0, 0, .35);
     color-scheme: dark;
@@ -110,7 +104,7 @@
   mark { color: inherit; background: linear-gradient(transparent 58%, var(--hl) 58%); padding: 0 .08em; }
 
   /* ---------- header: the link of the section in view is underlined ---------- */
-  header.top { position: sticky; top: 0; z-index: 20; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+  header.top { position: sticky; top: 0; z-index: 20; background: var(--bg); border-bottom: 1px solid var(--line); }
   .top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 58px; }
   .home { font-family: var(--serif); font-weight: 600; font-size: 1.125rem; text-decoration: none; white-space: nowrap; }
   nav ul { display: flex; align-items: center; gap: 4px; margin: 0; padding: 0; list-style: none; }
@@ -126,10 +120,9 @@
   .hero { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 56px; align-items: center; padding-top: 64px; padding-bottom: 32px; }
   .hero h1 { font-size: clamp(2.625rem, 5.4vw, 4.25rem); line-height: 1.02; letter-spacing: -.02em; margin: 0 0 22px; }
   .hero .role { font-size: 1.25rem; line-height: 1.45; color: var(--ink-2); margin-bottom: 10px; }
-  .status { display: inline-flex; align-items: center; gap: 8px; margin: 0 0 22px; padding: 5px 12px 5px 10px; border: 1px solid var(--line-2); border-radius: 999px; background: var(--surface); font-size: 0.875rem; }
-  .status .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 0 3px var(--ok-wash); flex: none; }
+  .status { margin: 0 0 18px; color: var(--ink-2); }
+  .status strong { color: var(--ink); font-weight: 600; }
   .hero .role { margin-bottom: 26px; }
-  @media (max-width: 480px) { .status { font-size: 0.8125rem; padding: 4px 10px 4px 9px; } }
   .btns { display: flex; flex-wrap: wrap; gap: 10px; margin: 0; }
   .facts { list-style: none; padding: 0; margin: 0 0 24px; }
   .facts li { margin: 0 0 6px; color: var(--ink-2); }
@@ -431,7 +424,7 @@
 <main id="main">
   <div class="wrap hero">
     <div>
-      <p class="status"><span class="dot" aria-hidden="true"></span>Open to a 6-month internship or VIE from February 2027</p>
+      <p class="status">Open to a 6-month internship or VIE from <strong>February 2027</strong></p>
       <h1>Clément Vurpillot</h1>
       <p class="role">Final-year data and AI engineering student at ESILV, Paris. Looking for work in data engineering, MLOps, machine learning, AI engineering or data science.</p>
       <ul class="facts">
@@ -483,7 +476,7 @@
           <li>Built the ingestion pipeline for vessel telemetry sampled at 1&nbsp;Hz. The pipeline stores the J1939 CAN bus data in AWS S3 as Parquet, and async Python code loads it into PostgreSQL with TimescaleDB.</li>
           <li>Trained a Random Forest that rebuilds particulate readings when the sensor fails (R² up to 0.96), explained it with SHAP and presented it to the test engineers.</li>
           <li>Moved slow dashboard queries into SQL materialised views. The dashboard now loads in <mark>30 seconds</mark>; it used to take 3 hours.</li>
-          <li>Deployed a Streamlit app and real-time Grafana alerting on a hardened Linux VPS. The pressure-drop alert <mark>caught a clogging filter before the engine failed</mark>.</li>
+          <li>Deployed a Streamlit app and real-time Grafana alerting on a hardened Linux VPS. The pressure-drop alert caught a clogging filter before the engine failed.</li>
         </ul>
       </div>
       <figure class="fig">
@@ -528,7 +521,7 @@
       <div class="txt">
         <h3><a href="https://github.com/alvaro-serero/nfl-chip-advisor">Chip Advisor</a></h3>
         <p class="meta">NFL Big Data Bowl Paris Side Quest, a hackathon by AWS, the NFL and Epitech, October 2026. 2nd place, team of 3. The repository is hosted by a teammate.</p>
-        <p>We measured whether a tight end or a running back who "chips" a pass rusher before running his route protects the quarterback. On NFL Next Gen Stats tracking and PFF data for weeks 1–8 of 2021, a chip by an in-line tight end <mark>cut that rusher's pressure by 26&nbsp;%</mark>. Sacks still happen, because the pressure then comes from another defender.</p>
+        <p>We measured whether a tight end or a running back who "chips" a pass rusher before running his route protects the quarterback. On NFL Next Gen Stats tracking and PFF data for weeks 1–8 of 2021, a chip by an in-line tight end cut that rusher's pressure by 26&nbsp;%. Sacks still happen, because the pressure then comes from another defender.</p>
         <p>On <mark>36 of the 88 sacks</mark> with a chip, the player who chipped was open, so our advice to the QB coach is to look for him at about 3 seconds. We delivered it as a small web tool with a coach briefing written by Mistral, built with Kiro, AWS's agentic IDE.</p>
         <p class="stack">Stack: Python, pandas, Mistral API, Kiro, Vercel.</p>
       </div>
@@ -544,7 +537,7 @@
       <div class="txt">
         <h3><a href="https://github.com/Oradixx/insurance-reviews-nlp">NLP on 24,000 insurance reviews</a></h3>
         <p class="meta">School project (NLP course, ESILV), March 2026, team of 2. The serving part was added in September 2026.</p>
-        <p>We predicted the star rating of about 24,000 French insurance reviews. A TF-IDF and logistic regression baseline reached 52&nbsp;% accuracy, and MiniLM embeddings with a small PyTorch classifier reached 54&nbsp;%. The Streamlit app adds zero-shot topic detection and RAG answers; we <mark>replaced Flan-T5 with Llama 3 running locally</mark> because Flan-T5 hallucinated more in our tests.</p>
+        <p>We predicted the star rating of about 24,000 French insurance reviews. A TF-IDF and logistic regression baseline reached 52&nbsp;% accuracy, and MiniLM embeddings with a small PyTorch classifier reached <mark>54&nbsp;%</mark>. The Streamlit app adds zero-shot topic detection and RAG answers; we replaced Flan-T5 with Llama 3 running locally because Flan-T5 hallucinated more in our tests.</p>
         <p>After the course, the baseline became a FastAPI service in Docker, tested in CI. Training runs are tracked in MLflow, and a model below 0.40 macro F1 is never saved.</p>
         <p class="stack">Stack: Hugging Face, PyTorch, Llama 3 (Ollama), MLflow, FastAPI, Docker.</p>
       </div>
@@ -561,7 +554,7 @@
         <h3><a href="https://github.com/Oradixx/CryptoIndexLab">CryptoIndexLab</a></h3>
         <p class="meta">School project (containerisation course, ESILV), March 2026, team of 3.</p>
         <p>A web app to build and track custom crypto indexes, run as containers. Two FastAPI services (accounts with JWT, index management) run 2 replicas each behind an Nginx gateway that balances the load, and each service has its own PostgreSQL on a separate Docker network.</p>
-        <p>CI builds hardened images and fails on any Trivy finding of medium severity or above. We demoed it on AWS Lightsail, and it opens in one click in GitHub Codespaces. <mark>My part was the Nginx gateway and load balancer</mark>, and the networking between the APIs and their databases.</p>
+        <p>CI builds hardened images and fails on any Trivy finding of medium severity or above. We demoed it on AWS Lightsail, and it opens in one click in GitHub Codespaces. My part was the Nginx gateway and load balancer, and the networking between the APIs and their databases.</p>
         <p class="stack">Stack: FastAPI, PostgreSQL, Docker Compose, Nginx, Trivy.</p>
       </div>
       <figure class="fig">
@@ -582,7 +575,7 @@
         <h3><a href="https://oradixx.github.io/LoL-ratings/">LoL Ratings 3.0</a></h3>
         <p class="meta">Personal project, 2026. The write-up is in French. <a href="https://github.com/Oradixx/LoL-ratings">Code</a></p>
         <p>A rating of professional League of Legends players that accounts for the strength of their teammates and of their league. It is a ridge regression on each game's final gold difference (RAPM), with league levels linked through international events and transfers, and a box-score prior learned per role.</p>
-        <p>I built it on the 10,044 pro games of 2025, then tested it on the 2026 season, retrained each month. It called <mark>65.4&nbsp;% of the 8,566 games</mark> correctly; an Elo rating updated after every game called 63.8&nbsp;%.</p>
+        <p>I built it on the 10,044 pro games of 2025, then tested it on the 2026 season, retrained each month. It called <mark>65.4&nbsp;%</mark> of the 8,566 games correctly; an Elo rating updated after every game called 63.8&nbsp;%.</p>
         <p class="stack">Stack: pandas, SciPy, scikit-learn, GitHub Actions, GitHub Pages.</p>
       </div>
       <figure class="fig">
@@ -597,7 +590,7 @@
       <div class="txt">
         <h3><a href="https://oradixx.github.io/france-grid-forecast/">France Grid Forecast</a></h3>
         <p class="meta">Personal project. Its first live forecast was for 27 September 2026. <a href="https://github.com/Oradixx/france-grid-forecast">Code</a></p>
-        <p>Every day a GitHub Actions job forecasts France's electricity consumption for each hour of the next day, then scores the past forecasts against what was really consumed. RTE and weather data are stored as Parquet; dbt on DuckDB runs <mark>19 data tests</mark>, and a failing test stops the run before anything is published. The gradient boosting model is retrained each week and replaces the current one only if it beats the naive baseline by at least 25&nbsp;% on the last 8 weeks.</p>
+        <p>Every day a GitHub Actions job forecasts France's electricity consumption for each hour of the next day, then scores the past forecasts against what was really consumed. RTE and weather data are stored as Parquet; dbt on DuckDB runs 19 data tests, and a failing test stops the run before anything is published. The gradient boosting model is retrained each week and replaces the current one only if it beats the naive baseline by at least 25&nbsp;% on the last 8 weeks.</p>
         <p>Between 27 September and 1 November 2026 (35 days scored, one run missed), the mean hourly error was <mark>2.1&nbsp;%</mark>, against 1.5&nbsp;% for RTE's own forecast and 4.2&nbsp;% for the naive baseline.</p>
         <p class="stack">Stack: dbt, DuckDB, scikit-learn, GitHub Actions, Parquet.</p>
       </div>
