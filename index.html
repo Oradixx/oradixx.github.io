@@ -123,7 +123,7 @@
   @media (max-width: 560px) { .home { display: none; } .top .wrap { justify-content: flex-end; } nav a { padding: 6px 7px; } }
 
   /* ---------- hero ---------- */
-  .hero { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: 56px; align-items: center; padding-top: 64px; padding-bottom: 32px; }
+  .hero { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 56px; align-items: center; padding-top: 64px; padding-bottom: 32px; }
   .hero h1 { font-size: clamp(2.625rem, 5.4vw, 4.25rem); line-height: 1.02; letter-spacing: -.02em; margin: 0 0 22px; }
   .hero .role { font-size: 1.25rem; line-height: 1.45; color: var(--ink-2); margin-bottom: 10px; }
   .status { display: inline-flex; align-items: center; gap: 8px; margin: 0 0 22px; padding: 5px 12px 5px 10px; border: 1px solid var(--line-2); border-radius: 999px; background: var(--surface); font-size: 0.875rem; }
@@ -157,12 +157,12 @@
   /* ---------- cards and figures ---------- */
   .card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; box-shadow: var(--shadow); }
   figure { margin: 0; }
-  .fig { padding: 20px 22px 16px; position: relative; }
+  .fig { padding: 16px 0 0; border-top: 1px solid var(--ink-2); position: relative; }
   .fig-title { font-weight: 600; font-size: 1rem; margin: 0 0 2px; }
   .fig-title.mt { margin-top: 24px; }
+  @media (min-width: 1101px) { .fig-cols .fig-title.mt { margin-top: 0; } }
   .fig-sub { color: var(--muted); font-size: 0.875rem; margin: 0 0 14px; }
   .fig-note { color: var(--muted); font-size: 0.8125rem; margin: 12px 0 0; }
-  @media (max-width: 640px) { .fig { padding: 16px 14px 12px; } }
 
   .controls { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; margin: 0 0 10px; }
   .seg { display: inline-flex; flex-wrap: wrap; gap: 4px; }
@@ -219,7 +219,7 @@
   .tbl-scroll { max-height: 260px; overflow: auto; }
 
   /* ---------- timeline ---------- */
-  .tl { padding: 22px 24px 18px; }
+  .tl { padding-top: 16px; }
   .tl-grid { display: grid; grid-template-columns: 300px minmax(0, 1fr); column-gap: 20px; row-gap: 10px; align-items: center; padding-top: 14px; }
   .tl-label { font-size: 0.875rem; line-height: 1.3; }
   .tl-label a { text-decoration: none; }
@@ -231,9 +231,8 @@
   .tl-axis { position: relative; height: 20px; font-size: 0.75rem; color: var(--muted); }
   .tl-axis span { position: absolute; transform: translateX(-50%); white-space: nowrap; }
   .tl-today { position: absolute; top: -5px; bottom: -5px; width: 0; border-left: 1.5px solid var(--mine); pointer-events: none; }
-  .tl-today span { position: absolute; top: -20px; left: 0; transform: translateX(-50%); font-size: 0.75rem; color: var(--ink); background: var(--surface); padding: 0 4px; white-space: nowrap; }
+  .tl-today span { position: absolute; top: -20px; left: 0; transform: translateX(-50%); font-size: 0.75rem; color: var(--ink); background: var(--bg); padding: 0 4px; white-space: nowrap; }
   @media (max-width: 700px) {
-    .tl { padding: 18px 14px 14px; }
     .tl-grid { grid-template-columns: minmax(0, 1fr); row-gap: 4px; }
     .tl-track { margin-bottom: 10px; }
   }
@@ -242,6 +241,10 @@
   section.wrap { padding-top: 88px; padding-bottom: 8px; }
   .row { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 48px; align-items: start; padding: 40px 0; border-top: 1px solid var(--line); transition: box-shadow .2s, padding .2s; }
   .row:first-of-type { border-top: 0; padding-top: 0; }
+  .row.feature { grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: 56px; padding: 56px 0 64px; }
+  .row.feature .txt h3 { font-size: 1.875rem; line-height: 1.15; margin-bottom: 8px; }
+  .fig-cols { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px; align-items: start; }
+  @media (max-width: 1100px) { .fig-cols { grid-template-columns: minmax(0, 1fr); gap: 8px; } }
   .row.solo { grid-template-columns: minmax(0, 1fr); }
   .row.solo .txt { max-width: 720px; }
   .row .txt h3 { margin-bottom: 4px; }
@@ -254,7 +257,7 @@
   /* CERTAM pipeline, top to bottom */
   .pipe { display: flex; flex-direction: column; margin: 4px 0 6px; padding: 0; list-style: none; }
   .pipe li { display: flex; flex-direction: column; margin: 0; }
-  .node { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding: 9px 12px; border: 1px solid var(--line-2); border-radius: 10px; background: var(--bg); font-size: 0.875rem; line-height: 1.35; }
+  .node { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 2px 12px; padding: 9px 12px; border: 1px solid var(--line-2); border-radius: 10px; background: var(--bg); font-size: 0.875rem; line-height: 1.35; }
   .node span { color: var(--muted); font-size: 0.8125rem; text-align: right; }
   .pipe li:last-child .node { border-color: var(--ink-2); }
   .conn { position: relative; width: 2px; height: 22px; margin-left: 28px; background: var(--line-2); }
@@ -297,7 +300,7 @@
   }
 
   /* waffle */
-  .waffle { display: grid; grid-template-columns: repeat(11, 1fr); gap: 5px; max-width: 360px; }
+  .waffle { display: grid; grid-template-columns: repeat(11, 1fr); gap: 6px; max-width: 480px; }
   .waffle span { aspect-ratio: 1; border-radius: 3px; box-shadow: inset 0 0 0 1.5px var(--line-2); }
   .waffle span.on { background: var(--mine); box-shadow: none; }
   .wf-legend { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 12px; font-size: 0.875rem; }
@@ -311,7 +314,7 @@
   .arch .wide { grid-column: 1 / -1; justify-self: center; min-width: 60%; }
   .arch .mine-n { border: 1.5px solid var(--mine); background: var(--mine-wash); }
   .arch .net { border: 1.5px dashed var(--mine); border-radius: 12px; padding: 16px 10px 10px; display: grid; gap: 16px; position: relative; }
-  .arch .net > em { position: absolute; top: -10px; left: 10px; font-style: normal; font-size: 0.75rem; color: var(--ink-2); background: var(--surface); padding: 0 5px; }
+  .arch .net > em { position: absolute; top: -10px; left: 10px; font-style: normal; font-size: 0.75rem; color: var(--ink-2); background: var(--bg); padding: 0 5px; }
   .arch .down::after { content: ""; position: absolute; left: 50%; bottom: -17px; height: 16px; border-left: 1.5px solid var(--line-2); }
   .arch-legend { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 12px; font-size: 0.8125rem; color: var(--muted); }
   .arch-legend span { display: inline-flex; align-items: center; gap: 7px; }
@@ -443,7 +446,7 @@
       </p>
     </div>
 
-    <figure class="card tl" aria-labelledby="tlTitle">
+    <figure class="fig tl" aria-labelledby="tlTitle">
       <p class="fig-title" id="tlTitle">Studies and work, 2022–2027</p>
       <p class="fig-sub">The vertical line marks today. The dashed slot is the one I'm looking to fill.</p>
       <div class="tl-grid" id="timeline">
@@ -467,7 +470,7 @@
   <section id="experience" class="wrap" aria-labelledby="experience-h">
     <h2 id="experience-h" class="reveal">Experience</h2>
 
-    <div class="row reveal" id="certam" data-id="certam">
+    <div class="row feature reveal" id="certam" data-id="certam">
       <div class="txt">
         <h3>Data and AI engineering intern, CERTAM</h3>
         <p class="meta">Rouen, April–August 2026. CERTAM is an applied research centre that tests engines and their emissions.</p>
@@ -478,9 +481,10 @@
           <li>Deployed a Streamlit app and real-time Grafana alerting on a hardened Linux VPS. The pressure-drop alert <mark>caught a clogging filter before the engine failed</mark>.</li>
         </ul>
       </div>
-      <figure class="card fig">
+      <figure class="fig">
         <p class="fig-title">The telemetry pipeline I built</p>
         <p class="fig-sub">Vessel telemetry, sampled once per second. Each box is one stage, in order.</p>
+        <div class="fig-cols"><div>
         <ol class="pipe" id="pipe">
           <li><div class="node"><b>CAN bus on the vessel</b><span>J1939 frames, 1 Hz</span></div><span class="conn" aria-hidden="true"><span class="packet"></span></span></li>
           <li><div class="node"><b>AWS S3</b><span>Parquet files</span></div><span class="conn" aria-hidden="true"><span class="packet"></span></span></li>
@@ -489,12 +493,14 @@
           <li><div class="node"><b>Grafana</b><span>real-time alerts</span></div></li>
         </ol>
         <p class="fig-note"><button class="replay" type="button" id="pipeReplay">Replay the data flow</button></p>
+        </div><div>
         <p class="fig-title mt">Dashboard load time</p>
         <div class="bars" role="img" aria-label="Dashboard load time: 3 hours before, 30 seconds with the materialised views.">
           <span class="lab">Before</span><span class="trk"><span class="bar b-base grow"></span></span><span class="num">3 h</span>
           <span class="lab">With materialised views</span><span class="trk"><span class="bar b-mine w-certam grow"></span></span><span class="num">30 s</span>
         </div>
         <p class="fig-note">Same scale for both bars: 30 seconds is 1/360 of 3 hours.</p>
+        </div></div>
       </figure>
     </div>
 
@@ -513,7 +519,7 @@
   <section id="projects" class="wrap" aria-labelledby="projects-h">
     <h2 id="projects-h" class="reveal">Projects</h2>
 
-    <div class="row reveal" id="chip" data-id="chip">
+    <div class="row feature reveal" id="chip" data-id="chip">
       <div class="txt">
         <h3><a href="https://github.com/alvaro-serero/nfl-chip-advisor">Chip Advisor</a></h3>
         <p class="meta">NFL Big Data Bowl Paris Side Quest, a hackathon by AWS, the NFL and Epitech, October 2026. 2nd place, team of 3. The repository is hosted by a teammate.</p>
@@ -521,7 +527,7 @@
         <p>On <mark>36 of the 88 sacks</mark> with a chip, the player who chipped was open, so our advice to the QB coach is to look for him at about 3 seconds. We delivered it as a small web tool with a coach briefing written by Mistral, built with Kiro, AWS's agentic IDE.</p>
         <p class="stack">Stack: Python, pandas, Mistral API, Kiro, Vercel.</p>
       </div>
-      <figure class="card fig">
+      <figure class="fig">
         <p class="fig-title">88 sacks on plays with a chip</p>
         <p class="fig-sub">Each square is one sack. Orange: the player who chipped was open (at least 3 yards past the line for at least 1 second).</p>
         <div class="waffle" id="waffle" role="img" aria-label="36 of the 88 sacks with a chip had the chipping player open."></div>
@@ -537,7 +543,7 @@
         <p>After the course, the baseline became a FastAPI service in Docker, tested in CI. Training runs are tracked in MLflow, and a model below 0.40 macro F1 is never saved.</p>
         <p class="stack">Stack: Hugging Face, PyTorch, Llama 3 (Ollama), MLflow, FastAPI, Docker.</p>
       </div>
-      <figure class="card fig">
+      <figure class="fig">
         <p class="fig-title">Star rating prediction, test set of 4,814 reviews</p>
         <p class="fig-sub">The embeddings beat the baseline, but only slightly.</p>
         <div class="legend" aria-hidden="true"><span class="item"><i class="key k-n"></i>TF-IDF baseline</span><span class="item"><i class="key k-m"></i>MiniLM embeddings</span></div>
@@ -553,7 +559,7 @@
         <p>CI builds hardened images and fails on any Trivy finding of medium severity or above. We demoed it on AWS Lightsail, and it opens in one click in GitHub Codespaces. <mark>My part was the Nginx gateway and load balancer</mark>, and the networking between the APIs and their databases.</p>
         <p class="stack">Stack: FastAPI, PostgreSQL, Docker Compose, Nginx, Trivy.</p>
       </div>
-      <figure class="card fig">
+      <figure class="fig">
         <p class="fig-title">Architecture</p>
         <p class="fig-sub">Eight containers on three Docker networks. The gateway, the front end and the APIs share <code>frontend-net</code>; each database is reachable only from its own API.</p>
         <div class="arch" role="img" aria-label="Architecture: the browser talks to an Nginx gateway and load balancer, which sends traffic to two replicas of the accounts API and two replicas of the index API. Each API has its own PostgreSQL database on its own Docker network. The gateway and the networks were my part.">
@@ -574,7 +580,7 @@
         <p>I built it on the 10,044 pro games of 2025, then tested it on the 2026 season, retrained each month. It called <mark>65.4&nbsp;% of the 8,566 games</mark> correctly; an Elo rating updated after every game called 63.8&nbsp;%.</p>
         <p class="stack">Stack: pandas, SciPy, scikit-learn, GitHub Actions, GitHub Pages.</p>
       </div>
-      <figure class="card fig">
+      <figure class="fig">
         <p class="fig-title">Games called correctly, 2026 season</p>
         <p class="fig-sub">8,566 pro games the model never saw while it was built.</p>
         <div class="dots" id="lolDots" role="img" aria-label="Games called correctly in 2026: KDA 60.3 percent, Elo per team 63.8, Elo per player 63.8, LoL Ratings 3.0 65.4."></div>
@@ -590,7 +596,7 @@
         <p>Between 27 September and 1 November 2026 (35 days scored, one run missed), the mean hourly error was <mark>2.1&nbsp;%</mark>, against 1.5&nbsp;% for RTE's own forecast and 4.2&nbsp;% for the naive baseline.</p>
         <p class="stack">Stack: dbt, DuckDB, scikit-learn, GitHub Actions, Parquet.</p>
       </div>
-      <figure class="card fig" id="fgfFig">
+      <figure class="fig" id="fgfFig">
         <p class="fig-title">France's electricity consumption, hour by hour</p>
         <p class="fig-sub">My day-ahead forecast against what was consumed, RTE's own forecast and a naive baseline (same hour last week). The forecasts are shown as published and are never revised.</p>
         <div class="controls"><div class="seg" role="group" aria-label="Week shown" id="fgfWeeks"></div></div>
@@ -608,7 +614,7 @@
         <p>Given a place on TripAdvisor, recommends a similar one using only the reviews. The metadata is hidden from the models and only used to judge the answer. BM25 is rewritten as one sparse matrix product (same scores as rank_bm25), which made it cheap to re-check every model on 20 random splits. The reliable gain came from better tokenization, not from a more complex model. Keeping letters only and removing stop words made the same BM25 better on <mark>20 splits out of 20</mark>. Beyond that, the models are within noise of each other.</p>
         <p class="stack">Stack: scikit-learn, SciPy, pytest, GitHub Actions.</p>
       </div>
-      <figure class="card fig">
+      <figure class="fig">
         <p class="fig-title">Scoring 900 × 900 places with BM25</p>
         <p class="fig-sub">Same scores as rank_bm25, computed as one sparse matrix product.</p>
         <div class="bars" role="img" aria-label="BM25 scoring time: 77 seconds with rank_bm25, 0.6 seconds with the sparse matrix product.">
@@ -626,7 +632,7 @@
         <p>Users are identified by name, and some names are shared, so <mark>2,847 ratings</mark> were silently merged; we found and documented the collision. CI rebuilds both databases from a synthetic sample and checks the query results.</p>
         <p class="stack">Stack: Cassandra, Neo4j (Cypher), Docker Compose, Python.</p>
       </div>
-      <figure class="card fig">
+      <figure class="fig">
         <p class="fig-title">One dataset, two data models</p>
         <p class="fig-sub">Cassandra stores the ratings three times, each table keyed for one question; Neo4j stores them once, as relationships.</p>
         <div class="models">
