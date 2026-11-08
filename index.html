@@ -39,7 +39,7 @@
     --shadow-lg: 0 24px 80px rgba(0, 0, 0, .25);
     --scrim: rgba(20, 20, 18, .5);
     --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
-    --sans: "Source Sans 3", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    --sans: "Source Sans 3", "Source Sans fallback", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
     color-scheme: light;
   }
   @media (prefers-color-scheme: dark) {
@@ -77,6 +77,8 @@
     color-scheme: dark;
   }
 
+  /* fallback with Source Sans 3's metrics, so the web font swaps in without moving the text */
+  @font-face { font-family: "Source Sans fallback"; src: local("Arial"), local("Liberation Sans"), local("Helvetica"); size-adjust: 92%; ascent-override: 106%; descent-override: 41%; line-gap-override: 0%; }
   * { box-sizing: border-box; }
   ::selection { background: var(--hl); color: var(--ink); }
   html { accent-color: var(--mine); scrollbar-color: var(--line-2) var(--bg); }
@@ -161,8 +163,8 @@
   .fig-title { font-weight: 600; font-size: 1rem; margin: 0 0 2px; }
   .fig-title.mt { margin-top: 24px; }
   @media (min-width: 1101px) { .fig-cols .fig-title.mt { margin-top: 0; } }
-  .fig-sub { color: var(--muted); font-size: 0.8125rem; line-height: 1.5; margin: 0 0 14px; }
-  .fig-note { color: var(--muted); font-size: 0.8125rem; margin: 12px 0 0; }
+  .fig-sub { color: var(--muted); font-size: 0.8125rem; line-height: 1.5; margin: 0 0 14px; max-width: 62ch; }
+  .fig-note { color: var(--muted); font-size: 0.8125rem; margin: 12px 0 0; max-width: 62ch; }
 
   .controls { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; margin: 0 0 10px; }
   .seg { display: inline-flex; flex-wrap: wrap; gap: 4px; }
@@ -231,7 +233,7 @@
   .tl-label.open-row a { font-weight: 600; }
   .tl-axis { position: relative; height: 20px; font-size: 0.75rem; color: var(--muted); }
   .tl-axis span { position: absolute; transform: translateX(-50%); white-space: nowrap; }
-  .tl-today { position: absolute; top: -5px; bottom: -5px; width: 0; border-left: 1.5px solid var(--mine); pointer-events: none; }
+  .tl-today { position: absolute; top: -5px; bottom: -5px; width: 0; border-left: 2px solid var(--mine); pointer-events: none; }
   .tl-axis .tl-now { color: var(--ink); font-weight: 600; top: 18px; }
   .tl-axis { height: 38px; }
   @media (max-width: 700px) {
@@ -352,10 +354,10 @@
 
   /* ideas board */
   h3.group { font-size: 1.25rem; margin: 24px 0 4px; }
-  .ideas { list-style: none; padding: 0; margin: 0; max-width: 46rem; }
+  .ideas { list-style: none; padding: 0; margin: 0; max-width: 30rem; }
   .ideas li { margin: 0; padding: 12px 0; border-top: 1px solid var(--line); font-size: 0.9375rem; line-height: 1.55; }
   .ideas li strong { display: block; font-size: 1rem; margin-bottom: 2px; }
-  .more-ideas { margin-top: 20px; max-width: 46rem; }
+  .more-ideas { margin-top: 20px; max-width: 30rem; }
   .more-ideas summary { cursor: pointer; color: var(--ink-2); padding: 8px 0; }
 
   /* skills */
