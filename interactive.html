@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Clément Vurpillot, data and AI engineering student (interactive version)</title>
+<meta name="description" content="Interactive version of Clément Vurpillot's portfolio. Final-year data and AI engineering student at ESILV, Paris, looking for a 6-month internship or VIE from February 2027.">
+<link rel="canonical" href="https://oradixx.github.io/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%2314163a'/%3E%3Cpath d='M5 21 L11 15 L16 18 L22 9 L27 12' fill='none' stroke='%23ffd43b' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&amp;family=Instrument+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<script>
+  // same theme key as the simple version, applied before the first paint
+  try {
+    const t = localStorage.getItem("theme");
+    if (t === "light" || t === "dark") document.documentElement.dataset.theme = t;
+    localStorage.setItem("version", "interactive");
+  } catch (e) {}
+  document.documentElement.classList.add("js");
+</script>
+<style>
+  :root {
+    --paper: #eef0f7; --grid: rgba(20, 22, 58, .07); --card: #ffffff;
+    --ink: #14163a; --ink-2: #3d4066; --muted: #5d6088; --edge: #14163a;
+    --link: #2b3fe6; --cobalt: #2b3fe6; --coral: #ff5d73; --sun: #ffd43b; --mint: #37d6a0; --violet: #b9a5ff;
+    --on: #14163a;
+    --sh: 5px 5px 0 var(--edge); --sh-s: 3px 3px 0 var(--edge);
+    --display: "Bricolage Grotesque", "Arial Black", system-ui, sans-serif;
+    --body: "Instrument Sans", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #0f1130; --grid: rgba(255, 255, 255, .055); --card: #191c47;
+      --ink: #f1f1ff; --ink-2: #cdcff0; --muted: #a1a4d0; --edge: #8388e0; --link: #9aa5ff;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #0f1130; --grid: rgba(255, 255, 255, .055); --card: #191c47;
+    --ink: #f1f1ff; --ink-2: #cdcff0; --muted: #a1a4d0; --edge: #8388e0; --link: #9aa5ff;
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 96px; accent-color: var(--cobalt); }
+  body {
+    margin: 0; color: var(--ink); font: 400 1.0625rem/1.6 var(--body); -webkit-font-smoothing: antialiased;
+    background-color: var(--paper);
+    background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 28px 28px; overflow-x: hidden;
+  }
+  ::selection { background: var(--sun); color: var(--on); }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 28px; }
+  @media (max-width: 640px) { .wrap { padding: 0 16px; } }
+  a { color: inherit; text-decoration-color: var(--link); text-decoration-thickness: 2px; text-underline-offset: .2em; }
+  a:focus-visible, button:focus-visible, [tabindex]:focus-visible, input:focus-visible { outline: 3px solid var(--link); outline-offset: 3px; border-radius: 6px; }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .skip { position: absolute; left: -9999px; }
+  .skip:focus { left: 16px; top: 8px; z-index: 60; padding: 6px 10px; background: var(--card); }
+  h1, h2, h3, h4 { font-family: var(--display); font-weight: 800; margin: 0; line-height: 1.05; letter-spacing: -.02em; text-wrap: balance; }
+  h2 { font-size: clamp(2.5rem, 6.5vw, 4.75rem); margin-bottom: 32px; }
+  h3 { font-size: 1.625rem; line-height: 1.12; }
+  p { margin: 0 0 12px; text-wrap: pretty; }
+  ul { margin: 0 0 12px; padding-left: 1.15em; }
+  li { margin: 6px 0; }
+  code { font-size: .9em; }
+  .num { font-family: var(--display); font-weight: 800; font-variant-numeric: tabular-nums; letter-spacing: -.02em; }
+  mark { color: var(--on); background: var(--sun); padding: 0 .2em; border-radius: 4px; }
+  main { overflow-x: clip; }
+  section { padding: 96px 0 0; }
+  .meta { color: var(--muted); font-size: .9375rem; }
+
+  /* ---------- dock: the highlight slides to the link under the pointer, and rests on the section in view ---------- */
+  .dock { position: fixed; z-index: 40; top: 14px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 6px; padding: 6px; max-width: calc(100vw - 16px);
+    background: var(--card); border: 2.5px solid var(--edge); border-radius: 999px; box-shadow: var(--sh-s); }
+  .dock ul { position: relative; display: flex; margin: 0; padding: 0; list-style: none; }
+  .dock li { margin: 0; }
+  .dock a { position: relative; z-index: 1; display: block; padding: 7px 13px; border-radius: 999px; font-weight: 600; font-size: .9375rem; text-decoration: none; white-space: nowrap; transition: color .15s; }
+  .dock .blob { position: absolute; z-index: 0; top: 0; bottom: 0; left: 0; width: 0; border-radius: 999px; background: var(--sun); transition: left .35s cubic-bezier(.3, 1.4, .5, 1), width .35s cubic-bezier(.3, 1.4, .5, 1), opacity .2s; opacity: 0; }
+  .dock a.on { color: var(--on); }
+  .dock .other { padding: 7px 13px; border-radius: 999px; background: var(--ink); color: var(--paper); font-size: .875rem; }
+  .tog { position: relative; width: 38px; height: 38px; flex: none; border: 0; border-radius: 50%; background: transparent; cursor: pointer; }
+  .tog i { position: absolute; inset: 9px; border-radius: 50%; background: var(--sun); box-shadow: inset 0 0 0 2.5px var(--edge); transition: transform .5s cubic-bezier(.3, 1.4, .5, 1); }
+  .tog i::after { content: ""; position: absolute; top: -5px; right: -5px; width: 16px; height: 16px; border-radius: 50%; background: var(--card); transform: scale(0); transition: transform .35s; }
+  :root[data-theme="dark"] .tog i { transform: rotate(-40deg); background: var(--violet); }
+  :root[data-theme="dark"] .tog i::after { transform: scale(1); }
+  @media (max-width: 720px) { .dock li.wide { display: none; } .dock a { padding: 7px 10px; } }
+  @media (max-width: 480px) { .dock .other span { display: none; } .dock a { padding: 7px 8px; font-size: .875rem; } .dock { gap: 2px; } }
+
+  /* ---------- hero: the name is drawn in dots that avoid the pointer ---------- */
+  .hero { position: relative; padding-top: 120px; }
+  .name-box { position: relative; }
+  .name { font-size: clamp(3.5rem, 10.4vw, 8.75rem); line-height: .95; white-space: nowrap; letter-spacing: 0; letter-spacing: -.035em; }
+  .name span { display: inline-block; }
+  #dots { position: absolute; inset: -60px; width: calc(100% + 120px); height: calc(100% + 120px); display: none; cursor: crosshair; touch-action: pan-y; }
+  .dots-on .name { color: transparent; user-select: none; }
+  .dots-on #dots { display: block; }
+  @media (max-width: 720px) { .name span { display: block; } }
+  .hero-grid { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: 40px; margin-top: 36px; align-items: start; }
+  .role { font-size: clamp(1.1875rem, 2vw, 1.4375rem); line-height: 1.45; max-width: 34ch; margin-bottom: 26px; }
+  .btns { display: flex; flex-wrap: wrap; gap: 14px; margin: 0; }
+  .hint { color: var(--muted); font-size: .875rem; margin: 26px 0 0; }
+  @media (max-width: 860px) { .hero-grid { grid-template-columns: 1fr; gap: 28px; } }
+
+  /* buttons squash under the finger and spring back */
+  .btn { display: inline-flex; align-items: center; gap: 9px; padding: 12px 18px; font: 600 1rem var(--body); color: var(--on); text-decoration: none; cursor: pointer;
+    background: #fff; border: 2.5px solid var(--edge); border-radius: 14px; box-shadow: var(--sh); transition: transform .3s cubic-bezier(.3, 1.8, .5, 1), box-shadow .15s; }
+  .btn:hover { transform: translate(-2px, -2px); box-shadow: 7px 7px 0 var(--edge); }
+  .btn:active { transform: translate(4px, 4px) scale(1.04, .92); box-shadow: 1px 1px 0 var(--edge); transition-duration: .06s; }
+  .btn.y { background: var(--sun); } .btn.c { background: var(--cobalt); color: #fff; } .btn.m { background: var(--mint); }
+  .btn svg { width: 17px; height: 17px; flex: none; }
+  .pop { position: fixed; z-index: 70; pointer-events: none; font: 800 1.25rem var(--display); color: var(--on); background: var(--sun); border: 2.5px solid #14163a; border-radius: 10px; padding: 2px 10px; animation: pop .9s cubic-bezier(.2, .8, .3, 1) forwards; }
+  @keyframes pop { from { transform: translate(-50%, -50%) rotate(-8deg) scale(.4); opacity: 1; } 60% { opacity: 1; } to { transform: translate(-50%, -190%) rotate(6deg) scale(1); opacity: 0; } }
+
+  /* stickers: die-cut facts you can drag around */
+  .board { position: relative; min-height: 330px; }
+  .stk { position: absolute; display: grid; place-items: center; text-align: center; padding: 14px 18px; color: var(--on); font-family: var(--display); font-weight: 800; line-height: 1.05;
+    border: 5px solid #fff; outline: 1.5px solid rgba(20, 22, 58, .25); box-shadow: 0 6px 0 rgba(20, 22, 58, .22), 0 14px 22px rgba(20, 22, 58, .18);
+    rotate: var(--r, 0deg); cursor: grab; touch-action: none; user-select: none; transition: scale .25s cubic-bezier(.3, 1.8, .5, 1), rotate .25s, box-shadow .2s; }
+  .stk small { display: block; font: 600 .8125rem/1.25 var(--body); margin-top: 5px; }
+  .stk b { display: block; font-size: 2rem; }
+  .stk:hover { scale: 1.06; rotate: calc(var(--r, 0deg) * -.5); }
+  .stk.drag { cursor: grabbing; scale: 1.12; rotate: 0deg; z-index: 5; box-shadow: 0 16px 0 rgba(20, 22, 58, .12), 0 30px 34px rgba(20, 22, 58, .25); transition: scale .15s, rotate .15s; }
+  .stk.s1 { --r: -7deg; left: 2%; top: 8px; background: var(--sun); border-radius: 22px; }
+  .stk.s2 { --r: 9deg; right: 4%; top: 0; width: 158px; height: 158px; background: var(--coral); border-radius: 50%; }
+  .stk.s3 { --r: 4deg; left: 0; top: 184px; max-width: 270px; background: var(--mint); border-radius: 999px; padding: 14px 24px; }
+  .stk.s4 { --r: -11deg; right: 2%; top: 190px; width: 140px; height: 140px; background: var(--cobalt); color: #fff; border-radius: 34% 66% 61% 39% / 44% 38% 62% 56%; }
+  .stk.s3 b { font-size: 1.375rem; }
+  .live { display: inline-block; width: 10px; height: 10px; margin-right: 8px; border-radius: 50%; background: var(--on); animation: live 1.6s ease-in-out infinite; }
+  @keyframes live { 50% { transform: scale(.45); opacity: .5; } }
+  @media (max-width: 860px) { .board { min-height: 0; padding: 6px 8px; display: flex; flex-wrap: wrap; gap: 16px 14px; align-items: center; } .board .stk { position: relative; inset: auto; } }
+
+  /* ---------- panels ---------- */
+  .panel { position: relative; background: var(--card); border: 2.5px solid var(--edge); border-radius: 26px; box-shadow: var(--sh); padding: 30px; }
+  .panel + .panel { margin-top: 28px; }
+  .two { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 36px; align-items: start; }
+  .tag { display: inline-block; margin-bottom: 12px; padding: 2px 11px; font-weight: 600; font-size: .875rem; color: var(--on); background: var(--c, var(--sun)); border: 2px solid var(--edge); border-radius: 999px; }
+  .panel h3 + .meta, .proj h3 + .meta { margin: 6px 0 14px; }
+  .stack { display: flex; flex-wrap: wrap; gap: 6px; margin: 16px 0 0; padding: 0; list-style: none; }
+  .stack li { margin: 0; padding: 1px 10px; font-size: .8125rem; font-weight: 500; border: 1.5px solid var(--edge); border-radius: 999px; }
+  .cap { font-weight: 600; margin: 0 0 4px; }
+  .note { color: var(--muted); font-size: .8125rem; line-height: 1.5; margin: 10px 0 0; }
+  @media (max-width: 900px) { .two { grid-template-columns: 1fr; gap: 24px; } .panel { padding: 22px 18px; border-radius: 20px; } }
+
+  /* pipeline: one dot per second travels each link */
+  .pl { display: flex; align-items: stretch; margin: 10px 0 0; padding: 0; list-style: none; }
+  .pl li { margin: 0; display: flex; align-items: center; flex: 1 1 0; min-width: 0; }
+  .pl li:last-child { flex: 0 1 auto; }
+  .pl .nd { flex: none; max-width: 100%; padding: 8px 9px; font-size: .8125rem; line-height: 1.25; font-weight: 600; color: var(--on); background: var(--violet); border: 2px solid var(--edge); border-radius: 12px; transition: transform .25s cubic-bezier(.3, 1.8, .5, 1); }
+  .pl .nd small { display: block; font-weight: 400; font-size: .75rem; }
+  .pl .nd:hover { transform: translateY(-4px) rotate(-2deg); }
+  .pl li:nth-child(2) .nd { background: var(--sun); } .pl li:nth-child(3) .nd { background: var(--mint); } .pl li:nth-child(4) .nd { background: #fff; } .pl li:nth-child(5) .nd { background: var(--coral); }
+  .pl .ln { position: relative; flex: 1 1 14px; min-width: 14px; height: 2.5px; background: var(--edge); }
+  .pl .ln::after { content: ""; position: absolute; left: 0; top: -4.5px; width: 11px; height: 11px; border-radius: 50%; background: var(--coral); border: 2px solid var(--edge); animation: flow 1s linear infinite; animation-delay: var(--d, 0s); }
+  .pl li:nth-child(2) .ln { --d: .25s; } .pl li:nth-child(3) .ln { --d: .5s; } .pl li:nth-child(4) .ln { --d: .75s; }
+  @keyframes flow { from { left: -6px; opacity: 0; } 15%, 85% { opacity: 1; } to { left: calc(100% - 6px); opacity: 0; } }
+  @media (max-width: 1000px) {
+    .pl { flex-direction: column; align-items: flex-start; }
+    .pl li { flex-direction: column; align-items: flex-start; }
+    .pl .ln { flex: none; width: 2.5px; height: 22px; margin-left: 26px; }
+    .pl .ln::after { left: -4.5px; top: 0; animation-name: flowY; }
+  }
+  @keyframes flowY { from { top: -6px; opacity: 0; } 15%, 85% { opacity: 1; } to { top: calc(100% - 6px); opacity: 0; } }
+
+  /* the load-time race */
+  .race { margin-top: 26px; padding-top: 22px; border-top: 2px dashed var(--edge); }
+  .race-row { display: grid; grid-template-columns: 11.5rem minmax(0, 1fr) 9.5rem; gap: 6px 14px; align-items: center; margin-top: 12px; font-size: .9375rem; }
+  .trk { height: 22px; border: 2px solid var(--edge); border-radius: 999px; overflow: hidden; background: var(--paper); }
+  .trk i { display: block; height: 100%; width: 0; background: var(--mint); border-right: 2px solid var(--edge); border-radius: 0 999px 999px 0; }
+  .trk i.slow { background: var(--coral); }
+  .race-row .num { text-align: right; font-size: 1rem; }
+  @media (max-width: 620px) { .race-row { grid-template-columns: minmax(0, 1fr) auto; } .race-row .trk { grid-column: 1 / -1; grid-row: 2; } }
+
+  /* ---------- projects ---------- */
+  .projs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; }
+  .proj { display: flex; flex-direction: column; background: var(--card); border: 2.5px solid var(--edge); border-radius: 26px; box-shadow: var(--sh); overflow: hidden;
+    transform: perspective(1100px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); transition: transform .35s ease-out, opacity .3s, box-shadow .3s; }
+  .proj.live-tilt { transition: opacity .3s, box-shadow .3s; }
+  .proj.wide { grid-column: 1 / -1; flex-direction: row; }
+  .proj .fig { background: var(--c); color: var(--on); padding: 26px 28px; border-bottom: 2.5px solid var(--edge); }
+  .proj.wide .fig { flex: 6 1 0; min-width: 0; border-bottom: 0; border-left: 2.5px solid var(--edge); order: 2; }
+  .proj .txt { padding: 26px 28px 28px; flex: 5 1 0; min-width: 0; }
+  .proj h3 a { text-decoration-color: var(--c); text-decoration-thickness: 4px; }
+  .proj .fig .note { color: var(--on); opacity: .8; }
+  .big { display: block; font-size: clamp(3.25rem, 7vw, 5.25rem); line-height: .95; }
+  .big + .cap { margin-top: 8px; }
+  .proj.dim { opacity: .3; }
+  .proj.hit { box-shadow: 9px 9px 0 var(--link); }
+  @media (max-width: 900px) { .projs { grid-template-columns: 1fr; } .proj.wide { flex-direction: column; } .proj.wide .fig { order: 0; border-left: 0; border-bottom: 2.5px solid var(--edge); } .proj .fig, .proj .txt { padding: 22px 18px; } }
+
+  .waffle { display: grid; grid-template-columns: repeat(11, 1fr); gap: 6px; max-width: 440px; margin-top: 14px; }
+  .waffle span { aspect-ratio: 1; border: 2px solid var(--on); border-radius: 6px; transition: transform .3s cubic-bezier(.3, 1.8, .5, 1), background-color .25s var(--d, 0s); }
+  .waffle span:hover { transform: scale(1.35) rotate(8deg); }
+  .waffle.in span.on { background: var(--on); }
+  .wf-key { display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 12px 0 0; font-size: .9375rem; }
+  .wf-key i { display: inline-block; width: 13px; height: 13px; margin-right: 7px; border: 2px solid var(--on); border-radius: 4px; vertical-align: -1px; }
+  .wf-key i.on { background: var(--on); }
+
+  .dotp { display: grid; grid-template-columns: max-content minmax(0, 1fr) max-content; gap: 10px 14px; align-items: center; margin-top: 16px; font-size: .9375rem; }
+  .dotp .t { position: relative; height: 22px; }
+  .dotp .t::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; border-top: 2px dashed rgba(20, 22, 58, .35); }
+  .dotp .t i { position: absolute; top: 50%; left: 0; width: 20px; height: 20px; margin: -10px 0 0 -10px; border-radius: 50%; background: #fff; border: 2.5px solid var(--on); transition: left 1.1s cubic-bezier(.3, 1.3, .5, 1) var(--d, 0s); }
+  .dotp .t i.me { background: var(--on); }
+  .dotp.in .t i { left: var(--p); }
+  .dotp .ax { grid-column: 2; display: flex; justify-content: space-between; font-size: .75rem; margin-top: -4px; }
+
+  .bars2 { display: grid; grid-template-columns: max-content minmax(0, 1fr) max-content; gap: 10px 14px; align-items: center; margin-top: 16px; font-size: .9375rem; }
+  .bars2 .t { height: 20px; }
+  .bars2 .t i { display: block; height: 100%; min-width: 5px; background: #fff; border: 2px solid var(--on); border-radius: 0 8px 8px 0; transform: scaleX(0); transform-origin: left; transition: transform 1s cubic-bezier(.2, .7, .2, 1) var(--d, 0s); }
+  .bars2 .t i.me { background: var(--on); }
+  .bars2.in .t i { transform: none; }
+
+  .arch { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 14px; font-size: .8125rem; line-height: 1.3; text-align: center; }
+  .arch .n { padding: 8px; background: #fff; border: 2px solid var(--on); border-radius: 10px; }
+  .arch .n b { display: block; font-size: .875rem; }
+  .arch .w { grid-column: 1 / -1; justify-self: center; min-width: 62%; }
+  .arch .mine { background: var(--on); color: #fff; }
+  .arch .net { display: grid; gap: 10px; padding: 12px 8px 8px; border: 2px dashed var(--on); border-radius: 14px; }
+
+  #fgfChart { display: block; width: 100%; height: auto; overflow: visible; margin-top: 10px; touch-action: pan-y; cursor: crosshair; }
+  #fgfChart .a { fill: none; stroke: var(--on); stroke-width: 2.5; stroke-linejoin: round; }
+  #fgfChart .m { fill: none; stroke: #fff; stroke-width: 2.5; stroke-linejoin: round; stroke-dasharray: 1 5; stroke-linecap: round; }
+  #fgfChart .x { stroke: var(--on); stroke-width: 1.5; }
+  #fgfChart text { fill: var(--on); font: 500 11px var(--body); }
+  .fgf-read { min-height: 3.1em; margin: 8px 0 0; font-size: .9375rem; }
+  .fgf-ctl { display: flex; align-items: center; gap: 12px; margin-top: 4px; font-size: .875rem; }
+  .fgf-ctl input { flex: 1; min-width: 0; accent-color: var(--on); }
+  .lg { display: flex; flex-wrap: wrap; gap: 4px 18px; font-size: .875rem; margin: 6px 0 0; }
+  .lg i { display: inline-block; width: 22px; margin-right: 7px; vertical-align: 4px; border-top: 3px solid var(--on); }
+  .lg i.d { border-top: 3px dotted #fff; }
+
+  .minis { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin: 20px 0 0; padding: 0; list-style: none; }
+  .minis li { margin: 0; padding: 16px 18px; background: var(--card); border: 2px solid var(--edge); border-radius: 18px; font-size: .9375rem; line-height: 1.5; transition: transform .3s cubic-bezier(.3, 1.8, .5, 1), box-shadow .2s, opacity .3s; }
+  .minis li:hover { transform: translate(-3px, -3px) rotate(-.6deg); box-shadow: var(--sh); }
+  .minis li.dim { opacity: .3; } .minis li.hit { box-shadow: 6px 6px 0 var(--link); }
+  .minis h4 { font-size: 1.125rem; margin-bottom: 6px; letter-spacing: -.01em; }
+  .sub { margin-top: 56px; font-size: 2rem; }
+  @media (max-width: 900px) { .minis { grid-template-columns: 1fr; } }
+
+  /* ---------- ideas, skills, education ---------- */
+  .ideas { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin: 0; padding: 0; list-style: none; }
+  .ideas li { margin: 0; padding: 18px 20px; background: var(--card); border: 2px dashed var(--edge); border-radius: 18px; font-size: .9375rem; line-height: 1.55; }
+  .ideas strong { display: block; font: 800 1.1875rem/1.15 var(--display); margin-bottom: 6px; }
+  .grp { font-size: 1.375rem; margin: 28px 0 14px; }
+  details.more { margin-top: 24px; }
+  details.more summary { cursor: pointer; font-weight: 600; width: fit-content; }
+  @media (max-width: 760px) { .ideas { grid-template-columns: 1fr; } }
+
+  .skills { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 44px; margin: 0; }
+  .skills dt { font: 800 1.25rem var(--display); margin-top: 10px; }
+  .skills dd { margin: 10px 0 6px; }
+  .sk { font: 500 .9375rem var(--body); color: var(--ink); cursor: pointer; background: var(--card); border: 2px solid var(--edge); border-radius: 999px; padding: 5px 14px; margin: 0 6px 10px 0; transition: transform .3s cubic-bezier(.3, 1.8, .5, 1), background-color .15s; }
+  .sk:hover { transform: translateY(-3px) rotate(-2deg); }
+  .sk:active { transform: scale(1.06, .9); }
+  .sk[aria-pressed="true"] { background: var(--sun); color: var(--on); box-shadow: var(--sh-s); }
+  .sk-plain { color: var(--muted); font-size: .9375rem; }
+  .sk-out { margin: 18px 0 0; padding: 14px 18px; background: var(--card); border: 2px solid var(--edge); border-radius: 16px; }
+  .sk-out:empty { display: none; }
+  @media (max-width: 760px) { .skills { grid-template-columns: 1fr; } }
+
+  .edu { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+  .edu > div { padding: 22px; border: 2.5px solid var(--edge); border-radius: 22px; background: var(--c); color: var(--on); box-shadow: var(--sh-s); font-size: .9375rem; }
+  .edu h3 { font-size: 1.5rem; margin-bottom: 8px; }
+  .edu .meta { color: var(--on); font-weight: 600; }
+  .edu p:last-child { margin: 0; }
+  @media (max-width: 860px) { .edu { grid-template-columns: 1fr; } }
+
+  /* ---------- contact ---------- */
+  footer { margin-top: 110px; background: var(--cobalt); color: #fff; border-top: 2.5px solid var(--edge); }
+  footer .wrap { padding-top: 72px; padding-bottom: 48px; }
+  footer h2 { font-size: clamp(3rem, 10vw, 8rem); margin-bottom: 18px; }
+  footer p { max-width: 56ch; font-size: 1.125rem; }
+  footer .btns { margin: 28px 0 44px; }
+  footer .fine { font-size: .875rem; opacity: .85; margin: 0; }
+  footer a:not(.btn) { text-decoration-color: #fff; }
+  footer a:focus-visible { outline-color: #fff; }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    .pl .ln::after { display: none; }
+    .proj { transform: none; }
+    .dotp .t i { left: var(--p); } .bars2 .t i { transform: none; }
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<nav class="dock" aria-label="Main">
+  <ul id="dockList">
+    <li class="wide"><a href="#top">Clément</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li class="wide"><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li class="blob" aria-hidden="true"></li>
+  </ul>
+  <button class="tog" id="themeBtn" type="button" aria-label="Switch theme"><i></i></button>
+  <a class="other" href="./?v=simple">Simple<span> version</span></a>
+</nav>
+
+<main id="main">
+  <div class="wrap hero" id="top">
+    <div class="name-box" id="nameBox">
+      <h1 class="name" id="name"><span>Clément</span> <span>Vurpillot</span></h1>
+      <canvas id="dots" aria-hidden="true"></canvas>
+    </div>
+    <div class="hero-grid">
+      <div>
+        <p class="role">Final-year data and AI engineering student at ESILV, Paris. I build data pipelines and models, and I measure what they do.</p>
+        <p class="btns">
+          <a class="btn y" href="Clement_Vurpillot_CV.pdf" download data-pop="PDF!">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+            Download my CV
+          </a>
+          <a class="btn" href="https://www.linkedin.com/in/clement-vurpillot/">LinkedIn</a>
+          <a class="btn" href="https://github.com/Oradixx">GitHub</a>
+        </p>
+        <p class="hint" id="hint" hidden>Move over the name, click it, and drag the stickers.</p>
+      </div>
+      <div class="board" id="board">
+        <div class="stk s1"><div><b>3 h to 30 s</b><small>dashboard load time,<br>CERTAM internship</small></div></div>
+        <div class="stk s2"><div><b>2nd</b><small>NFL Big Data Bowl<br>Paris Side Quest</small></div></div>
+        <div class="stk s3"><div><b><span class="live"></span>Open to work</b><small>6-month internship or VIE, from February 2027</small></div></div>
+        <div class="stk s4"><div><b>65.4 %</b><small>pro games<br>called right</small></div></div>
+      </div>
+    </div>
+  </div>
+
+  <section id="experience" class="wrap" aria-labelledby="experience-h">
+    <h2 id="experience-h" data-scramble>Experience</h2>
+
+    <div class="panel" data-id="certam" data-name="CERTAM internship">
+      <div class="two">
+        <div>
+          <span class="tag" style="--c:var(--mint)">April – August 2026, Rouen</span>
+          <h3>Data and AI engineering intern, CERTAM</h3>
+          <p class="meta">An applied research centre that tests engines and their emissions.</p>
+          <ul>
+            <li>Built the ingestion pipeline for vessel telemetry sampled at 1&nbsp;Hz: J1939 CAN bus data stored in AWS S3 as Parquet, loaded by async Python into PostgreSQL with TimescaleDB.</li>
+            <li>Trained a Random Forest that rebuilds particulate readings when the sensor fails (R² up to 0.96), explained it with SHAP and presented it to the test engineers.</li>
+            <li>Moved slow dashboard queries into SQL materialised views. The dashboard now loads in <mark>30 seconds</mark>; it used to take 3 hours.</li>
+            <li>Deployed a Streamlit app and real-time Grafana alerting on a hardened Linux VPS. The pressure-drop alert caught a clogging filter before the engine failed.</li>
+          </ul>
+        </div>
+        <div>
+          <p class="cap">The telemetry pipeline I built</p>
+          <p class="note" style="margin-top:0">One reading per second, from the vessel to the alert.</p>
+          <ol class="pl">
+            <li><span class="nd">CAN bus<small>J1939, 1 Hz</small></span><i class="ln" aria-hidden="true"></i></li>
+            <li><span class="nd">AWS S3<small>Parquet</small></span><i class="ln" aria-hidden="true"></i></li>
+            <li><span class="nd">Loader<small>async Python</small></span><i class="ln" aria-hidden="true"></i></li>
+            <li><span class="nd">TimescaleDB<small>SQL views</small></span><i class="ln" aria-hidden="true"></i></li>
+            <li><span class="nd">Grafana<small>real-time alerts</small></span></li>
+          </ol>
+          <div class="race">
+            <p class="cap">Dashboard load time, raced</p>
+            <button class="btn m" type="button" id="raceBtn">Load the dashboard</button>
+            <div class="race-row"><span>With materialised views</span><span class="trk"><i id="raceFast"></i></span><span class="num" id="raceFastN">30 s</span></div>
+            <div class="race-row"><span>Before</span><span class="trk"><i class="slow" id="raceSlow"></i></span><span class="num" id="raceSlowN">3 h</span></div>
+            <p class="note" id="raceNote" aria-live="polite">Sped up 60 times: one second here is one minute of waiting.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel" data-id="diduenjoy">
+      <span class="tag" style="--c:var(--coral)">2024 and 2025, Paris</span>
+      <h3>Data labelling and quality supervisor, Diduenjoy</h3>
+      <p class="meta">Internship in July–October 2024, freelance again in August 2025.</p>
+      <ul>
+        <li>Supervised a team of 5 interns working under a 72-hour SLA, and ran weekly data quality audits.</li>
+        <li>Labelled customer verbatims against business taxonomies and measured the precision and recall of the NLP models in production.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="projects" class="wrap" aria-labelledby="projects-h">
+    <h2 id="projects-h" data-scramble>Projects</h2>
+    <div class="projs">
+
+      <article class="proj wide" data-id="chip" data-name="Chip Advisor" style="--c:var(--sun)">
+        <div class="fig">
+          <span class="num big"><span class="count" data-to="36">36</span> of 88</span>
+          <p class="cap">sacks on plays with a chip had the chipping player open</p>
+          <div class="waffle" id="waffle" data-io role="img" aria-label="36 of the 88 sacks with a chip had the chipping player open."></div>
+          <p class="wf-key"><span><i class="on"></i>Open: 36</span><span><i></i>Not open: 52</span></p>
+          <p class="note">Each square is one sack. Open means at least 3 yards past the line for at least 1 second.</p>
+        </div>
+        <div class="txt">
+          <span class="tag">Hackathon, 2nd place</span>
+          <h3><a href="https://github.com/alvaro-serero/nfl-chip-advisor">Chip Advisor</a></h3>
+          <p class="meta">NFL Big Data Bowl Paris Side Quest, by AWS, the NFL and Epitech, October 2026. Team of 3; the repository is hosted by a teammate.</p>
+          <p>We measured whether a tight end or a running back who "chips" a pass rusher before running his route protects the quarterback. On NFL Next Gen Stats tracking and PFF data for weeks 1–8 of 2021, a chip by an in-line tight end cut that rusher's pressure by 26&nbsp;%. Sacks still happen, because the pressure then comes from another defender.</p>
+          <p>Our advice to the QB coach: look for the player who chipped at about 3 seconds. We delivered it as a small web tool with a coach briefing written by Mistral.</p>
+          <ul class="stack"><li>Python</li><li>pandas</li><li>Mistral API</li><li>Kiro</li><li>Vercel</li></ul>
+        </div>
+      </article>
+
+      <article class="proj wide" data-id="fgf" data-name="France Grid Forecast" style="--c:var(--mint)">
+        <div class="fig" id="fgfFig">
+          <span class="num big"><span class="count" data-to="2.1" data-dec="1">2.1</span> %</span>
+          <p class="cap">mean hourly error over the first 35 days scored</p>
+          <div id="fgfLive" hidden>
+            <p class="lg" aria-hidden="true"><span><i></i>Consumed</span><span><i class="d"></i>My day-ahead forecast</span></p>
+            <svg id="fgfChart" viewBox="0 0 640 230" role="img" aria-label="France's hourly electricity consumption against my day-ahead forecast, seven days at a time."></svg>
+            <p class="fgf-read" id="fgfRead" aria-live="polite"></p>
+            <label class="fgf-ctl"><span>Slide through the days</span><input type="range" id="fgfRange" min="0" max="0" value="0"></label>
+          </div>
+          <p class="note">RTE's own forecast was at 1.5&nbsp;% and the naive baseline at 4.2&nbsp;% over the same days. Forecasts are shown as published and never revised.</p>
+        </div>
+        <div class="txt">
+          <span class="tag">Personal project, running daily</span>
+          <h3><a href="https://oradixx.github.io/france-grid-forecast/">France Grid Forecast</a></h3>
+          <p class="meta">First live forecast for 27 September 2026. <a href="https://github.com/Oradixx/france-grid-forecast">Code</a></p>
+          <p>Every day a GitHub Actions job forecasts France's electricity consumption for each hour of the next day, then scores the past forecasts against what was really consumed.</p>
+          <p>RTE and weather data are stored as Parquet; dbt on DuckDB runs 19 data tests, and a failing test stops the run before anything is published. The gradient boosting model is retrained each week and replaces the current one only if it beats the naive baseline by at least 25&nbsp;% on the last 8 weeks.</p>
+          <ul class="stack"><li>dbt</li><li>DuckDB</li><li>scikit-learn</li><li>GitHub Actions</li><li>Parquet</li></ul>
+        </div>
+      </article>
+
+      <article class="proj" data-id="lol" data-name="LoL Ratings 3.0" style="--c:var(--violet)">
+        <div class="fig">
+          <span class="num big"><span class="count" data-to="65.4" data-dec="1">65.4</span> %</span>
+          <p class="cap">of 8,566 pro games called correctly in 2026</p>
+          <div class="dotp" data-io role="img" aria-label="Games called correctly in 2026: KDA 60.3 percent, Elo per team 63.8, Elo per player 63.8, LoL Ratings 3.0 65.4.">
+            <span>KDA</span><span class="t"><i style="--p:25.6%"></i></span><span class="num">60.3</span>
+            <span>Elo per team</span><span class="t"><i style="--p:64.4%;--d:.1s"></i></span><span class="num">63.8</span>
+            <span>Elo per player</span><span class="t"><i style="--p:64.4%;--d:.2s"></i></span><span class="num">63.8</span>
+            <span>LoL Ratings 3.0</span><span class="t"><i class="me" style="--p:82.2%;--d:.3s"></i></span><span class="num">65.4</span>
+            <span class="ax"><span>58 %</span><span>67 %</span></span>
+          </div>
+        </div>
+        <div class="txt">
+          <h3><a href="https://oradixx.github.io/LoL-ratings/">LoL Ratings 3.0</a></h3>
+          <p class="meta">Personal project, 2026. The write-up is in French. <a href="https://github.com/Oradixx/LoL-ratings">Code</a></p>
+          <p>A rating of professional League of Legends players that accounts for the strength of their teammates and of their league: a ridge regression on each game's final gold difference (RAPM), with a box-score prior learned per role.</p>
+          <p>Built on the 10,044 pro games of 2025, then tested on the 2026 season, retrained each month. The Elo ratings it beats are updated after every game, which favours them.</p>
+          <ul class="stack"><li>pandas</li><li>SciPy</li><li>scikit-learn</li><li>GitHub Actions</li></ul>
+        </div>
+      </article>
+
+      <article class="proj" data-id="nlp" data-name="NLP on insurance reviews" style="--c:var(--coral)">
+        <div class="fig">
+          <span class="num big">52 to <span class="count" data-to="54">54</span> %</span>
+          <p class="cap">accuracy on star ratings, test set of 4,814 reviews</p>
+          <p class="note">TF-IDF baseline against MiniLM embeddings. The embeddings win, but only slightly; macro F1 goes from 0.43 to 0.46.</p>
+        </div>
+        <div class="txt">
+          <h3><a href="https://github.com/Oradixx/insurance-reviews-nlp">NLP on 24,000 insurance reviews</a></h3>
+          <p class="meta">School project (NLP course, ESILV), March 2026, team of 2. Serving added in September 2026.</p>
+          <p>We predicted the star rating of about 24,000 French insurance reviews. The Streamlit app adds zero-shot topic detection and RAG answers; we replaced Flan-T5 with Llama 3 running locally because Flan-T5 hallucinated more in our tests.</p>
+          <p>After the course, the baseline became a FastAPI service in Docker, tested in CI. Training runs are tracked in MLflow, and a model below 0.40 macro F1 is never saved.</p>
+          <ul class="stack"><li>Hugging Face</li><li>PyTorch</li><li>Llama 3</li><li>MLflow</li><li>FastAPI</li><li>Docker</li></ul>
+        </div>
+      </article>
+
+      <article class="proj" data-id="crypto" data-name="CryptoIndexLab" style="--c:var(--mint)">
+        <div class="fig">
+          <p class="cap">Eight containers on three Docker networks</p>
+          <div class="arch" role="img" aria-label="The browser talks to an Nginx gateway and load balancer, which sends traffic to two replicas of each API. Each API has its own PostgreSQL database on its own Docker network. The gateway and the networks were my part.">
+            <div class="n w"><b>Browser</b>single-page app</div>
+            <div class="n w mine"><b>Nginx gateway</b>balances /api1 and /api2</div>
+            <div class="net"><div class="n"><b>api1 × 2</b>FastAPI, JWT</div><div class="n"><b>PostgreSQL</b>crypto_auth</div></div>
+            <div class="net"><div class="n"><b>api2 × 2</b>FastAPI, CoinGecko</div><div class="n"><b>PostgreSQL</b>crypto_index</div></div>
+          </div>
+          <p class="note">Dark box and dashed networks: my part, the gateway and the networking between each API and its database.</p>
+        </div>
+        <div class="txt">
+          <h3><a href="https://github.com/Oradixx/CryptoIndexLab">CryptoIndexLab</a></h3>
+          <p class="meta">School project (containerisation course, ESILV), March 2026, team of 3.</p>
+          <p>A web app to build and track custom crypto indexes, run as containers. Two FastAPI services run 2 replicas each behind an Nginx gateway, and each service has its own PostgreSQL on a separate Docker network.</p>
+          <p>CI builds hardened images and fails on any Trivy finding of medium severity or above. Demoed on AWS Lightsail.</p>
+          <ul class="stack"><li>FastAPI</li><li>PostgreSQL</li><li>Docker Compose</li><li>Nginx</li><li>Trivy</li></ul>
+        </div>
+      </article>
+
+      <article class="proj" data-id="trip" data-name="TripAdvisor recommender" style="--c:var(--sun)">
+        <div class="fig">
+          <span class="num big">77 s to <span class="count" data-to="0.6" data-dec="1">0.6</span> s</span>
+          <p class="cap">to score 900 × 900 places with BM25</p>
+          <div class="bars2" data-io role="img" aria-label="BM25 scoring time: 77 seconds with rank_bm25, 0.6 seconds with the sparse matrix product.">
+            <span>rank_bm25</span><span class="t"><i style="width:100%"></i></span><span class="num">77 s</span>
+            <span>Sparse product</span><span class="t"><i class="me" style="width:.78%;--d:.4s"></i></span><span class="num">0.6 s</span>
+          </div>
+          <p class="note">Same scores as rank_bm25, computed as one sparse matrix product.</p>
+        </div>
+        <div class="txt">
+          <h3><a href="https://github.com/Oradixx/tripadvisor-recommender">TripAdvisor recommender</a></h3>
+          <p class="meta">School project (information retrieval course, ESILV), March 2026, team of 2. Reworked in September 2026.</p>
+          <p>Given a place on TripAdvisor, recommends a similar one using only the reviews. The fast BM25 made it cheap to re-check every model on 20 random splits. The reliable gain came from better tokenization, not from a more complex model: the same BM25 got better on <mark>20 splits out of 20</mark>.</p>
+          <ul class="stack"><li>scikit-learn</li><li>SciPy</li><li>pytest</li><li>GitHub Actions</li></ul>
+        </div>
+      </article>
+
+      <article class="proj wide" data-id="movielens" data-name="MovieLens in Cassandra and Neo4j" style="--c:var(--violet)">
+        <div class="fig">
+          <span class="num big"><span class="count" data-to="2847" data-sep>2,847</span></span>
+          <p class="cap">ratings silently merged, found and documented</p>
+          <p class="note">Users are identified by name and some names are shared, so 0.28&nbsp;% of the 1,000,209 ratings collapsed.</p>
+        </div>
+        <div class="txt">
+          <h3><a href="https://github.com/Oradixx/movielens-nosql">MovieLens in Cassandra and Neo4j</a></h3>
+          <p class="meta">School project (NoSQL course, ESILV), March–April 2026, team of 3.</p>
+          <p>MovieLens 1M modelled twice. In Cassandra, one table per query, plus a Java aggregate because <code>AVG</code> on an integer column returns an integer. In Neo4j, a graph for collaborative filtering and for path queries with APOC and <code>shortestPath()</code>. CI rebuilds both databases from a synthetic sample and checks the query results.</p>
+          <ul class="stack"><li>Cassandra</li><li>Neo4j</li><li>Docker Compose</li><li>Python</li></ul>
+        </div>
+      </article>
+    </div>
+
+    <h3 class="sub">Smaller projects</h3>
+    <ul class="minis">
+      <li data-id="dpt" data-name="data-pipeline-template"><h4><a href="https://github.com/Oradixx/data-pipeline-template">data-pipeline-template</a></h4>Async Python ingestion into TimescaleDB with a Grafana dashboard, versioned SQL migrations and integration tests in CI. <code>make up</code> starts the whole stack.</li>
+      <li data-id="dip" data-name="Data Interview Prep"><h4><a href="https://oradixx.github.io/data-interview-prep/">Data Interview Prep</a></h4>118 practice questions for data engineering, MLOps, DevOps and LLM interviews, each answer explained.</li>
+      <li data-id="plumber" data-name="Data Plumber"><h4><a href="https://oradixx.github.io/data-plumber/">Data Plumber</a></h4>A browser game about data pipelines, with 70 unit tests and a solver that checks the final boss puzzle has exactly one solution.</li>
+      <li data-id="car" data-name="Used car prices"><h4><a href="https://github.com/Oradixx/Car_Price_Prediction_Project">Used car prices</a></h4>Craigslist listings from Kaggle; the best model is LightGBM, with R² ≈ 0.82, against 0.49 for a linear regression. School project, team of 3.</li>
+      <li data-id="sniffer" data-name="Packet sniffer in Rust"><h4><a href="https://github.com/Oradixx/Packet_Sniffer_Rust">Packet sniffer in Rust</a></h4>Live capture on libpcap with BPF filters; decoding is unit-tested on hand-built packets. Team of 2.</li>
+      <li data-id="mern" data-name="Full-stack MERN app"><h4>Full-stack MERN app</h4>Built in a Scrum team of 3 on Jira, from specification documents and UML, with an 80&nbsp;% test coverage gate in CI. No public repository.</li>
+      <li data-id="templates" data-name="Project templates"><h4>Project templates</h4>For <a href="https://github.com/Oradixx/python-project-template">Python services</a> and for <a href="https://github.com/Oradixx/course-project-template">coursework</a>: uv, Ruff, strict mypy, pytest, pre-commit, a multi-stage Dockerfile and CI.</li>
+    </ul>
+  </section>
+
+  <section id="skills" class="wrap" aria-labelledby="skills-h">
+    <h2 id="skills-h" data-scramble>Skills</h2>
+    <p class="meta" style="margin:-16px 0 18px">Pick a skill: the projects that use it stay lit.</p>
+    <dl class="skills">
+      <div><dt>Languages</dt><dd>
+        <button class="sk" type="button" aria-pressed="false" data-use="fgf lol chip nlp crypto trip movielens certam dpt car">Python (pandas, NumPy)</button>
+        <button class="sk" type="button" aria-pressed="false" data-use="fgf certam dpt">SQL</button>
+        <button class="sk" type="button" aria-pressed="false" data-use="dip mern">JavaScript and Node.js</button>
+        <button class="sk" type="button" aria-pressed="false" data-use="movielens">Java</button>
+        <button class="sk" type="button" aria-pressed="false" data-use="sniffer">Rust</button>
+        <button class="sk" type="button" aria-pressed="false" data-use="movielens">CQL and Cypher</button>
+      </dd></div>
+      <div><dt>Data</dt><dd>
+        <button class="sk" type="button" aria-pressed="false" data-use="certam crypto dpt">PostgreSQL</button>
+        <button class="sk" type="button" aria-pressed="false" data-use="certam dpt">TimescaleDB</button>
+        <button class="sk" type="button" aria-pressed="false" data-use="fgf">DuckDB</button>
+        <button class="sk" type="button" aria-pressed="false" data-use="fgf">dbt</button>
+        <button class="sk" type="button" aria-pressed="false" data-use="fgf certam">Parquet</button>
+        <button class="sk" type="button" aria-pressed="false" data-use="movielens">Cassandra</button>
+        <button class="sk" type="button" aria-pressed="false" data-use="movielens">Neo4j</button>
+        <button class="sk" type="button" aria-pressed="false" data-use="mern">MongoDB</button>
+        <span class="sk-plain">Apache Spark (PySpark), Elasticsearch</span>
+      </dd></div>
+      <div><dt>Machine learning and AI</dt><dd>
+        <button class="sk" type="button" aria-pressed="false" data-use="fgf lol nlp trip car">scikit-learn</button>
+        <button class="sk" type="button" aria-pressed="false" data-use="nlp">Hugging Face and BERT</button>
+        <button class="sk" type="button" aria-pressed="false" data-use="nlp chip">LLMs and RAG</button>
+        <button class="sk" type="button" aria-pressed="false" data-use="certam nlp">SHAP</button>
+        <span class="sk-plain">TensorFlow, LIME</span>
+      </dd></div>
+      <div><dt>Cloud and MLOps</dt><dd>
+        <button class="sk" type="button" aria-pressed="false" data-use="crypto nlp movielens dpt templates">Docker</button>
+        <button class="sk" type="button" aria-pressed="false" data-use="fgf lol trip nlp movielens crypto dpt mern">GitHub Actions</button>
+        <button class="sk" type="button" aria-pressed="false" data-use="certam crypto">AWS (S3, Lightsail)</button>
+        <button class="sk" type="button" aria-pressed="false" data-use="crypto nlp">FastAPI</button>
+        <button class="sk" type="button" aria-pressed="false" data-use="nlp">MLflow</button>
+        <button class="sk" type="button" aria-pressed="false" data-use="crypto">Nginx</button>
+        <button class="sk" type="button" aria-pressed="false" data-use="certam dpt">Grafana</button>
+        <button class="sk" type="button" aria-pressed="false" data-use="certam">Linux</button>
+        <span class="sk-plain">Kubernetes (GKE), GCP, Git</span>
+      </dd></div>
+    </dl>
+    <p class="sk-out" id="skillOut" aria-live="polite"></p>
+  </section>
+
+  <section id="ideas" class="wrap" aria-labelledby="ideas-h">
+    <h2 id="ideas-h" data-scramble>Ideas I want to build</h2>
+    <p class="meta" style="margin:-16px 0 0">Scoped but not built yet, grouped by when I expect to start them.</p>
+    <h3 class="grp">Next</h3>
+    <ul class="ideas">
+      <li><strong>localcascade</strong>Free local AI as a cascade: rules in code first, then a small calibrated decision model, then a local LLM, and a human only for what is left. Each stage is measured for quality, calibration, latency and memory, on my own labelled data. The first use case is watching VIE job offers. Published as a Python library.</li>
+      <li><strong>Decision-model routing for LLMRouter</strong>A plugin for the open-source LLMRouter that routes each request with the same kind of small decision model, once localcascade has shown it works.</li>
+      <li><strong>Sentiment analysis with an RNN and a small language model</strong>A recurrent network written in NumPy, compared on the same data with a 0.5B-parameter language model used as a few-shot classifier.</li>
+      <li><strong>Car price model in production</strong>Serve the used car model with experiment tracking, a FastAPI endpoint, CI/CD and drift monitoring.</li>
+    </ul>
+    <details class="more">
+      <summary>Eight more ideas, exploring and later</summary>
+      <h3 class="grp">Exploring</h3>
+      <ul class="ideas">
+        <li><strong>Social benefits pre-check</strong>You describe your situation in your own words; a local model extracts the facts that matter and asks when it is unsure, and OpenFisca computes the entitlements with the official rules. Aimed at people who do not claim benefits they are owed. Runs on the device, tested on synthetic cases.</li>
+        <li><strong>Public consultation triage</strong>Sort contributions to public consultations by position and theme and find near-duplicates, on open data such as the Grand débat national.</li>
+        <li><strong>Alt text checker</strong>Check with a vision-language model whether an image's alternative text describes the image, to catch empty or misleading alt texts on a website.</li>
+        <li><strong>A guide to the right tool for each need</strong>Decision trees rather than a directory: for each common need, 3 to 6 real options with their strengths, weaknesses, price, licence and the date they were checked. Data in YAML, a site generated from it, and CI that flags dead links and stale entries.</li>
+      </ul>
+      <h3 class="grp">Later</h3>
+      <ul class="ideas">
+        <li><strong>Pharmacovigilance pre-triage</strong>Check whether adverse event reports are valid and serious before a person reads them, prototyped on the public FAERS database. A real use would need a partner.</li>
+        <li><strong>Self-hosted agent</strong>A sandboxed agent on a home server, reachable from a messaging app, with read-only access to my job-offer watch. Waiting for the agents part of my LLM course.</li>
+        <li><strong>Settings bench for Windows games on Mac</strong>Try combinations of compatibility-layer settings automatically, measure crashes and frame rate, and keep the best configuration.</li>
+        <li><strong>AI-assisted reverse engineering</strong>An exercise with Claude Code and a Ghidra MCP server on a small old game I own.</li>
+      </ul>
+    </details>
+  </section>
+
+  <section id="education" class="wrap" aria-labelledby="education-h">
+    <h2 id="education-h" data-scramble>Education</h2>
+    <div class="edu">
+      <div style="--c:var(--sun)"><h3>ESILV</h3><p class="meta">Engineering degree, Data and AI major. Paris La Défense, 2022–2027.</p><p>CTI-accredited (Master's level, 300 ECTS). Courses include deep learning, MLOps, NLP, LLMs and generative AI, Big Data with Spark, NoSQL databases and data mining.</p></div>
+      <div style="--c:var(--mint)"><h3>Riga Technical University</h3><p class="meta">Exchange semester. Latvia, January–June 2025.</p><p>Data science and AI courses, taught in English.</p></div>
+      <div style="--c:var(--violet)"><h3>Languages and certifications</h3><p class="meta">French (native), English C1 (TOEFL ITP 633/677), German A2.</p><p>Certified in Scrum and agile methods, and in IBM Data Fundamentals.</p></div>
+    </div>
+  </section>
+</main>
+
+<footer id="contact" aria-labelledby="contact-h">
+  <div class="wrap">
+    <h2 id="contact-h">Let's talk</h2>
+    <p>I'm looking for a 6-month internship or a VIE from February 2027, in data engineering, MLOps, machine learning, AI engineering or data science. LinkedIn is the quickest way to reach me.</p>
+    <p class="btns">
+      <a class="btn y" href="https://www.linkedin.com/in/clement-vurpillot/">Message me on LinkedIn</a>
+      <a class="btn" href="Clement_Vurpillot_CV.pdf" download data-pop="PDF!">CV (PDF, one page)</a>
+      <a class="btn" href="https://github.com/Oradixx">GitHub</a>
+    </p>
+    <p class="fine">Last updated on 12 November 2026. Hosted on GitHub Pages. Prefer plain text and figures? <a href="./?v=simple">Read the simple version</a>.</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+  const $ = (id) => document.getElementById(id);
+  const root = document.documentElement;
+  const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const fine = matchMedia("(hover: hover) and (pointer: fine)").matches;
+  const css = (name) => getComputedStyle(root).getPropertyValue(name).trim();
+  const seen = (el, cb, th) => {
+    if (!("IntersectionObserver" in window)) return cb();
+    const io = new IntersectionObserver((es) => { if (es.some((e) => e.isIntersecting)) { io.disconnect(); cb(); } }, { threshold: th || 0.3 });
+    io.observe(el);
+  };
+
+  // ---------- theme ----------
+  const themeNow = () => root.dataset.theme || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+  let onTheme = () => {};
+  root.dataset.theme = themeNow();
+  $("themeBtn").addEventListener("click", () => {
+    const next = themeNow() === "dark" ? "light" : "dark";
+    root.dataset.theme = next;
+    try { localStorage.setItem("theme", next); } catch (e) {}
+    $("themeBtn").setAttribute("aria-label", "Switch to the " + (next === "dark" ? "light" : "dark") + " theme");
+    onTheme();
+  });
+
+  // ---------- dock: sliding highlight ----------
+  (function () {
+    const list = $("dockList"), blob = list.querySelector(".blob");
+    const links = Array.from(list.querySelectorAll("a"));
+    const targets = links.map((a) => document.querySelector(a.getAttribute("href")));
+    let current = links[0], hover = null;
+    function place() {
+      const a = hover || current;
+      links.forEach((l) => l.classList.toggle("on", l === a));
+      if (!a || !a.offsetParent) { blob.style.opacity = 0; return; }
+      blob.style.opacity = 1; blob.style.left = a.offsetLeft + "px"; blob.style.width = a.offsetWidth + "px";
+    }
+    links.forEach((a) => {
+      a.addEventListener("pointerenter", () => { hover = a; place(); });
+      a.addEventListener("pointerleave", () => { hover = null; place(); });
+    });
+    function spy() {
+      const y = innerHeight * 0.4;
+      let cur = links[0];
+      targets.forEach((t, i) => { if (t && t.getBoundingClientRect().top <= y && links[i].offsetParent) cur = links[i]; });
+      if (innerHeight + scrollY >= root.scrollHeight - 4) cur = links[links.length - 1];
+      if (cur !== current) { links.forEach((l) => l.removeAttribute("aria-current")); cur.setAttribute("aria-current", "true"); current = cur; place(); }
+    }
+    let tick = false;
+    addEventListener("scroll", () => { if (!tick) { tick = true; requestAnimationFrame(() => { tick = false; spy(); }); } }, { passive: true });
+    addEventListener("resize", place);
+    (document.fonts ? document.fonts.ready : Promise.resolve()).then(place);
+    place(); spy();
+  })();
+
+  // ---------- the name, drawn in dots ----------
+  (function () {
+    const box = $("nameBox"), h1 = $("name"), cv = $("dots");
+    if (reduced || !cv.getContext) return;
+    const ctx = cv.getContext("2d"), PAD = 60;
+    let P = [], W = 0, H = 0, dpr = 1, R = 2, colors = [], mx = -9999, my = -9999, running = false, visible = true, still = 0;
+    function palette() { colors = [css("--ink"), css("--ink"), css("--ink"), css("--link"), css("--coral"), css("--sun"), css("--mint")]; }
+    function build() {
+      const r = box.getBoundingClientRect();
+      W = r.width + PAD * 2; H = r.height + PAD * 2; dpr = Math.min(devicePixelRatio || 1, 2);
+      cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      const off = document.createElement("canvas"); off.width = Math.ceil(W); off.height = Math.ceil(H);
+      const o = off.getContext("2d", { willReadFrequently: true });
+      const st = getComputedStyle(h1), fs = parseFloat(st.fontSize);
+      o.font = st.fontWeight + " " + fs + "px " + st.fontFamily;
+      if ("letterSpacing" in o) o.letterSpacing = st.letterSpacing;
+      o.textBaseline = "alphabetic"; o.fillStyle = "#000";
+      h1.querySelectorAll("span").forEach((s) => {
+        const b = s.getBoundingClientRect(), m = o.measureText(s.textContent);
+        const asc = m.fontBoundingBoxAscent || fs * 0.8, desc = m.fontBoundingBoxDescent || fs * 0.2;
+        o.fillText(s.textContent, b.left - r.left + PAD, b.top - r.top + PAD + (b.height - asc - desc) / 2 + asc);
+      });
+      const step = Math.max(3, Math.round(fs / 34)), data = o.getImageData(0, 0, off.width, off.height).data, T = [];
+      for (let y = 0; y < off.height; y += step) for (let x = 0; x < off.width; x += step)
+        if (data[(y * off.width + x) * 4 + 3] > 120) T.push(x, y);
+      R = step * 0.4;
+      const n = T.length / 2, old = P;
+      P = new Array(n);
+      for (let i = 0; i < n; i++) {
+        const q = old[i % (old.length || 1)];
+        P[i] = { x: q ? q.x : Math.random() * W, y: q ? q.y : Math.random() * H * 1.6 - H * 0.3, vx: 0, vy: 0, tx: T[i * 2], ty: T[i * 2 + 1], c: (Math.imul(i + 1, 2654435761) >>> 0) % 11 < 8 ? 0 : 3 + (Math.imul(i + 1, 40503) >>> 0) % 4 };
+      }
+      root.classList.add("dots-on"); $("hint").hidden = false;
+      wake();
+    }
+    function frame() {
+      running = false;
+      if (!visible) return;
+      ctx.clearRect(0, 0, W, H);
+      let energy = 0;
+      for (let i = 0; i < P.length; i++) {
+        const p = P[i];
+        let ax = (p.tx - p.x) * 0.055, ay = (p.ty - p.y) * 0.055;
+        const dx = p.x - mx, dy = p.y - my, d2 = dx * dx + dy * dy;
+        if (d2 < 9000) { const d = Math.sqrt(d2) || 1, f = (1 - d / 95) * 5.5; ax += dx / d * f; ay += dy / d * f; }
+        p.vx = (p.vx + ax) * 0.84; p.vy = (p.vy + ay) * 0.84; p.x += p.vx; p.y += p.vy;
+        energy += Math.abs(p.vx) + Math.abs(p.vy);
+      }
+      for (let c = 0; c < 7; c++) {
+        if (c === 1 || c === 2) continue;
+        ctx.fillStyle = colors[c]; ctx.beginPath();
+        for (let i = 0; i < P.length; i++) { const p = P[i]; if (p.c === c || (c === 0 && p.c < 3)) { ctx.moveTo(p.x + R, p.y); ctx.arc(p.x, p.y, R, 0, 6.2832); } }
+        ctx.fill();
+      }
+      still = energy < P.length * 0.01 ? still + 1 : 0;
+      if (still < 30) wake();
+    }
+    function wake() { if (!running) { running = true; requestAnimationFrame(frame); } }
+    function at(e) { const r = cv.getBoundingClientRect(); mx = e.clientX - r.left; my = e.clientY - r.top; still = 0; wake(); }
+    cv.addEventListener("pointermove", at);
+    cv.addEventListener("pointerleave", () => { mx = my = -9999; still = 0; wake(); });
+    cv.addEventListener("pointerdown", (e) => {
+      at(e);
+      P.forEach((p) => { const dx = p.x - mx, dy = p.y - my, d = Math.hypot(dx, dy) || 1, f = Math.min(60, 2600 / d); p.vx += dx / d * f * (0.6 + Math.random()); p.vy += dy / d * f * (0.6 + Math.random()); });
+      if (e.pointerType !== "mouse") setTimeout(() => { mx = my = -9999; }, 250);
+    });
+    if ("IntersectionObserver" in window) new IntersectionObserver((es) => { visible = es[0].isIntersecting; if (visible) { still = 0; wake(); } }).observe(box);
+    onTheme = () => { palette(); still = 0; wake(); };
+    palette();
+    let lastW = 0, timer;
+    const rebuild = () => { if (box.clientWidth !== lastW) { lastW = box.clientWidth; build(); } };
+    (document.fonts && document.fonts.load ? document.fonts.load("800 100px 'Bricolage Grotesque'").then(() => document.fonts.ready) : Promise.resolve()).then(rebuild, rebuild);
+    addEventListener("resize", () => { clearTimeout(timer); timer = setTimeout(rebuild, 150); });
+  })();
+
+  // ---------- stickers: drag them ----------
+  document.querySelectorAll(".stk").forEach((s) => {
+    let ox = 0, oy = 0, sx = 0, sy = 0, on = false;
+    s.addEventListener("pointerdown", (e) => { on = true; sx = e.clientX - ox; sy = e.clientY - oy; s.setPointerCapture(e.pointerId); s.classList.add("drag"); });
+    s.addEventListener("pointermove", (e) => { if (!on) return; ox = e.clientX - sx; oy = e.clientY - sy; s.style.translate = ox + "px " + oy + "px"; });
+    const end = () => { on = false; s.classList.remove("drag"); };
+    s.addEventListener("pointerup", end); s.addEventListener("pointercancel", end);
+  });
+
+  // ---------- buttons that answer back ----------
+  document.querySelectorAll("[data-pop]").forEach((b) => b.addEventListener("click", (e) => {
+    if (reduced) return;
+    const p = document.createElement("span"), r = b.getBoundingClientRect();
+    p.className = "pop"; p.textContent = b.dataset.pop;
+    p.style.left = (e.clientX || r.left + r.width / 2) + "px"; p.style.top = (e.clientY || r.top) + "px";
+    document.body.appendChild(p); p.addEventListener("animationend", () => p.remove());
+  }));
+
+  // ---------- section titles settle from noise, once ----------
+  document.querySelectorAll("[data-scramble]").forEach((h) => {
+    if (reduced) return;
+    const text = h.textContent, glyphs = "01#%/<>=+";
+    h.setAttribute("aria-label", text);
+    seen(h, () => {
+      const t0 = performance.now(), dur = 650;
+      (function step(t) {
+        const k = Math.min(1, (t - t0) / dur), done = Math.floor(k * text.length);
+        let out = text.slice(0, done);
+        for (let i = done; i < text.length; i++) out += text[i] === " " ? " " : glyphs[(Math.random() * glyphs.length) | 0];
+        h.textContent = out;
+        if (k < 1) requestAnimationFrame(step); else h.textContent = text;
+      })(t0);
+    }, 0.6);
+  });
+
+  // ---------- figures that start when they scroll into view ----------
+  (function () {
+    const wf = $("waffle");
+    for (let i = 0; i < 88; i++) { const s = document.createElement("span"); if (i < 36) { s.className = "on"; s.style.setProperty("--d", i * 0.03 + "s"); } wf.appendChild(s); }
+    document.querySelectorAll("[data-io]").forEach((el) => seen(el, () => el.classList.add("in")));
+    document.querySelectorAll(".count").forEach((el) => {
+      if (reduced) return;
+      const to = parseFloat(el.dataset.to), dec = +el.dataset.dec || 0, sep = "sep" in el.dataset, final = el.textContent;
+      const fmt = (v) => sep ? Math.round(v).toLocaleString("en-US") : v.toFixed(dec);
+      seen(el, () => {
+        const t0 = performance.now();
+        (function step(t) {
+          const k = Math.min(1, (t - t0) / 1100), e = 1 - Math.pow(1 - k, 3);
+          el.textContent = k < 1 ? fmt(to * e) : final;
+          if (k < 1) requestAnimationFrame(step);
+        })(t0);
+      }, 0.8);
+    });
+  })();
+
+  // ---------- project cards lean towards the pointer ----------
+  if (fine && !reduced) document.querySelectorAll(".proj").forEach((c) => {
+    c.addEventListener("pointermove", (e) => {
+      const r = c.getBoundingClientRect(), max = r.width > 700 ? 1.6 : 3;
+      c.classList.add("live-tilt");
+      c.style.setProperty("--ry", ((e.clientX - r.left) / r.width - 0.5) * 2 * max + "deg");
+      c.style.setProperty("--rx", ((e.clientY - r.top) / r.height - 0.5) * -2 * max + "deg");
+    });
+    c.addEventListener("pointerleave", () => { c.classList.remove("live-tilt"); c.style.setProperty("--rx", "0deg"); c.style.setProperty("--ry", "0deg"); });
+  });
+
+  // ---------- the load-time race: 60 times faster than real life ----------
+  (function () {
+    const btn = $("raceBtn"), fast = $("raceFast"), slow = $("raceSlow"), fn = $("raceFastN"), sn = $("raceSlowN"), note = $("raceNote");
+    let raf = 0;
+    btn.addEventListener("click", () => {
+      cancelAnimationFrame(raf);
+      const t0 = performance.now();
+      btn.textContent = "Load it again";
+      note.textContent = "Sped up 60 times: one second here is one minute of waiting.";
+      (function step(t) {
+        const s = (t - t0) / 1000, real = s * 60;
+        fast.style.width = Math.min(100, real / 30 * 100) + "%";
+        fn.textContent = real < 30 ? Math.floor(real) + " s" : "Loaded in 30 s";
+        slow.style.width = Math.min(100, real / 10800 * 100) + "%";
+        const min = Math.floor(real / 60);
+        sn.textContent = real < 10800 ? (min < 1 ? Math.floor(real) + " s" : min + " min") + " of 3 h" : "Loaded in 3 h";
+        if (s > 6 && real < 10800) note.textContent = "The old query would need " + Math.ceil((10800 - real) / 60 / 60) + " more minute" + (Math.ceil((10800 - real) / 3600) > 1 ? "s" : "") + " at this speed. You don't have to wait.";
+        if (real < 10800) raf = requestAnimationFrame(step); else note.textContent = "You waited for the whole thing. That was 3 hours of real time.";
+      })(t0);
+    });
+  })();
+
+  // ---------- skills: light the projects that use one ----------
+  (function () {
+    const out = $("skillOut"), btns = Array.from(document.querySelectorAll(".sk"));
+    const cards = Array.from(document.querySelectorAll("[data-id][data-name]"));
+    btns.forEach((b) => b.addEventListener("click", () => {
+      const was = b.getAttribute("aria-pressed") === "true";
+      btns.forEach((x) => x.setAttribute("aria-pressed", "false"));
+      cards.forEach((c) => c.classList.remove("dim", "hit"));
+      out.textContent = "";
+      if (was) return;
+      b.setAttribute("aria-pressed", "true");
+      const use = b.dataset.use.split(" ");
+      out.append(b.textContent.trim() + " is used in: ");
+      let n = 0;
+      cards.forEach((c) => {
+        const hit = use.includes(c.dataset.id);
+        c.classList.toggle("hit", hit); c.classList.toggle("dim", !hit && c.matches(".proj, .minis li"));
+        if (!hit) return;
+        if (!c.id) c.id = "p-" + c.dataset.id;
+        if (n++) out.append(", ");
+        const a = document.createElement("a"); a.href = "#" + c.id; a.textContent = c.dataset.name; out.append(a);
+      });
+      out.append(".");
+    }));
+  })();
+
+  // ---------- France Grid Forecast: the data lives in the simple version, read it from there ----------
+  (function () {
+    const NS = "http://www.w3.org/2000/svg", svg = $("fgfChart"), read = $("fgfRead"), range = $("fgfRange");
+    const el = (tag, attrs) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); svg.appendChild(e); return e; };
+    fetch("index.html").then((r) => r.text()).then((t) => {
+      const node = new DOMParser().parseFromString(t, "text/html").getElementById("fgfData");
+      const D = JSON.parse(node.textContent), days = Math.floor(D.a.length / 24), start = Date.parse(D.start);
+      if (!(days >= 7) || !start) return;
+      const X0 = 34, X1 = 636, Y0 = 8, Y1 = 196, N = 168;
+      const fmtDay = new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/Paris", weekday: "short", day: "numeric", month: "short" });
+      const fmtHour = new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/Paris", weekday: "long", day: "numeric", month: "long", hour: "2-digit", minute: "2-digit" });
+      let from = 0, summary = "";
+      function draw() {
+        from = +range.value * 24;
+        const a = D.a.slice(from, from + N), m = D.m.slice(from, from + N), all = a.concat(m).filter((v) => v != null);
+        const lo = Math.floor(Math.min.apply(0, all) / 50) * 50, hi = Math.ceil(Math.max.apply(0, all) / 50) * 50;
+        const x = (i) => X0 + i / (N - 1) * (X1 - X0), y = (v) => Y1 - (v - lo) / (hi - lo) * (Y1 - Y0);
+        const path = (s) => { let d = "", pen = false; s.forEach((v, i) => { if (v == null) { pen = false; return; } d += (pen ? "L" : "M") + x(i).toFixed(1) + " " + y(v).toFixed(1); pen = true; }); return d; };
+        svg.textContent = "";
+        [lo, (lo + hi) / 2, hi].forEach((v) => { el("line", { class: "x", x1: X0, x2: X1, y1: y(v), y2: y(v), "stroke-dasharray": "2 5", opacity: .4 }); el("text", { x: X0 - 6, y: y(v) + 4, "text-anchor": "end" }).textContent = (v / 10).toFixed(0); });
+        el("text", { x: X0 + 6, y: Y0 + 4, "font-weight": 600 }).textContent = "GW";
+        for (let d = 0; d < 7; d++) el("text", { x: x(d * 24 + 12), y: 224, "text-anchor": "middle" }).textContent = fmtDay.format(start + (from + d * 24) * 36e5);
+        el("path", { class: "a", d: path(a) }); el("path", { class: "m", d: path(m) });
+        let e = 0, n = 0;
+        a.forEach((v, i) => { if (v != null && m[i] != null) { e += Math.abs(m[i] - v) / v; n++; } });
+        summary = "Mean hourly error over these 7 days: " + (e / n * 100).toFixed(1) + " %. Move over the chart to read an hour.";
+        read.textContent = summary;
+        const cross = el("line", { class: "x", y1: Y0, y2: Y1, x1: -9, x2: -9 }), da = el("circle", { r: 5, fill: css("--on"), cx: -9, cy: -9 }), dm = el("circle", { r: 5, fill: "#fff", stroke: css("--on"), "stroke-width": 2, cx: -9, cy: -9 });
+        svg.onpointermove = (ev) => {
+          const r = svg.getBoundingClientRect(), i = Math.max(0, Math.min(N - 1, Math.round(((ev.clientX - r.left) / r.width * 640 - X0) / (X1 - X0) * (N - 1))));
+          if (a[i] == null || m[i] == null) { read.textContent = fmtHour.format(start + (from + i) * 36e5) + ": the run was missed that day."; return; }
+          cross.setAttribute("x1", x(i)); cross.setAttribute("x2", x(i));
+          da.setAttribute("cx", x(i)); da.setAttribute("cy", y(a[i])); dm.setAttribute("cx", x(i)); dm.setAttribute("cy", y(m[i]));
+          read.textContent = fmtHour.format(start + (from + i) * 36e5) + ": " + (a[i] / 10).toFixed(1) + " GW consumed, " + (m[i] / 10).toFixed(1) + " GW forecast (" + (Math.abs(m[i] - a[i]) / a[i] * 100).toFixed(1) + " % off).";
+        };
+        svg.onpointerleave = () => { read.textContent = summary; [cross, da, dm].forEach((n) => n.setAttribute("opacity", 0)); };
+        svg.onpointerenter = () => [cross, da, dm].forEach((n) => n.setAttribute("opacity", 1));
+      }
+      range.max = days - 7; range.value = days - 7;
+      range.addEventListener("input", draw);
+      $("fgfLive").hidden = false;
+      draw();
+    }).catch(() => {});
+  })();
+})();
+</script>
+</body>
+</html>
