@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion } from "motion/react";
 import type { Fig } from "./data";
-import { hourLabel, type Fgf } from "./Trace";
+import { hourLabel, type Fgf } from "./fgf";
 
 const ease = [0.2, 0.7, 0.2, 1] as const;
 const Caption = ({ children }: { children: React.ReactNode }) => <p className="mt-3 text-sm text-dim">{children}</p>;
