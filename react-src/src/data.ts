@@ -125,11 +125,52 @@ export const projects: Project[] = [
     body: ["Two templates, one for Python services and one for coursework: uv, Ruff, strict mypy, pytest, pre-commit, a multi-stage Dockerfile and CI."], stack: ["uv", "Ruff", "mypy", "pytest", "Docker"] },
 ];
 
-export const proofs = [
-  { value: "30 s", text: "A dashboard that took 3 hours to load now loads in 30 seconds.", source: "CERTAM internship, 2026", href: "#experience" },
-  { value: "2nd", text: "Second place at the NFL Big Data Bowl Paris Side Quest, in a team of 3.", source: "Hackathon by AWS, the NFL and Epitech, October 2026", href: "#projects" },
-  { value: "65.4 %", text: "Of 8,566 pro League of Legends games called correctly. An Elo rating updated after every game called 63.8 %.", source: "LoL Ratings 3.0, 2026 season", href: "#projects" },
-  { value: "2.1 %", text: "Mean hourly error forecasting France's electricity consumption a day ahead. RTE's own forecast: 1.5 %. Naive baseline: 4.2 %.", source: "France Grid Forecast, 35 days scored", href: "#projects" },
+// The game: guess a result before reading it. Every answer is a number stated elsewhere on the page.
+export interface Round {
+  id: string;
+  question: string;
+  min: number; max: number; step: number; answer: number;
+  unit: (v: number) => string;
+  reveal: string;
+  project?: string; // project to open, or the experience tab when missing
+  sticker: string;
+}
+
+const pct = (v: number) => `${v.toFixed(1)} %`;
+export const rounds: Round[] = [
+  { id: "certam", question: "At CERTAM, a dashboard took 3 hours to load. I moved its slow queries into SQL materialised views. How long does it take now?",
+    min: 0.5, max: 180, step: 0.5, answer: 0.5, unit: (v) => (v < 1 ? `${Math.round(v * 60)} s` : `${v} min`),
+    reveal: "30 seconds. That is 1/360 of the 3 hours it used to take.", sticker: "certam" },
+  { id: "chip", question: "At a hackathon we studied 88 NFL sacks that happened on plays with a chip block. On how many was the player who chipped open for a pass?",
+    min: 0, max: 88, step: 1, answer: 36, unit: (v) => `${v} of 88`,
+    reveal: "36 of the 88. So our advice to the QB coach was to look for him at about 3 seconds. We finished 2nd.", project: "chip", sticker: "chip" },
+  { id: "lol", question: "An Elo rating, updated after every game, called 63.8 % of 8,566 pro League of Legends games correctly. What did my rating reach, retrained once a month?",
+    min: 50, max: 80, step: 0.1, answer: 65.4, unit: pct,
+    reveal: "65.4 %. Only 1.6 points more, but with a model that is retrained once a month instead of after every game.", project: "lol", sticker: "lol" },
+  { id: "fgf", question: "I forecast France's electricity consumption a day ahead. A naive baseline is off by 4.2 % per hour and RTE's own forecast by 1.5 %. Where is mine?",
+    min: 0, max: 6, step: 0.1, answer: 2.1, unit: pct,
+    reveal: "2.1 % over the first 35 days scored. Better than the baseline, not as good as the grid operator.", project: "fgf", sticker: "fgf" },
+  { id: "trip", question: "The rank_bm25 library needs 77 seconds to score 900 × 900 places. I rewrote BM25 as one sparse matrix product, with the same scores. How long does mine take?",
+    min: 0, max: 77, step: 0.1, answer: 0.6, unit: (v) => `${v.toFixed(1)} s`,
+    reveal: "0.6 seconds, which made it cheap to re-check every model on 20 random splits.", project: "trip", sticker: "trip" },
+  { id: "movielens", question: "MovieLens 1M has 1,000,209 ratings. In our NoSQL project, users were identified by name and some names are shared. How many ratings were silently merged?",
+    min: 0, max: 10000, step: 1, answer: 2847, unit: (v) => v.toLocaleString("en-US"),
+    reveal: "2,847 ratings, 0.28 % of the total. We found the collision and documented it.", project: "movielens", sticker: "movielens" },
+];
+
+// Stickers are earned by playing and exploring. `art` is a sticker name from the stick-it-up package.
+export const stickers: { id: string; art: string; label: string; how: string }[] = [
+  { id: "certam", art: "flame", label: "360 times faster", how: "Guess the dashboard load time" },
+  { id: "chip", art: "star-burst", label: "2nd place", how: "Guess the open players" },
+  { id: "lol", art: "cosmic-eye", label: "65.4 % called", how: "Guess the LoL rating" },
+  { id: "fgf", art: "curious-globe", label: "Grid forecaster", how: "Guess the forecast error" },
+  { id: "trip", art: "spiral", label: "Sparse and fast", how: "Guess the BM25 time" },
+  { id: "movielens", art: "eye-splat", label: "Collision found", how: "Guess the merged ratings" },
+  { id: "reader", art: "pip-detective", label: "Close reader", how: "Open a project" },
+  { id: "look", art: "blob-burst", label: "New look", how: "Change the style of the page" },
+  { id: "search", art: "metal", label: "Power user", how: "Open the search palette" },
+  { id: "skills", art: "nori-laptop", label: "Stack checked", how: "Pick a skill" },
+  { id: "cv", art: "folded-paper", label: "CV in hand", how: "Download my CV" },
 ];
 
 export const pipeline = [
