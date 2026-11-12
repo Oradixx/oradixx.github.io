@@ -1,0 +1,32 @@
+name: React build is up to date
+
+# react/ is the committed build of react-src/. This check rebuilds it and fails when the
+# committed files differ, which means someone changed react-src/ without rebuilding.
+on:
+  pull_request:
+    paths: ["react-src/**", "react/**", ".github/workflows/react-build.yml"]
+  push:
+    branches: [main]
+    paths: ["react-src/**", "react/**", ".github/workflows/react-build.yml"]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: react-src/package-lock.json
+      - run: npm ci
+        working-directory: react-src
+      - run: npm run build
+        working-directory: react-src
+      - name: Fail if react/ is stale
+        run: |
+          if [ -n "$(git status --porcelain react)" ]; then
+            git status --short react
+            echo "::error::react/ does not match react-src/. Run: cd react-src && npm install && npm run build, then commit react/."
+            exit 1
+          fi
