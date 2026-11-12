@@ -87,7 +87,8 @@
   :root[data-theme="dark"] .tog i { transform: rotate(-40deg); background: var(--violet); }
   :root[data-theme="dark"] .tog i::after { transform: scale(1); }
   @media (max-width: 720px) { .dock li.wide { display: none; } .dock a { padding: 7px 10px; } }
-  @media (max-width: 480px) { .dock .other span { display: none; } .dock a { padding: 7px 8px; font-size: .875rem; } .dock { gap: 2px; } }
+  @media (max-width: 1000px) { .dock .other span { display: none; } }
+  @media (max-width: 480px) { .dock .other { padding: 6px 8px; font-size: .8125rem; } .dock .tog { width: 30px; height: 30px; } .dock .tog i { inset: 6px; } .dock ul a { padding: 7px 6px; font-size: .8125rem; } .dock { gap: 3px; padding: 5px; } }
 
   /* ---------- hero: the name is drawn in dots that avoid the pointer ---------- */
   .hero { position: relative; padding-top: 120px; }
@@ -300,6 +301,7 @@
   </ul>
   <button class="tog" id="themeBtn" type="button" aria-label="Switch theme"><i></i></button>
   <a class="other" href="./?v=simple">Simple<span> version</span></a>
+  <a class="other" href="react/">React<span> version</span></a>
 </nav>
 
 <main id="main">
@@ -616,7 +618,7 @@
       <a class="btn" href="Clement_Vurpillot_CV.pdf" download data-pop="PDF!">CV (PDF, one page)</a>
       <a class="btn" href="https://github.com/Oradixx">GitHub</a>
     </p>
-    <p class="fine">Last updated on 12 November 2026. Hosted on GitHub Pages. Prefer plain text and figures? <a href="./?v=simple">Read the simple version</a>.</p>
+    <p class="fine">Last updated on 12 November 2026. Hosted on GitHub Pages. Prefer plain text and figures? <a href="./?v=simple">Read the simple version</a>, or try the <a href="react/">React version</a>.</p>
   </div>
 </footer>
 
