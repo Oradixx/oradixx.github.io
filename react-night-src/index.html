@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Clément Vurpillot, data and AI engineering student (React version)</title>
+<meta name="description" content="React version of Clément Vurpillot's portfolio. Final-year data and AI engineering student at ESILV, Paris, looking for a 6-month internship or VIE from February 2027.">
+<link rel="canonical" href="https://oradixx.github.io/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%2307151b'/%3E%3Cpath d='M5 21 L11 15 L16 18 L22 9 L27 12' fill='none' stroke='%23ffb84d' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&amp;family=Instrument+Serif:ital@0;1&amp;display=swap" rel="stylesheet">
+<script>
+  // this version is a night scene by default; a theme chosen earlier on this browser wins
+  try {
+    if (localStorage.getItem("theme") !== "light") document.documentElement.classList.add("dark");
+    localStorage.setItem("version", "react");
+  } catch (e) { document.documentElement.classList.add("dark"); }
+</script>
+</head>
+<body>
+<div id="root"></div>
+<noscript><p style="padding:24px;font-family:sans-serif">This version needs JavaScript. <a href="../?v=simple">Read the simple version</a>.</p></noscript>
+<script type="module" src="/src/main.tsx"></script>
+</body>
+</html>

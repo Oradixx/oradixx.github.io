@@ -26,6 +26,13 @@ The France Grid Forecast data exists once, in the `#fgfData` script of `index.ht
 other versions fetch `index.html` and read it from there, so never move or rename that element
 without updating `interactive.html` and `react-src/src/fgf.ts`.
 
+## Archived: the first React version
+
+`react-night-src/` (source) and `react-night/` (its build, served at `/react-night/`) hold the
+first React version, replaced by the current one. Clément asked to keep it in case he wants it
+back. Nothing links to it, the CI check ignores it, and it is not part of "the three versions":
+do not update its content unless asked. Its own README explains how to rebuild or restore it.
+
 ## After every change in `react-src/`
 
 ```bash

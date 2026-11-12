@@ -10,6 +10,8 @@ Three versions of the same content:
 
 The forecast data lives in `index.html`; the two other versions read it from there. The choice of version is remembered in `localStorage` (`version`); `/?v=simple` always opens the simple one.
 
+`react-night-src/` and `react-night/` are an archive of the first React version (a dark scrolling page), still reachable at `/react-night/` but not linked or kept up to date. See `react-night-src/README.md`.
+
 ## Rebuilding the React version
 
 ```bash

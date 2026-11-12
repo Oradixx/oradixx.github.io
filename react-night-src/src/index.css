@@ -1,0 +1,46 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-display: "Instrument Serif", Georgia, "Times New Roman", serif;
+  --font-sans: "Geist", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-dim: var(--dim);
+  --color-line: var(--line);
+  --color-amber: var(--amber);
+  --color-teal: var(--teal);
+  --color-rust: var(--rust);
+}
+
+/* day: sea fog. night: the grid seen from a control room */
+:root {
+  --bg: #edf2f0; --surface: #fbfdfc; --ink: #0b1f26; --dim: #4d6369; --line: #cdd9d6;
+  --amber: #a15800; --teal: #0b766b; --rust: #b8401f; --glow: rgba(161, 88, 0, .12);
+  color-scheme: light;
+}
+.dark {
+  --bg: #07151b; --surface: #0d2028; --ink: #e6f2ef; --dim: #8ea6aa; --line: #1d3640;
+  --amber: #ffb84d; --teal: #5fd4c4; --rust: #ff7a59; --glow: rgba(255, 184, 77, .13);
+  color-scheme: dark;
+}
+
+html { scroll-behavior: smooth; scroll-padding-top: 32px; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font-sans); font-size: 1.0625rem; line-height: 1.6; -webkit-font-smoothing: antialiased; transition: background-color .4s, color .4s; }
+::selection { background: var(--amber); color: var(--bg); }
+:focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; border-radius: 6px; }
+p, li { text-wrap: pretty; }
+h1, h2, h3 { text-wrap: balance; }
+.num { font-variant-numeric: tabular-nums lining-nums; }
+
+/* cards light up under the pointer */
+.spot { position: relative; isolation: isolate; }
+.spot::before { content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; opacity: 0; transition: opacity .3s;
+  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), var(--glow), transparent 65%); }
+.spot:hover::before { opacity: 1; }
+
+/* the vendored tab bar and buttons, tuned to this palette */
+.mt { --mt-bg: var(--surface) !important; --mt-border: var(--line) !important; --mt-text: var(--dim) !important; --mt-text-active: var(--ink) !important; }
+
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
