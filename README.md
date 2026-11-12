@@ -2,9 +2,18 @@
 
 Source of my portfolio, served by GitHub Pages at **https://oradixx.github.io**.
 
-Two versions of the same content, no build step, no framework:
+Three versions of the same content:
 
-- `index.html`: the simple version (text and figures). On a first visit it offers the choice between the two.
-- `interactive.html`: the interactive version (animated name, draggable stickers, charts to play with). It reads the France Grid Forecast data from `index.html`, so that data lives in one place.
+- `index.html`: the simple version (text and figures), no build step. On a first visit it offers the choice between the three.
+- `interactive.html`: the interactive version (animated name, draggable stickers, charts to play with), no build step either.
+- `react/`: the React version. Its source is in `react-src/` (Vite, React, Tailwind CSS, Motion); `react/` is the committed build, so GitHub Pages serves it as is.
 
-The choice is remembered in `localStorage` (`version`); `/?v=simple` always opens the simple version.
+The forecast data lives in `index.html`; the two other versions read it from there. The choice of version is remembered in `localStorage` (`version`); `/?v=simple` always opens the simple one.
+
+## Rebuilding the React version
+
+```bash
+cd react-src && npm install && npm run build
+```
+
+This rewrites `react/`. Commit the result. Some interface pieces in `react-src/src/components/` are adapted from the open-source Ruixen UI and Watermelon UI registries.
