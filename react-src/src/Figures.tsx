@@ -6,18 +6,22 @@ import { hourLabel, type Fgf } from "./fgf";
 const ease = [0.2, 0.7, 0.2, 1] as const;
 const Caption = ({ children }: { children: React.ReactNode }) => <p className="mt-3 text-sm text-dim">{children}</p>;
 
-function Waffle() {
+function Chip() {
+  const rows: [string, number, boolean][] = [["No chip", 12.8, false], ["In-line tight end", 10.2, true], ["Running back", 10.1, true], ["Slot or wide receiver", 12.3, false]];
   return (
     <div>
-      <div className="grid max-w-md grid-cols-11 gap-1.5" role="img" aria-label="36 of the 88 sacks with a chip had the chipping player open.">
-        {Array.from({ length: 88 }, (_, i) => (
-          <motion.span key={i} className="aspect-square rounded-[3px] border border-line"
-            initial={{ backgroundColor: "rgba(0,0,0,0)" }}
-            animate={i < 36 ? { backgroundColor: "var(--amber)", borderColor: "var(--amber)" } : {}}
-            transition={{ delay: 0.25 + i * 0.025, duration: 0.2 }} whileHover={{ scale: 1.35 }} />
+      <p className="m-0 mb-3 font-medium">Pressure on the chipped edge rusher</p>
+      <div className="grid grid-cols-[max-content_1fr_max-content] items-center gap-x-4 gap-y-3 text-sm" role="img" aria-label="Pressure on the edge rusher: 12.8 percent without a chip, 10.2 percent when an in-line tight end chips him, 10.1 percent with a running back, 12.3 percent with a receiver in the slot or wide.">
+        {rows.map(([name, v, mine], i) => (
+          <div key={name} className="contents">
+            <span>{name}</span>
+            <span className="h-4"><motion.i className="block h-full origin-left rounded-r" style={{ width: `${(v / 14) * 100}%`, background: mine ? "var(--amber)" : "var(--dim)" }}
+              initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ delay: 0.2 + i * 0.12, duration: 0.8, ease }} /></span>
+            <span className="num font-medium">{v.toFixed(1)} %</span>
+          </div>
         ))}
       </div>
-      <Caption>Each square is one sack. Amber: the player who chipped was open (at least 3 yards past the line for at least 1 second). Open: 36. Not open: 52.</Caption>
+      <Caption>Share of the rusher's pass rushes that pressure the quarterback, weeks 1–8 of 2021. The slot or wide receiver's chip is within noise. A chip held more than 1 s cuts it to 8.5 %, but the player leaves for his route at 2.20 s after the snap instead of 1.50 s.</Caption>
     </div>
   );
 }
@@ -131,7 +135,7 @@ function FgfChart({ data }: { data: Fgf | null }) {
 }
 
 export function Figure({ kind, fgf }: { kind: Fig; fgf: Fgf | null }) {
-  if (kind === "waffle") return <Waffle />;
+  if (kind === "chip") return <Chip />;
   if (kind === "lol") return <Lol />;
   if (kind === "trip") return <Trip />;
   if (kind === "arch") return <Arch />;

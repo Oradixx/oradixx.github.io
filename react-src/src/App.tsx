@@ -349,7 +349,7 @@ function About({ award }: { award: (id: string) => void }) {
             style={{ background: "var(--plonk-color-accent)", color: "var(--plonk-color-on-accent)", border: "var(--plonk-border-width) solid var(--plonk-color-ink)", fontFamily: "inherit", fontSize: 16, fontWeight: 700, padding: "11px 20px", borderRadius: "var(--plonk-radius-md)" }} />
           <a href={links.github}>GitHub</a>
         </div>
-        <p className="mt-6 text-sm text-dim">Last updated on 12 November 2026. Other versions of this portfolio: <a href={links.simple}>simple</a>, <a href={links.interactive}>interactive</a>.</p>
+        <p className="mt-6 text-sm text-dim">Last updated on 13 November 2026. Other versions of this portfolio: <a href={links.simple}>simple</a>, <a href={links.interactive}>interactive</a>.</p>
         <p className="text-sm text-dim">Built with Plonk (components and the four styles), Stick It Up (stickers), and pieces adapted from Ruixen UI and Watermelon UI.</p>
       </Card>
       <div>
