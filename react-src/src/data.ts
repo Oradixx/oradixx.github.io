@@ -1,6 +1,6 @@
 // All the copy of the page. The facts are the same as in the two other versions.
 
-export type Fig = "waffle" | "fgf" | "lol" | "trip" | "arch";
+export type Fig = "chip" | "fgf" | "lol" | "trip" | "arch";
 export type Kind = "data" | "ml" | "small";
 
 export interface Project {
@@ -21,14 +21,15 @@ export const projects: Project[] = [
   {
     id: "chip", name: "Chip Advisor", kinds: ["ml"],
     meta: "NFL Big Data Bowl Paris Side Quest, a hackathon by AWS, the NFL and Epitech, October 2026. 2nd place, team of 3. The repository is hosted by a teammate.",
-    href: "https://github.com/alvaro-serero/nfl-chip-advisor",
-    stat: { value: "36 of 88", label: "sacks with a chip had the chipping player open" },
+    href: "https://chip-advisor-rouge.vercel.app", code: "https://github.com/alvaro-serero/nfl-chip-advisor",
+    stat: { value: "−26 %", label: "pressure on the edge rusher when an in-line tight end chips him" },
     summary: "Does chipping a pass rusher protect the quarterback? Measured on NFL tracking data, delivered as a coach tool.",
     body: [
-      "We measured whether a tight end or a running back who \"chips\" a pass rusher before running his route protects the quarterback. On NFL Next Gen Stats tracking and PFF data for weeks 1–8 of 2021, a chip by an in-line tight end cut that rusher's pressure by 26 %. Sacks still happen, because the pressure then comes from another defender.",
-      "On 36 of the 88 sacks with a chip, the player who chipped was open, so our advice to the QB coach is to look for him at about 3 seconds. We delivered it as a small web tool with a coach briefing written by Mistral, built with Kiro, AWS's agentic IDE.",
+      "We measured whether a tight end or a running back who \"chips\" a pass rusher before running his route protects the quarterback, on NFL Next Gen Stats tracking and PFF data for weeks 1–8 of 2021. A chip by an in-line tight end or by a running back cuts that rusher's pressure by about a quarter (−26 % for the tight end); one by a receiver lined up in the slot or wide barely changes it. Holding the contact for more than a second helps more, but the player then leaves for his route at 2.20 s after the snap instead of 1.50 s.",
+      "The chip moves the pressure rather than removing it: on the whole play it stays around 44 %. On the sacks that still happen, the player who chipped was open 36 times out of 88, so our advice to the QB coach is to look for him at about 3 seconds.",
+      "We turned this into Chip Advisor, a web tool that tells a coach whether to chip, with whom, for how long, and what to do next, with a briefing written by Mistral. Built with Kiro, AWS's agentic IDE.",
     ],
-    stack: ["Python", "pandas", "Mistral API", "Kiro", "Vercel"], fig: "waffle",
+    stack: ["Python", "pandas", "Mistral API", "Kiro", "Vercel"], fig: "chip",
   },
   {
     id: "fgf", name: "France Grid Forecast", kinds: ["data", "ml"],
@@ -141,9 +142,9 @@ export const rounds: Round[] = [
   { id: "certam", question: "At CERTAM, a dashboard took 3 hours to load. I moved its slow queries into SQL materialised views. How long does it take now?",
     min: 0.5, max: 180, step: 0.5, answer: 0.5, unit: (v) => (v < 1 ? `${Math.round(v * 60)} s` : `${v} min`),
     reveal: "30 seconds. That is 1/360 of the 3 hours it used to take.", sticker: "certam" },
-  { id: "chip", question: "At a hackathon we studied 88 NFL sacks that happened on plays with a chip block. On how many was the player who chipped open for a pass?",
-    min: 0, max: 88, step: 1, answer: 36, unit: (v) => `${v} of 88`,
-    reveal: "36 of the 88. So our advice to the QB coach was to look for him at about 3 seconds. We finished 2nd.", project: "chip", sticker: "chip" },
+  { id: "chip", question: "An NFL edge rusher pressures the quarterback on 12.8 % of his pass rushes. If an in-line tight end chips him first, what does it drop to?",
+    min: 0, max: 15, step: 0.1, answer: 10.2, unit: pct,
+    reveal: "10.2 %, a 26 % drop. But the pressure on the whole play stays around 44 %: it comes from another defender instead. We finished 2nd at that hackathon.", project: "chip", sticker: "chip" },
   { id: "lol", question: "An Elo rating, updated after every game, called 63.8 % of 8,566 pro League of Legends games correctly. What did my rating reach, retrained once a month?",
     min: 50, max: 80, step: 0.1, answer: 65.4, unit: pct,
     reveal: "65.4 %. Only 1.6 points more, but with a model that is retrained once a month instead of after every game.", project: "lol", sticker: "lol" },
@@ -161,7 +162,7 @@ export const rounds: Round[] = [
 // Stickers are earned by playing and exploring. `art` is a sticker name from the stick-it-up package.
 export const stickers: { id: string; art: string; label: string; how: string }[] = [
   { id: "certam", art: "flame", label: "360 times faster", how: "Guess the dashboard load time" },
-  { id: "chip", art: "star-burst", label: "2nd place", how: "Guess the open players" },
+  { id: "chip", art: "star-burst", label: "2nd place", how: "Guess the effect of a chip" },
   { id: "lol", art: "cosmic-eye", label: "65.4 % called", how: "Guess the LoL rating" },
   { id: "fgf", art: "curious-globe", label: "Grid forecaster", how: "Guess the forecast error" },
   { id: "trip", art: "spiral", label: "Sparse and fast", how: "Guess the BM25 time" },
